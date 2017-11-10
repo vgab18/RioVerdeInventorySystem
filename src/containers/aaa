@@ -1,0 +1,66 @@
+import React, { Component } from 'react';
+import {Well,
+        FormGroup,
+        FormControl,
+        ControlLabel,
+        HelpBlock,
+        Button,nav,
+        ButtonGroup} from 'react-bootstrap';
+import {routerActions} from 'react-router-redux';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+
+class Navlayout extends Component {
+  render() {
+    return (
+      <div className="container">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-primary" styles="">
+          <a class="navbar-brand" href="#" onClick={()=>this.props.routerActions.push("/")}>Inventory System</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" styles="">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarColor01">
+
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#" onClick={()=>this.props.routerActions.push("/users")}>Users <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Product</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onClick={()=>this.props.routerActions.push("/producthistory")}>Product History</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onClick={()=>this.props.routerActions.push("/transactionhistory")}>Transaction History</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onClick={()=>this.props.routerActions.push("/supplierlist")}>Supplier List</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <button class="btn btn-secondary my-2 my-sm-0" type="submit" onClick={()=>this.props.routerActions.push("/")}>Logout</button>
+            </form>
+          </div>
+            </nav>
+        </div>
+      );
+  }
+}
+
+function mapStateToProps(state) {
+  return{
+    router: state.router,
+    auth: state.auth,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return{
+    routerActions: bindActionCreators(routerActions,dispatch)
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Navlayout);
