@@ -26,11 +26,18 @@ class Navlayout extends Component {
           <div className="collapse navbar-collapse" id="navbarColor01">
 
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="#" onClick={()=>this.props.routerActions.push("/users")}>Users <span className="sr-only">(current)</span></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Product</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/users")}>User List</a>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Add User</a>
+              </div>
+            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Product</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Add</a>
+                    <a class="dropdown-item" href="#">Update</a>
+                </div>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#" onClick={()=>this.props.routerActions.push("/producthistory")}>Product History</a>
@@ -41,15 +48,7 @@ class Navlayout extends Component {
               <li className="nav-item">
                 <a className="nav-link" href="#" onClick={()=>this.props.routerActions.push("/supplierlist")}>Supplier List</a>
               </li>
-              <li>
-                <DropdownButton title={"Dropdown"} key={1} id="splitButtonMenu">
-                      <MenuItem eventKey="1">Action</MenuItem>
-                      <MenuItem eventKey="2">Another action</MenuItem>
-                      <MenuItem eventKey="3" active>Active Item</MenuItem>
-                      <MenuItem divider />
-                      <MenuItem eventKey="4">Separated link</MenuItem>
-                </DropdownButton>
-              </li>
+
 
             </ul>
             <form className="form-inline my-2 my-lg-0">
