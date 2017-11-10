@@ -10,6 +10,7 @@ import routes  from './routes';
 import {ConnectedRouter} from 'react-router-redux';
 import configureStore from './stores/configureStore';
 import createHistory from 'history/createBrowserHistory';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Provider } from 'react-redux';
 import {registerStore} from './utils/RestClient';
 import registerServiceWorker from './registerServiceWorker';
@@ -47,12 +48,14 @@ registerStore(store);
 
 const Component=(
   <Provider store={store}>
+  <MuiThemeProvider>
       { /* ConnectedRouter will use the store from Provider automatically */ }
       <ConnectedRouter history={history}>
               <div>
               {routes}
               </div>
       </ConnectedRouter>
+      </MuiThemeProvider>
   </Provider>
 )
 

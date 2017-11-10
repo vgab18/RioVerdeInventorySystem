@@ -9,6 +9,7 @@ import {Well,
 import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import Paper from 'material-ui/Paper';
 
 
 class Login extends Component {
@@ -19,12 +20,13 @@ class Login extends Component {
            marginLeft: 'auto',
            marginRight: 'auto',
            marginTop: 80,
+           padding:10
           //  backgroundColor:'red'
                     }
     return (
       <div className="container">
-          <Well style={wellStyle}>
-             <legend>Rio Verde Inventory System</legend>
+      <Paper zDepth={4} rounded={false} style={wellStyle}>
+             <legend style={{marginTop:'40px'}}>Rio Verde Inventory System</legend>
              <form>
                  <FormGroup>
                          <ControlLabel>Enter Username </ControlLabel>
@@ -49,7 +51,7 @@ class Login extends Component {
                      </ButtonGroup>
                  </div>
              </form>
-          </Well>
+          </Paper>
         </div>
       );
   }

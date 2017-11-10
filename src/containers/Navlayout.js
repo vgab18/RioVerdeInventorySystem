@@ -6,7 +6,7 @@ import {Well,
         HelpBlock,
         Button,
         ButtonGroup,
-        DropdownButton,
+        DropdownButton,Grid,Modal,
       MenuItem} from 'react-bootstrap';
 import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
@@ -14,10 +14,24 @@ import {bindActionCreators} from 'redux';
 
 
 class Navlayout extends Component {
+  constructor(props){
+    super(props);
+    this.state ={
+      open:true
+    }
+  }
+  close =()=> {
+    this.setState({ showModal: false });
+  }
+
+  open =()=> {
+    this.setState({ showModal: true });
+  }
   render() {
     return (
       <div>
               <nav className="navbar navbar-expand-lg navbar-dark bg-primary" styles="">
+          <Grid>
           <a className="navbar-brand" href="#" onClick={()=>this.props.routerActions.push("/")}>Inventory System</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" styles="">
             <span className="navbar-toggler-icon"></span>
@@ -29,14 +43,13 @@ class Navlayout extends Component {
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/users")}>User List</a>
               <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Add User</a>
+                  <a class="dropdown-item" onClick={this.props.open}>Add User</a>
               </div>
             </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Product</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Stock</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Add</a>
-                    <a class="dropdown-item" href="#">Update</a>
+                    <a class="dropdown-item" onClick={this.props.open}>Add</a>
                 </div>
               </li>
               <li className="nav-item">
@@ -55,6 +68,7 @@ class Navlayout extends Component {
               <button className="btn btn-secondary my-2 my-sm-0" type="submit" onClick={()=>this.props.routerActions.push("/")}>Logout</button>
             </form>
           </div>
+          </Grid>
             </nav>
         </div>
       );
