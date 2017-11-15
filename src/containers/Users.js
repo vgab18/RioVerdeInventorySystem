@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Well,
         FormGroup,
         FormControl,
-        ControlLabel,
+        ControlLabel,Row,
         HelpBlock,
         Button,nav,
         ButtonGroup,Grid,Modal,Col} from 'react-bootstrap';
@@ -89,23 +89,33 @@ class Users extends Component {
                   <label for="exampleInputEmail1">Contact No.</label>
                   <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
                   </div>
-                  <label for="exampleInputEmail1">Gender</label>
+                  <Row>
+                  <label for="exampleInputEmail1">
+                  <Col md={4}>
+                    Gender
+                    </Col>
+                  </label>
                   <fieldset class="form-group">
                       <div class="form-group">
                         <div class="form-check">
                           <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="true"/>
+                            <Col md={4}>
                             Male
+                            </Col>
                         </label>
                       </div>
                         <div class="form-check">
                           <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="true"/>
+                            <Col md={4}>
                             Female
+                            </Col>
                           </label>
                           </div>
                       </div>
                     </fieldset>
+                    </Row>
                   <div class="form-group">
                   <label for="exampleInputEmail1">Username</label>
                   <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
