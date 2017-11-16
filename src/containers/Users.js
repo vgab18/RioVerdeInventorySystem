@@ -145,7 +145,6 @@ class Users extends Component {
       <th>Adress</th>
       <th>Contact No.</th>
       <th>Gender</th>
-      <th>Age</th>
       <th>Role</th>
       <th>Status</th>
       <th>Action</th>
@@ -158,7 +157,6 @@ class Users extends Component {
       <td>Loon,Bohol</td>
       <td>091204212</td>
       <td>Male</td>
-      <td>20</td>
       <td>Admin</td>
       <td>Active</td>
       <td><button type="button" class="btn btn-warning">Edit</button></td>
@@ -169,7 +167,6 @@ class Users extends Component {
       <td>Loay,Bohol</td>
       <td>091204212</td>
       <td>Male</td>
-      <td>22</td>
       <td>Staff</td>
       <td>Active</td>
       <td><button type="button" class="btn btn-warning">Edit</button></td>
@@ -180,7 +177,6 @@ class Users extends Component {
       <td>Guindulman,Bohol</td>
       <td>091204212</td>
       <td>Female</td>
-      <td>19</td>
       <td>Staff</td>
       <td>Inactive</td>
       <td><button type="button" class="btn btn-warning">Edit</button></td>
@@ -191,7 +187,6 @@ class Users extends Component {
       <td>Guindulman,Bohol</td>
       <td>091204212</td>
       <td>Female</td>
-      <td>19</td>
       <td>Staff</td>
       <td>Inactive</td>
       <td><button type="button" class="btn btn-warning">Edit</button></td>
