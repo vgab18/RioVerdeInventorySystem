@@ -31,7 +31,8 @@ module.exports = function (sequelize) {
       type: Sequelize.STRING
     },
     userName: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      unique:true,
     },
     password: {
       type: Sequelize.STRING
@@ -46,10 +47,12 @@ module.exports = function (sequelize) {
     User.create({
          firstName: 'Carlo',
          lastName: 'Lapinig',
+         address:'Pob.Ibabao Loay, Bohol',
+         contactNo:'0909218862',
          gender: 'Male',
-         username: 'admin',
-         role: 'Admin',
+         userName: 'admin',
          password: '12345',
+         role: 'Admin',
          status: true
      });
   }).catch(function (err) {

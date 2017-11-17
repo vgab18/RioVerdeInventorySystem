@@ -11,6 +11,8 @@ import {Well,
 import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as adduser from '../actions/adduseractions'
+import * as userAction from '../actions/useractions';
 
 
 class Navlayout extends Component {
@@ -26,6 +28,9 @@ class Navlayout extends Component {
 
   open =()=> {
     this.setState({ showModal: true });
+  }
+  openmodal =() => {
+    this.props.adduser.openAddUser()
   }
   render() {
     return (
@@ -43,7 +48,7 @@ class Navlayout extends Component {
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/users")}>User List</a>
               <div class="dropdown-menu">
-                  <a class="dropdown-item" onClick={this.props.open}>Add User</a>
+                  <a class="dropdown-item" onClick={this.openmodal}>Add User</a>
               </div>
             </li>
               <li class="nav-item dropdown">
@@ -84,7 +89,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return{
-    routerActions: bindActionCreators(routerActions,dispatch)
+    routerActions: bindActionCreators(routerActions,dispatch),
+    adduser: bindActionCreators(adduser,dispatch),
+    userAction: bindActionCreators(userAction, dispatch)
   }
 }
 

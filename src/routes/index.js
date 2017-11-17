@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import Login from '../containers/Login';
 import Navlayout from '../containers/Navlayout';
-import Users from '../containers/Users';
+import Users from '../containers/Users/Users';
 import Manageproduct from '../containers/Manageproduct';
 import Producthistory from '../containers/Producthistory';
 import Transactionhistory from '../containers/Transactionhistory';
