@@ -11,7 +11,7 @@ import {Well,
 import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as adduser from '../actions/adduseractions'
+import * as adduser from '../actions/adduseractions';
 import * as userAction from '../actions/useractions';
 
 
@@ -22,13 +22,7 @@ class Navlayout extends Component {
       open:true
     }
   }
-  close =()=> {
-    this.setState({ showModal: false });
-  }
 
-  open =()=> {
-    this.setState({ showModal: true });
-  }
   openmodal =() => {
     this.props.adduser.openAddUser()
   }

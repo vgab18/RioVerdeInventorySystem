@@ -28,6 +28,13 @@ class Adduser extends Component {
       open:true
     }
   }
+
+
+  componentWillMount(){
+    if(this.props.adduser.id){
+
+    }
+  }
   handleOpen = () => {
    this.setState({open: true});
  };
@@ -53,8 +60,15 @@ class Adduser extends Component {
 }
 
   addUser = () => {
-    this.props.adduserActions.addUser();
-    this.props.userActions.getUsers();
+    if (this.props.adduser.edit) {
+      console.log("edit");
+      this.props.adduserActions.saveUser();
+      this.props.userActions.getUsers();
+    }
+    else {
+      this.props.adduserActions.addUser();
+      this.props.userActions.getUsers();
+    }
   }
 render(){
 
@@ -151,7 +165,7 @@ function mapStateToProps(state) {
   return{
     router: state.router,
     auth: state.auth,
-    adduser:state.adduser
+    adduser:state.adduser,
 
   }
 }

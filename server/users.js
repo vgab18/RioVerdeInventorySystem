@@ -9,7 +9,6 @@ module.exports = function (User) {
   router.get('/',function (req,res) {
     User.findAll()
       .then(function (users) {
-        console.log(users);
         res.json(users)
       }).catch(function (err) {
         res.sendStatus(404);
@@ -17,7 +16,6 @@ module.exports = function (User) {
   })
    //add accounts
   router.post('/',function (req,res,next) {
-    // console.log(req);
 
     User.create(req.body.data)
       .then(function (users) {
@@ -29,7 +27,6 @@ module.exports = function (User) {
 
    //find one account
   router.get('/:id',function (req,res,next) {
-    console.log(req.body.data);
 
     User.findById(req.params.id)
       .then(function (users) {
@@ -47,11 +44,11 @@ module.exports = function (User) {
         if(users === null ){
           res.sendStatus(404)
         }
-        users.update(req.body)
+        users.update(req.body.data)
         .then(function (users) {
-          return res.sendStatus(200).json(users)
+          res.status(200).json(users)
         }).catch(function (err) {
-          return res.sendStatus(500)
+          res.sendStatus(500)
         })
       }).catch(function (err) {
           return res.sendStatus(404);

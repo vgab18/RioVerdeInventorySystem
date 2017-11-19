@@ -42,6 +42,11 @@ var db = require('./db')(sequelize);
 var users = require('./users')(db.User);
 app.use('/api/users',users);
 
+// product table config
+// var products = require('./product')(db.Product);
+// app.use('/api/product',product);
+
+
 
 
 var server = app.listen(8080, function () {

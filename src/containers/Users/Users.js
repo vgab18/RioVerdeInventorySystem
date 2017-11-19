@@ -17,11 +17,24 @@ import RaisedButton from 'material-ui/RaisedButton';
 import PersonAdd from 'material-ui/svg-icons/social/person-add';
 import * as users from '../../actions/useractions';
 import Adduser from './Adduser';
+import * as adduser from '../../actions/adduseractions'
 
 
 
 
 class Users extends Component {
+  constructor(props){
+    super(props);
+    this.state ={
+      open:true
+    }
+  }
+
+  openmodal =(id) => {
+    // this.props.adduser.setEditToTrue(id)
+    this.props.adduser.getUserData(id)
+  }
+
 
   componentWillMount()
     {
@@ -77,7 +90,7 @@ class Users extends Component {
       <td>{profile.userName}</td>
       <td>{profile.password}</td>
       <td>{profile.status ? 'Active': 'Inactive' }</td>
-      <td><button type="button" class="btn btn-warning">Edit</button></td>
+      <td><button type="button" class="btn btn-warning" onClick={()=>this.openmodal(profile.id)}>Edit</button></td>
       </tr>
     )
   })
@@ -105,7 +118,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return{
     routerActions: bindActionCreators(routerActions,dispatch),
-    useraction: bindActionCreators(users,dispatch)
+    useraction: bindActionCreators(users,dispatch),
+    adduser: bindActionCreators(adduser,dispatch)
+
   }
 }
 

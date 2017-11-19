@@ -30,19 +30,51 @@ export default function adduserreducers(state=initialState,action={}){
     return _.assign({},state,action.adduser)
 
     case types.ADD_USER_SUCCESS:
-    return{
-      edit:false,
-      firstName:'',
-      lastName:'',
-      address:'',
-      contactNo:'',
-      gender:'',
-      userName:'',
-      password:'',
-      role:'Staff',
-      status:true,
-      open: false
+      return{
+          edit:false,
+          firstName:'',
+          lastName:'',
+          address:'',
+          contactNo:'',
+          gender:'',
+          userName:'',
+          password:'',
+          role:'Staff',
+          status:true,
+          open: false
     }
+
+    case types.ADD_USER_EDIT:
+      return _.assign({},
+      state,
+      {
+        edit:true,
+        open:true,
+        id: action.id,
+      }
+    )
+
+    case types.ADD_USER_GET_DATA:
+      return _.assign({},
+        state,
+        action.data
+      )
+
+    case types.ADD_USER_SAVE_DATA:
+      return{
+        edit:false,
+        firstName:'',
+        lastName:'',
+        address:'',
+        contactNo:'',
+        gender:'',
+        userName:'',
+        password:'',
+        role:'Staff',
+        status:true,
+        open: false
+      }
+
     default:
     return state
 
