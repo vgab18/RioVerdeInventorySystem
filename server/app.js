@@ -10,7 +10,7 @@ app.use('/images',express.static('images'));
 app.use(express.static('./build'))
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-app.post('/', function(req, res) {
+app.get('/', function(req, res) {
   console.log(req.body);
     res.json({ message: 'hooray! welcome to our api!' });
 });

@@ -24,7 +24,18 @@ export default function adduserreducers(state=initialState,action={}){
       return _.assign({},state,{open:true})
 
     case types.ADDUSER_CLOSE_MODAL_SUCCESS:
-      return _.assign({},state,{open:false})
+      return _.assign({},state,{open:false,
+      edit:false,
+      firstName:'',
+      lastName:'',
+      address:'',
+      contactNo:'',
+      gender:'',
+      userName:'',
+      password:'',
+      role:'Staff',
+      status:true,
+      open: false})
 
     case types.ADD_USER_FIELD_CHANGE:
     return _.assign({},state,action.adduser)

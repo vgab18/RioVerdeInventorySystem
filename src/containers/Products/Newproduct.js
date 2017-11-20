@@ -9,7 +9,7 @@ import {Well,
 import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Navlayout from './Navlayout';
+import Navlayout from '../Navlayout';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 

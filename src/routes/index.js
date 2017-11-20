@@ -6,7 +6,7 @@ import {
 import Login from '../containers/Login';
 import Navlayout from '../containers/Navlayout';
 import Users from '../containers/Users/Users';
-import Manageproduct from '../containers/Manageproduct';
+import Manageproduct from '../containers/Products/Newproduct';
 import Producthistory from '../containers/Producthistory';
 import Transactionhistory from '../containers/Transactionhistory';
 import Supplierlist from '../containers/Supplierlist';

@@ -82,7 +82,7 @@ render(){
   }
   return(
     <Dialog
-      title="+Add New User"
+      title={this.props.adduser.edit ? "+Edit User" : "+Add New User" }
       actions={actions}
       modal={false}
       autoScrollBodyContent={true}
