@@ -12,6 +12,9 @@ import {bindActionCreators} from 'redux';
 import Navlayout from '../Navlayout';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
+import * as products from '../../actions/newproductactions';
+import Addnewproduct from './Addnewproduct';
+import * as addproduct from '../../actions/addnewproductactions'
 
 class Manageproduct extends Component {
   constructor(props){
@@ -33,6 +36,13 @@ handleCloseCategory = () => {
   this.setState({openCategory: !this.state.openCategory});
 }
 
+
+
+  componentWillMount()
+    {
+      this.props.productaction.getProducts();
+    }
+
   render() {
     const paperstyle=
     {
@@ -42,75 +52,20 @@ handleCloseCategory = () => {
       padding: 20,
       overflowX: 'auto'
     };
-    const actions = [
-      <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
-    ];
+    // const actions = [
+    //   <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
+    //   <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
+    // ];
+    //
+    // const CategoryActions = [
+    //   <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
+    //   <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleCloseCategory} style={{marginRight:10}}>Close</button>,
+    // ];
 
-    const CategoryActions = [
-      <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleCloseCategory} style={{marginRight:10}}>Close</button>,
-    ];
     return (
       <div>
       <Navlayout open={this.handleOpen}/>
-      <Dialog
-          title="+Add New Stock"
-          actions={actions}
-          modal={false}
-          open={this.state.open}
-          autoScrollBodyContent={true}
-          onRequestClose={this.handleClose}
-        >
-        <div>
-        <Grid>
-        <Col sm={9}style={{marginLeft:'14%'}}>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Category</label>
-        <button type="button" class="btn btn-warning" style={{marginTop:'32px',marginLeft:'260px',position:'absolute',width:'163px'}} onClick={this.handleCloseCategory}>Add New</button>
-          <select multiple="" class="form-control" id="exampleSelect2" style={{width:'65%'}}>
-            <option>Meat</option>
-            <option>Vegetables</option>
-            <option>Seafoods</option>
-            <option>Drinks</option>
-          </select>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Stock Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Unit</label>
-          <select multiple="" class="form-control" id="exampleSelect2" style={{width:'50%'}}>
-            <option>Kg</option>
-            <option>Litre</option>
-          </select>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Timeframe</label>
-          <div class="input-group">
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            <div class="input-group-addon">Days</div>
-          </div>
-        </div>
-        </Col>
-        </Grid>
-        </div>
-        </Dialog>
-        <Dialog
-          title="+Add New Category"
-          actions={CategoryActions}
-          modal={false}
-          open={this.state.openCategory}
-          onRequestClose={this.handleCloseCategory}
-        >
-        <Col sm={9}style={{marginLeft:'14%'}}>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Stock Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        </Col>
-        </Dialog>
+        <Addnewproduct/>
         <Grid>
         <Paper style={paperstyle} zDepth={2} transitionEnabled={true}>
           <h1>Inventory</h1>
@@ -131,51 +86,15 @@ handleCloseCategory = () => {
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
-              <td>Chicken</td>
-              <td>Meat</td>
-              <td></td>
-              <td>5</td>
-              <td>Kg</td>
               <td></td>
               <td></td>
-              <td>Active</td>
-              <td><button type="button" class="btn btn-warning">Edit</button></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Chicken</td>
-              <td>Meat</td>
-              <td></td>
-              <td>5</td>
-              <td>Kg</td>
               <td></td>
               <td></td>
-              <td>Active</td>
-              <td><button type="button" class="btn btn-warning">Edit</button></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Chicken</td>
-              <td>Meat</td>
-              <td></td>
-              <td>5</td>
-              <td>Kg</td>
               <td></td>
               <td></td>
-              <td>Active</td>
-              <td><button type="button" class="btn btn-warning">Edit</button></td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Chicken</td>
-              <td>Meat</td>
-              <td></td>
-              <td>5</td>
-              <td>Kg</td>
               <td></td>
               <td></td>
-              <td>Active</td>
+              <td></td>
               <td><button type="button" class="btn btn-warning">Edit</button></td>
             </tr>
           </tbody>
@@ -191,12 +110,16 @@ function mapStateToProps(state) {
   return{
     router: state.router,
     auth: state.auth,
+    product:state.product,
+
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return{
-    routerActions: bindActionCreators(routerActions,dispatch)
+    routerActions: bindActionCreators(routerActions,dispatch),
+    productaction: bindActionCreators(products,dispatch),
+    addproduct: bindActionCreators(addproduct,dispatch)
   }
 }
 

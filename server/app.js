@@ -38,13 +38,16 @@ var sequelize = new Sequelize('database', 'username', 'password',  {
 });
 
 var db = require('./db')(sequelize);
-
+// user table config
 var users = require('./users')(db.User);
 app.use('/api/users',users);
 
 // product table config
-// var products = require('./product')(db.Product);
-// app.use('/api/product',product);
+var products = require('./products')(db.Product,db.Category);
+app.use('/api/products',products);
+// category table config
+var category = require('./category')(db.Category);
+app.use('/api/category',category);
 
 
 

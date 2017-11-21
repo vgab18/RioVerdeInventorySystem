@@ -6,6 +6,9 @@ import dialogreducers from './dialogreducers';
 import httpstatusReducers from './httpstatusReducers';
 import userreducers from './userreducers';
 import adduserreducers from './adduserreducers';
+import addproductreducers from './addnewproductreducers';
+import addcategoryreducers from './addcategoryreducers';
+import categoryreducers from './categoryreducers';
 
 const rootReducer = combineReducers({
     router:routerReducer,
@@ -14,7 +17,10 @@ const rootReducer = combineReducers({
     dialogs:dialogreducers,
     httpstatus:httpstatusReducers,
     user:userreducers,
-    adduser:adduserreducers
+    adduser:adduserreducers,
+    addproduct:addproductreducers,
+    addcategory:addcategoryreducers,
+    category:categoryreducers
 });
 
 export default rootReducer;

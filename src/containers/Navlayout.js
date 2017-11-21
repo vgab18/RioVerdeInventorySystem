@@ -13,7 +13,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as adduser from '../actions/adduseractions';
 import * as userAction from '../actions/useractions';
-
+import * as addproduct from '../actions/addnewproductactions';
+import * as productAction from '../actions/newproductactions';
+import * as categoryActions from '../actions/categoryactions';
 
 class Navlayout extends Component {
   constructor(props){
@@ -26,6 +28,11 @@ class Navlayout extends Component {
 
   openmodal =() => {
     this.props.adduser.openAddUser()
+  }
+
+  openproductmodal = () => {
+    this.props.addproduct.openAddproduct();
+    this.props.categoryActions.getCategory();
 
   }
   render() {
@@ -50,7 +57,8 @@ class Navlayout extends Component {
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Stock</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" onClick={this.props.open}>Add</a>
+                    <a class="dropdown-item" onClick={this.openproductmodal}>Add Newproduct</a>
+                    <a class="dropdown-item" onClick={this.props.open}>Edit Category</a>
                 </div>
               </li>
               <li className="nav-item">
@@ -86,8 +94,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return{
     routerActions: bindActionCreators(routerActions,dispatch),
+    addproduct: bindActionCreators(addproduct,dispatch),
+    productAction: bindActionCreators(productAction, dispatch),
     adduser: bindActionCreators(adduser,dispatch),
-    userAction: bindActionCreators(userAction, dispatch)
+    categoryActions:bindActionCreators(categoryActions,dispatch)
   }
 }
 
