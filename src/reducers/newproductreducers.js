@@ -6,9 +6,9 @@ const initialState ={
 
 
 }
-export default function categoryreducers(state=initialState,action={}) {
+export default function newproductreducers(state=initialState,action={}) {
   switch (action.type) {
-    case types.USER_GET_CATEGORY_SUCCESS:
+    case types.USER_GET_PRODUCT_SUCCESS:
       return _.assign({},state,{data:action.data})
 
     default:

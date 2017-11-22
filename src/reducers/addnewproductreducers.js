@@ -6,9 +6,14 @@ import _ from 'lodash';
 const initialState ={
   edit:false,
   stockName:'',
-  unit:'',
+  categoryName:'Meat',
+  price:0,
+  quantity:0,
+  unit:'Kg',
   timeFrame:new Date(),
-
+  totalAmount:0,
+  status:true,
+  category:{},
   open:false
 }
 
@@ -23,9 +28,14 @@ switch (action.type){
 
         edit:false,
         stockName:'',
-        unit:'',
+        categoryName:'Meat',
+        price:0,
+        quantity:0,
+        unit:'Kg',
         timeFrame:new Date(),
-        open:false
+        totalAmount:0,
+        status:true,
+        category:{}
       })
 
       case types.ADD_NEW_PRODUCT_FIELD_CHANGE:
@@ -35,8 +45,13 @@ switch (action.type){
           return{
             edit:false,
             stockName:'',
-            unit:'',
+            categoryName:'Meat',
+            price:0,
+            quantity:0,
+            unit:'Kg',
             timeFrame:new Date(),
+            totalAmount:0,
+            status:true,
             open:false
           }
       case types.ADD_NEWPRODUCT_SUCCESS_EDIT:
@@ -57,8 +72,15 @@ switch (action.type){
             return{
               edit:false,
               stockName:'',
+              categoryName:'Meat',
+              price:0,
+              quantity:0,
+              unit:'Kg',
+              timeFrame:new Date(),
+              totalAmount:0,
               status:true,
-              open: false
+              category:{},
+              open:false
             }
 
 

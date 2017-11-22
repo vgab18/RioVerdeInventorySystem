@@ -34,10 +34,16 @@ export let addProduct = () => {
     let{addproduct} = getState();
 
     let data ={
-      categoryName:addProduct.categoryName,
       stockName:addproduct.stockName,
-      unit:addproduct.unit,
-      timeFrame:new Date()
+      categoryName:addproduct.categoryName,
+      quantity:0,
+      unit:'',
+      timeFrame:new Date(),
+      totalAmount:0,
+      status:true,
+      category:{},
+      open:false
+
     }
 
     axios.post('/api/products',{
@@ -45,8 +51,6 @@ export let addProduct = () => {
     })
     .then((products) => {
       dispatcher(this.addNewProductSuccess())
-
-
     }).catch((err) => {
       console.log(err);
     })
@@ -92,10 +96,15 @@ export let saveNewProduct = () => {
     let {addproduct}  = getState();
 
     let data = {
-      categoryName:addProduct.categoryName,
       stockName:addproduct.stockName,
-      unit:addproduct.unit,
-      timeFrame:new Date()
+      categoryName:addproduct.categoryName,
+      quantity:0,
+      unit:'',
+      timeFrame:new Date(),
+      totalAmount:0,
+      status:true,
+      category:{},
+      open:false
     }
     axios.put('/api/products/'+id,{data})
     .then((products) => {

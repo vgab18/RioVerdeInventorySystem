@@ -18,8 +18,7 @@ switch (action.type) {
       return _.assign({},state,{open:false,
 
         edit:false,
-        categoryName:'',
-        open:false})
+        categoryName:''})
 
     case types.ADD_CATEGORY_FIELD_CHANGE:
       return _.assign({},state,action.addcategory)

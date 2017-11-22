@@ -32,9 +32,6 @@ class Manageproduct extends Component {
     //   }
     // }
 
-    handleOpen = () => {
-     this.setState({open: true});
-   };
 
    handleClose = () => {
      this.props.addproductActions.closeAddproduct();
@@ -80,10 +77,12 @@ class Manageproduct extends Component {
        this.props.addproductActions.saveNewProduct();
        this.props.productActions.getProducts();
        this.props.addproductActions.closeAddproduct();
+       
      }
      else {
        this.props.addproductActions.addProduct();
        this.props.productActions.getProducts();
+       this.props.addproductActions.closeAddproduct();
      }
    }
 

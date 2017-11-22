@@ -33,7 +33,8 @@ export let addCategory = () => {
     let{addcategory} = getState();
 
     let data ={
-    categoryName:addcategory.categoryName
+    categoryName:addcategory.categoryName,
+      open:false
     }
 
     axios.post('/api/category',{
@@ -88,6 +89,7 @@ export let saveCategory = () => {
 
     let data = {
       categoryName:addcategory.categoryName,
+      open:false,
       status: true
     }
     axios.put('/api/category/'+id,{data})

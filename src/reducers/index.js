@@ -9,6 +9,7 @@ import adduserreducers from './adduserreducers';
 import addproductreducers from './addnewproductreducers';
 import addcategoryreducers from './addcategoryreducers';
 import categoryreducers from './categoryreducers';
+import newproductreducers from './newproductreducers';
 
 const rootReducer = combineReducers({
     router:routerReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     adduser:adduserreducers,
     addproduct:addproductreducers,
     addcategory:addcategoryreducers,
-    category:categoryreducers
+    category:categoryreducers,
+    newproductreducers:newproductreducers
 });
 
 export default rootReducer;

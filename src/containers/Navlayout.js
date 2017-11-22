@@ -58,7 +58,6 @@ class Navlayout extends Component {
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Stock</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" onClick={this.openproductmodal}>Add Newproduct</a>
-                    <a class="dropdown-item" onClick={this.props.open}>Edit Category</a>
                 </div>
               </li>
               <li className="nav-item">
