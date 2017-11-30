@@ -3,24 +3,28 @@ var express = require('express');
 var router = express.Router();
 
 
-module.exports = function (Product,Category) {
+module.exports = function (Product,Category,sequelize) {
 
   //get all products
   router.get('/',function (req,res) {
-    Product.findAll()
+
+     sequelize.query(" SELECT * from products p, categories c where p.categoryId=c.id", {type: sequelize.QueryTypes.SELECT})
       .then(function (products) {
-        res.json(products)
+        res.status(200).json(products)
       }).catch(function (err) {
-        res.sendStatus(404);
-      });
+        console.log(err);
+      })
+
   })
    //add products
   router.post('/',function (req,res,next) {
 
     Product.create(req.body.data)
       .then(function (products) {
+        console.log(products);
         res.status(200).json(products)
       }).catch(function (err) {
+        console.log(err);
         res.sendStatus(404);
       });
 

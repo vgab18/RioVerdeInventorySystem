@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
     addproduct:addproductreducers,
     addcategory:addcategoryreducers,
     category:categoryreducers,
-    newproductreducers:newproductreducers
+    newproduct:newproductreducers
 });
 
 export default rootReducer;

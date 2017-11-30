@@ -32,7 +32,7 @@ class Users extends Component {
 
   openmodal =(id) => {
     this.props.adduser.getUserData(id)
-    // this.props.adduser.setEditToTrue(id)
+    
   }
 
 

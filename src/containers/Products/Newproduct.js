@@ -15,6 +15,7 @@ import Dialog from 'material-ui/Dialog';
 import * as products from '../../actions/newproductactions';
 import Addnewproduct from './Addnewproduct';
 import * as addproduct from '../../actions/addnewproductactions'
+import _ from 'lodash'
 
 class Manageproduct extends Component {
   constructor(props){
@@ -44,6 +45,7 @@ handleCloseCategory = () => {
     }
 
   render() {
+
     const paperstyle=
     {
       height: 'auto',
@@ -85,18 +87,25 @@ handleCloseCategory = () => {
             </tr>
           </thead>
           <tbody>
+
+  {
+      this.props.newproduct.data.map ((product,i) =>{
+        return (
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{product.id}</td>
+              <td>{product.stockName}</td>
+              <td>{product.categoryName}</td>
+              <td>{product.price ? product.price: 0}</td>
+              <td>{product.quantity}</td>
+              <td>{product.unit}</td>
+              <td>{product.timeFrame}</td>
+              <td>{product.totalAmount}</td>
+              <td>{product.status ? 'active' : 'inactive'}</td>
               <td><button type="button" class="btn btn-warning">Edit</button></td>
             </tr>
+          )
+        })
+  }
           </tbody>
         </table>
         </Paper>
@@ -111,6 +120,7 @@ function mapStateToProps(state) {
     router: state.router,
     auth: state.auth,
     product:state.product,
+    newproduct:state.newproduct
 
   }
 }

@@ -43,7 +43,7 @@ var users = require('./users')(db.User);
 app.use('/api/users',users);
 
 // product table config
-var products = require('./products')(db.Product,db.Category);
+var products = require('./products')(db.Product,db.Category,sequelize);
 app.use('/api/products',products);
 // category table config
 var category = require('./category')(db.Category);

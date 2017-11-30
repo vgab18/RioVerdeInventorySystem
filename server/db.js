@@ -90,8 +90,7 @@ module.exports = function (sequelize) {
       type: Sequelize.DATE
     },
     totalAmount: {
-      type: Sequelize.FLOAT,
-      unique:true,
+      type: Sequelize.FLOAT
     },
     status: {
       type: Sequelize.BOOLEAN

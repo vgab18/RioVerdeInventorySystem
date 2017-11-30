@@ -16,6 +16,7 @@ import * as addproductActions from '../../actions/addnewproductactions';
 import * as productActions from '../../actions/newproductactions';
 import * as addcategoryActions from '../../actions/addcategory';
 import * as categoryActions from '../../actions/categoryactions';
+import DatePicker from 'material-ui/DatePicker';
 
 class Manageproduct extends Component {
   constructor(props){
@@ -48,14 +49,20 @@ class Manageproduct extends Component {
    }
 
    handleChangeCategoryField = (e) => {
-       var name = e.target.name;
-       var value = e.target.value;
-       this.props.addcategoryActions.handleChangeCategory(name,value)
+     var name = "categoryId"
+     var value = parseInt(e.target.value);
+     this.props.addproductActions.handleChangenewProduct(name,value)
+   }
+
+   handleAddnewCatergoryField = (e) => {
+     var name = e.target.name;
+     var value = e.target.value;
+     this.props.addcategoryActions.handleChangeCategory(name,value)
    }
 
    handleChangenewProductField =  (e) => {
-     var name = e.target.name;
-     var value = e.target.value;
+     var name = e.target.name; //ccategoryId
+     var value = e.target.value; //1
      this.props.addproductActions.handleChangenewProduct(name,value)
    }
 
@@ -69,21 +76,31 @@ class Manageproduct extends Component {
      else {
        this.props.addcategoryActions.addCategory();
        this.props.categoryActions.getCategory();
+       this.props.addcategoryActions.closeAddcategory();
+
      }
    }
+
 
    addnewProduct = () => {
      if (this.props.addproduct.edit) {
        this.props.addproductActions.saveNewProduct();
        this.props.productActions.getProducts();
        this.props.addproductActions.closeAddproduct();
-       
+
      }
      else {
        this.props.addproductActions.addProduct();
        this.props.productActions.getProducts();
        this.props.addproductActions.closeAddproduct();
      }
+   }
+
+   handleChangeUnitField = (e) => {
+      var name = "unit";
+      var value = e.target.value;
+      console.log(e.target.value);
+      this.props.addproductActions.handleChangenewProduct(name,value)
    }
 
   render() {
@@ -106,7 +123,7 @@ class Manageproduct extends Component {
     ];
   var categories = (this.props.category.data.map((category,i) => {
     return (
-      <option>{category.categoryName}</option>
+      <option name="categoryId" value={category.id}>{category.categoryName}</option>
     )
   }))
     return (
@@ -124,8 +141,9 @@ class Manageproduct extends Component {
         <Col sm={9}style={{marginLeft:'14%'}}>
         <div class="form-group">
         <label for="exampleInputEmail1">Category</label>
-        <button type="button" class="btn btn-warning" style={{marginTop:'32px',marginLeft:'260px',position:'absolute',width:'163px'}} onClick={this.opencategorymodal}>Add New</button>
-          <select multiple="" class="form-control" id="exampleSelect2" style={{width:'65%'}}>
+        <button type="button" class="btn btn-primary" style={{marginTop:'32px',marginLeft:'360px',position:'absolute',width:'133px'}} onClick={this.opencategorymodal}>Add New</button>
+        <button type="button" class="btn btn-warning" style={{marginTop:'32px',marginLeft:'260px',position:'absolute',width:'90px'}} onClick={this.opencategorymodal}>Edit</button>
+          <select multiple="" class="form-control" id="exampleSelect2" style={{width:'65%'}} onChange={this.handleChangeCategoryField}>
           {categories}
           </select>
         </div>
@@ -135,17 +153,14 @@ class Manageproduct extends Component {
         </div>
         <div class="form-group">
         <label for="exampleInputEmail1">Unit</label>
-          <select multiple="" class="form-control" id="exampleSelect2" style={{width:'50%'}}>
-            <option name="unit">Kg</option>
-            <option value="unit">Litre</option>
+          <select multiple="" class="form-control" id="exampleSelect2" style={{width:'50%'}} onChange={this.handleChangeUnitField} name="unit">
+            <option value="Kg">Kg</option>
+            <option value="Litre">Litre</option>
           </select>
         </div>
         <div class="form-group">
         <label for="exampleInputEmail1">Timeframe</label>
-          <div class="input-group">
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            <div class="input-group-addon">Days</div>
-          </div>
+          <DatePicker hintText="Choose date" mode="landscape" />
         </div>
         </Col>
         </Grid>
@@ -160,8 +175,8 @@ class Manageproduct extends Component {
         >
         <Col sm={9}style={{marginLeft:'14%'}}>
         <div class="form-group">
-        <label for="exampleInputEmail1">Stock Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="categoryName" onChange={this.handleChangeCategoryField}/>
+        <label for="exampleInputEmail1">Category Name</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="categoryName" onChange={this.handleAddnewCatergoryField}/>
         </div>
         </Col>
         </Dialog>

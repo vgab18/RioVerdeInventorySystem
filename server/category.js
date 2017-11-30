@@ -13,6 +13,7 @@ module.exports = function (Category) {
       .then(function (category) {
         res.status(200).json(category)
       }).catch(function (err) {
+        console.log(err);
         res.sendStatus(404);
       });
   })

@@ -18,6 +18,7 @@ export let handleChangenewProduct = (name,value) => {
   return (dispatcher,getState) => {
     var { addproduct } = getState();
 
+
   addproduct[name] = value;
 
   dispatcher({
@@ -35,14 +36,12 @@ export let addProduct = () => {
 
     let data ={
       stockName:addproduct.stockName,
-      categoryName:addproduct.categoryName,
+      categoryId:addproduct.categoryId,
       quantity:0,
-      unit:'',
+      unit:addproduct.unit,
       timeFrame:new Date(),
       totalAmount:0,
       status:true,
-      category:{},
-      open:false
 
     }
 

@@ -2,46 +2,53 @@ import React, { Component } from 'react';
 import {Well,
         FormGroup,
         FormControl,
-        ControlLabel,
-        HelpBlock,
+        ControlLabel,Grid,Col,Row,
+        HelpBlock,Image,
         Button,
         ButtonGroup} from 'react-bootstrap';
 import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Paper from 'material-ui/Paper';
+import logo from '../Style/images/logo.jpg';
+import TextField from 'material-ui/TextField';
+
+
 
 
 class Login extends Component {
   render() {
-    const wellStyle={
-           width: 400,
-           height: 500,
-           marginLeft: 'auto',
-           marginRight: 'auto',
-           marginTop: 80,
-           padding:10
-          //  backgroundColor:'red'
-                    }
+
     return (
-      <div className="container">
-      <Paper zDepth={4} rounded={false} style={wellStyle}>
-             <legend style={{marginTop:'40px'}}>Rio Verde Inventory System</legend>
+      <div>
+      <Grid style={{marginTop:'80px'}}>
+          <Row>
+          <Col md={5} mdOffset={1} style={{padding:15,borderStyle:'solid',backgroundColor:'white',textAlign:'center'}}>
+          <div style={{height:'380px'}}>
+            <legend>Inventory System</legend>
+            <Image src={logo} style={{width:'400px',height:'350px'}}/>
+          </div>
+          </Col>
+          <Col md={5} style={{padding:15,borderStyle:'solid',backgroundColor:'white',textAlign:'center'}}>
+             <legend style={{marginTop:'10px'}}>User Login</legend>
              <form>
                  <FormGroup>
-                         <ControlLabel>Enter Username </ControlLabel>
-                     <FormControl
-                         type='text'
-                         placeholder='Enter Your Username'/>
-                 <FormControl.Feedback/>
+                         <TextField
+                             hintText="Text Field"
+                             floatingLabelText="Username"
+                             style={{width:'310px'}}
+                             inputStyle={{color:'#0F3057',fontSize:20}}
+                           />
                      <HelpBlock> </HelpBlock>
                  </FormGroup>
                  <FormGroup>
-                         <ControlLabel>Enter Password </ControlLabel>
-                     <FormControl
-                         type='password'
-                         placeholder='Enter Your Password'/>
-                 <FormControl.Feedback/>
+                   <TextField
+                       hintText="Text Field"
+                       floatingLabelText="Password"
+                       style={{width:'310px'}}
+                       inputStyle={{color:'#0F3057',fontSize:20}}
+                       type="password"
+                     />
                      <HelpBlock> </HelpBlock>
                  </FormGroup>
                  <div className="button">
@@ -51,7 +58,9 @@ class Login extends Component {
                      </ButtonGroup>
                  </div>
              </form>
-          </Paper>
+             </Col>
+             </Row>
+        </Grid>
         </div>
       );
   }

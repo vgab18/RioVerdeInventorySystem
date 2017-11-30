@@ -61,7 +61,6 @@ class Adduser extends Component {
 
   addUser = () => {
     if (this.props.adduser.edit) {
-      console.log("edit");
       this.props.adduserActions.saveUser();
       this.props.userActions.getUsers();
     }
