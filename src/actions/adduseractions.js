@@ -24,9 +24,9 @@ export let handleChange = (name,value) => {
     type:types.ADD_USER_FIELD_CHANGE,
     adduser
   })
-
   }
 }
+
 export let addUser = () => {
   return (dispatcher,getState) => {
     let{adduser} = getState();

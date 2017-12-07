@@ -10,6 +10,9 @@ import addproductreducers from './addnewproductreducers';
 import addcategoryreducers from './addcategoryreducers';
 import categoryreducers from './categoryreducers';
 import newproductreducers from './newproductreducers';
+import addsupplierreducers from './addsupplierreducers';
+
+
 
 const rootReducer = combineReducers({
     router:routerReducer,
@@ -22,7 +25,8 @@ const rootReducer = combineReducers({
     addproduct:addproductreducers,
     addcategory:addcategoryreducers,
     category:categoryreducers,
-    newproduct:newproductreducers
+    newproduct:newproductreducers,
+    addsupplier:addsupplierreducers
 });
 
 export default rootReducer;

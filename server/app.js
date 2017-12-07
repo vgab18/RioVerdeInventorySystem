@@ -49,6 +49,8 @@ app.use('/api/products',products);
 var category = require('./category')(db.Category);
 app.use('/api/category',category);
 
+var suppliers = require('./suppliers')(db.Supplier);
+app.use('/api/suppliers',suppliers);
 
 
 

@@ -62,13 +62,13 @@ export let getCategoryData = (id) => {
   return (dispatcher,getState) => {
     axios.get('/api/category/'+id)
     .then((category) => {
-      dispatcher(EditToTrue());
+      dispatcher(EditToTrue(id));
       dispatcher(getCategoryDataSucess(category.data));
     })
   }
 }
 
-export let getCategoryDataSucess = (data,id) => {
+export let getCategoryDataSucess = (data) => {
   return{
     type:types.ADD_CATEGORY_GET_DATA,
     data,
@@ -96,7 +96,6 @@ export let saveCategory = () => {
     .then((category) => {
       let data = category.data;
       dispatcher(this.saveCategorySuccess())
-      dispatcher(routerActions.push("/category"))
     })
   })
 }

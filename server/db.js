@@ -123,13 +123,43 @@ module.exports = function (sequelize) {
   // Category.hasMany(Product);
   Product.belongsTo(Category);
 
-  //====================Product====================\\
+  //====================Supplier====================\\
+
+  const Supplier = sequelize.define('supplier',{
+    id: {
+      type: Sequelize.INTEGER,
+      field: 'id',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    firstName: {
+      type: Sequelize.STRING
+    },
+    lastName: {
+      type: Sequelize.STRING
+    },
+    company: {
+      type: Sequelize.STRING
+    },
+    address: {
+      type: Sequelize.STRING
+    },
+    contactNo: {
+      type: Sequelize.INTEGER
+    },
+    status: {
+      type: Sequelize.BOOLEAN
+    }
+  });
+
+  Supplier.sync({force: false})
 
 
   return {
     User: User,
     Product: Product,
     Category: Category,
+    Supplier: Supplier,
 
   }
 

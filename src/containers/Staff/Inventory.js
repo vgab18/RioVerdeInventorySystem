@@ -14,14 +14,16 @@ import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 import * as products from '../../actions/newproductactions';
 import * as addproduct from '../../actions/addnewproductactions'
-import _ from 'lodash'
+import _ from 'lodash';
+import * as addsupplierActions from '../../actions/addnewsupplieractions';
+
 
 class Inventory extends Component {
   constructor(props){
     super(props);
     this.state ={
       open:false,
-      openCategory:false,
+      openSupplier:false,
     }
   }
   handleOpen = () => {
@@ -32,9 +34,15 @@ class Inventory extends Component {
    this.setState({open: false});
  };
 
-handleCloseCategory = () => {
-  this.setState({openCategory: !this.state.openCategory});
+ handleOpenSupplierModal = () => {
+   this.props.addsupplierActions.OpenAddSupplierModal();
+ }
+
+hanldeCloseSupplierModal = () => {
+  this.props.addsupplierActions.CloseAddSupplierModal();
 }
+
+
 
 
 
@@ -127,9 +135,6 @@ handleCloseCategory = () => {
               <option value="Coke">Suarez Minimart</option>
             </select>
             </Col>
-            <Col md={4}>
-              <button type="button" class="btn btn-primary" style={{width:'133px',margin:'auto'}} onClick={this.handleOpen}>+Add Supplier</button>
-            </Col>
           </Row>
         </Grid>
         <br/>
@@ -215,6 +220,38 @@ handleCloseCategory = () => {
       </Col>
       <br />
         </Dialog>
+        <Dialog
+          title="+Add New Supplier"
+          actions={SupplierActions}
+          modal={false}
+          open={this.props.addsupplier.open}
+          autoScrollBodyContent={true}
+          onRequestClose={this.hanldeCloseSupplierModal}
+        >
+        <Col sm={9}style={{marginLeft:'14%'}}>
+        <div class="form-group">
+        <label for="exampleInputEmail1">First Name</label>
+        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+        </div>
+        <div class="form-group">
+        <label for="exampleInputEmail1">Last Name</label>
+        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+        </div>
+        <div class="form-group">
+        <label for="exampleInputEmail1">Company</label>
+        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+        </div>
+        <div class="form-group">
+        <label for="exampleInputEmail1">Address</label>
+        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+        </div>
+        <div class="form-group">
+        <label for="exampleInputEmail1">Contact Number</label>
+        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+        </div>
+
+        </Col>
+        </Dialog>
 
 
       </div>
@@ -227,8 +264,8 @@ function mapStateToProps(state) {
     router: state.router,
     auth: state.auth,
     product:state.product,
-    newproduct:state.newproduct
-
+    newproduct:state.newproduct,
+    addsupplier:state.addsupplier
   }
 }
 
@@ -236,7 +273,8 @@ function mapDispatchToProps(dispatch) {
   return{
     routerActions: bindActionCreators(routerActions,dispatch),
     productaction: bindActionCreators(products,dispatch),
-    addproduct: bindActionCreators(addproduct,dispatch)
+    addproduct: bindActionCreators(addproduct,dispatch),
+    addsupplierActions: bindActionCreators(addsupplierActions,dispatch)
   }
 }
 

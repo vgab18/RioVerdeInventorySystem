@@ -66,6 +66,9 @@ class Manageproduct extends Component {
      this.props.addproductActions.handleChangenewProduct(name,value)
    }
 
+   openEditcategorymodal = () => {
+     this.props.addcategoryActions.getCategoryData(this.props.addproduct.categoryId);
+   }
 
    addCategory = () => {
      if (this.props.addcategory.edit) {
@@ -142,7 +145,7 @@ class Manageproduct extends Component {
         <div class="form-group">
         <label for="exampleInputEmail1">Category</label>
         <button type="button" class="btn btn-primary" style={{marginTop:'32px',marginLeft:'360px',position:'absolute',width:'133px'}} onClick={this.opencategorymodal}>Add New</button>
-        <button type="button" class="btn btn-warning" style={{marginTop:'32px',marginLeft:'260px',position:'absolute',width:'90px'}} onClick={this.opencategorymodal}>Edit</button>
+        <button type="button" class="btn btn-warning" style={{marginTop:'32px',marginLeft:'260px',position:'absolute',width:'90px'}} onClick={this.openEditcategorymodal}>Edit</button>
           <select multiple="" class="form-control" id="exampleSelect2" style={{width:'65%'}} onChange={this.handleChangeCategoryField}>
           {categories}
           </select>
@@ -167,7 +170,7 @@ class Manageproduct extends Component {
         </div>
         </Dialog>
         <Dialog
-          title="+Add New Category"
+          title={this.props.addcategory.edit ? "+Edit Category" : "+Add New Category"}
           actions={CategoryActions}
           modal={false}
           open={this.props.addcategory.open}
@@ -176,7 +179,7 @@ class Manageproduct extends Component {
         <Col sm={9}style={{marginLeft:'14%'}}>
         <div class="form-group">
         <label for="exampleInputEmail1">Category Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="categoryName" onChange={this.handleAddnewCatergoryField}/>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="categoryName" onChange={this.handleAddnewCatergoryField} value={this.props.addcategory.categoryName}/>
         </div>
         </Col>
         </Dialog>
