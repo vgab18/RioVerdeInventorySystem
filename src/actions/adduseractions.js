@@ -99,14 +99,12 @@ export let saveUser = () => {
       gender: adduser.gender,
       userName: adduser.userName,
       password: adduser.password,
-      role: adduser.role,
-      status: true
+      role: adduser.role
     }
     axios.put('/api/users/'+id,{data})
     .then((users) => {
       let data = users.data;
-      dispatcher(this.saveUserSuccess())
-      dispatcher(routerActions.push("/users"))
+      dispatcher(saveUserSuccess())
     })
   })
 }

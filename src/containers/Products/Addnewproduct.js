@@ -32,10 +32,17 @@ class Manageproduct extends Component {
     //
     //   }
     // }
+  handleChange = () => {
+    return (e) => {
+      var name = e.target.name;
+      var value = e.target.value;
 
+      this.props.productaction.handleChange(name,value)
+    }
+  }
 
    handleClose = () => {
-     this.props.addproductActions.closeAddproduct();
+     this.props.addproductActions.closeEditproduct();
    };
 
    opencategorymodal = () => {
@@ -63,7 +70,7 @@ class Manageproduct extends Component {
    handleChangenewProductField =  (e) => {
      var name = e.target.name; //ccategoryId
      var value = e.target.value; //1
-     this.props.addproductActions.handleChangenewProduct(name,value)
+     this.props.addproductActions.handleEditProduct(name,value)
    }
 
    openEditcategorymodal = () => {
@@ -132,7 +139,7 @@ class Manageproduct extends Component {
     return (
       <div>
       <Dialog
-          title="+Add New Stock"
+          title={this.props.addproduct.edit? "+Edit Product" : "+Add New Product"}
           actions={actions}
           modal={false}
           open={this.props.addproduct.open}
@@ -146,24 +153,20 @@ class Manageproduct extends Component {
         <label for="exampleInputEmail1">Category</label>
         <button type="button" class="btn btn-primary" style={{marginTop:'32px',marginLeft:'360px',position:'absolute',width:'133px'}} onClick={this.opencategorymodal}>Add New</button>
         <button type="button" class="btn btn-warning" style={{marginTop:'32px',marginLeft:'260px',position:'absolute',width:'90px'}} onClick={this.openEditcategorymodal}>Edit</button>
-          <select multiple="" class="form-control" id="exampleSelect2" style={{width:'65%'}} onChange={this.handleChangeCategoryField}>
+          <select value={this.props.addproduct.categoryId} multiple="" class="form-control" id="exampleSelect2" style={{width:'65%'}} onChange={this.handleChangeCategoryField}>
           {categories}
           </select>
         </div>
         <div class="form-group">
         <label for="exampleInputEmail1">Stock Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="stockName" onChange={this.handleChangenewProductField}/>
+        <input type="email" class="form-control" value={this.props.addproduct.stockName} onChange={this.handleChange()} id="exampleInputEmail1" aria-describedby="emailHelp"  name="stockName" onChange={this.handleChangenewProductField}/>
         </div>
         <div class="form-group">
         <label for="exampleInputEmail1">Unit</label>
-          <select multiple="" class="form-control" id="exampleSelect2" style={{width:'50%'}} onChange={this.handleChangeUnitField} name="unit">
+          <select multiple="" class="form-control" value={this.props.addproduct.unit} onChange={this.handleChange()} id="exampleSelect2" style={{width:'50%'}} onChange={this.handleChangeUnitField} name="unit">
             <option value="Kg">Kg</option>
             <option value="Litre">Litre</option>
           </select>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Timeframe</label>
-          <DatePicker hintText="Choose date" mode="landscape" />
         </div>
         </Col>
         </Grid>

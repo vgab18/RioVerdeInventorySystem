@@ -18,6 +18,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import PersonAdd from 'material-ui/svg-icons/social/person-add';
 import * as adduserActions from '../../actions/adduseractions';
 import * as userActions from '../../actions/useractions';
+import AddUserForm from './Adduser';
 
 
 
@@ -90,67 +91,11 @@ render(){
       >
       <Grid>
       <Col sm={9}style={{marginLeft:'14%'}}>
-        <form>
-          <fieldset>
-          <FormGroup controlId="formControlsSelect">
-            <ControlLabel>Select</ControlLabel>
-              <FormControl onChange={this.handleselectChange()} componentClass="select" placeholder="select">
-                    <option value="staff">Staff</option>
-                    <option value="kitchen">Kitchen</option>
-              </FormControl>
-          </FormGroup>
-            <div class="form-group">
-            <label for="exampleInputEmail1">First Name</label>
-            <input name="firstName" onChange={this.handleChange()} value={this.props.adduser.firstName} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            </div>
-            <div class="form-group">
-            <label for="exampleInputEmail1">Last Name</label>
-            <input name="lastName" onChange={this.handleChange()} value={this.props.adduser.lastName} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            </div>
-            <div class="form-group">
-            <label for="exampleInputEmail1">Address</label>
-            <input name="address" onChange={this.handleChange()} value={this.props.adduser.address} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            </div>
-            <div class="form-group">
-            <label for="exampleInputEmail1">Contact No.</label>
-            <input name="contactNo" onChange={this.handleChange()} value={this.props.adduser.contactNo} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            </div>
-            <Row>
-            <label for="exampleInputEmail1">
-            <Col md={4}>
-              Gender
-              </Col>
-            </label>
-            <RadioButtonGroup
-                name="gender"
-                defaultSelected="Male"
-                valueSelected={this.props.adduser.gender}
-                onChange={this.handleChange()}>
-
-                <RadioButton
-                value="Male"
-                label="Male"/>
-
-                <RadioButton
-                value="Female"
-                label="Female"/>
-
-            </RadioButtonGroup>
-              </Row>
-            <div class="form-group">
-            <label for="exampleInputEmail1">Username</label>
-            <input name="userName" onChange={this.handleChange()} value={this.props.adduser.userName} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            </div>
-            <div class="form-group">
-            <label for="exampleInputEmail1">Password</label>
-            <input name="password" onChange={this.handleChange()} value={this.props.adduser.password} type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            </div>
-            <div class="form-group">
-            <label for="exampleInputEmail1">Confirm Password</label>
-            <input name="seepassword" onChange={this.handleChange()} value={this.props.adduser.seepassword} type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            </div>
-          </fieldset>
-        </form>
+        <AddUserForm 
+          {...this.props}
+          handleselectChange={this.handleselectChange} 
+          handleChange={this.handleChange}
+        />
         </Col>
         </Grid>
     </Dialog>

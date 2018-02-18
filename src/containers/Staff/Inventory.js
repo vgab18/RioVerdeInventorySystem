@@ -86,10 +86,11 @@ hanldeCloseSupplierModal = () => {
           <h1>Inventory</h1>
         </Col>
         <Col md={3} style={{paddingRight:'3px'}}>
-          <button type="button" class="btn btn-outline-primary" style={{float:'right',width:'200px'}} onClick={this.handleOpen}>Stock In</button>
+          <button type="button" class="btn btn-outline-primary" style={{float:'right',width:'200px'}} onClick={this.handleOpen}>( + )
+          Stock In</button>
         </Col>
         <Col md={6} style={{paddingLeft:'3px'}}>
-          <button type="button" class="btn btn-outline-primary" style={{float:'left',width:'200px'}}>Stock Out</button>
+          <button type="button" class="btn btn-outline-primary" style={{float:'left',width:'200px'}}>Stock Out ( - )</button>
         </Col>
         </Row>
           <table class="table table-striped table-hover table-bordered responsive">

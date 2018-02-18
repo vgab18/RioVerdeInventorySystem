@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './Style/index.css';
-import App from './App';
-import {
-    Route,
-    Switch
-} from 'react-router-dom';
 import routes  from './routes';
 import {ConnectedRouter} from 'react-router-redux';
 import configureStore from './stores/configureStore';
@@ -15,7 +10,6 @@ import { Provider } from 'react-redux';
 import {registerStore} from './utils/RestClient';
 import registerServiceWorker from './registerServiceWorker';
 import queryString  from 'query-string';
-import Login from './containers/Login';
 
 
 

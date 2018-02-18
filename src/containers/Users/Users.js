@@ -32,7 +32,7 @@ class Users extends Component {
 
   openmodal =(id) => {
     this.props.adduser.getUserData(id)
-    
+
   }
 
 
@@ -79,7 +79,6 @@ class Users extends Component {
 {
   this.props.user.data.map ((profile,i) => {
     return (
-
       <tr>
       <td>{profile.id}</td>
       <td>{profile.firstName+" "+profile.lastName}</td>

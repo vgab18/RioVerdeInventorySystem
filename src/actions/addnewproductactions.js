@@ -14,6 +14,12 @@ export let closeAddproduct = () => {
   }
 }
 
+export let closeEditproduct = () => {
+  return{
+    type: types.CLOSE_EDIT_PRODUCT_DATA_MODAL,
+  }
+}
+
 export let handleChangenewProduct = (name,value) => {
   return (dispatcher,getState) => {
     var { addproduct } = getState();
@@ -29,6 +35,19 @@ export let handleChangenewProduct = (name,value) => {
   }
 }
 
+export let handleEditProduct = (name,value) => {
+  return (dispatcher,getState) => {
+    var { addproduct } = getState();
+
+  addproduct[name] = value;
+
+  dispatcher({
+    type: types.EDIT_PRODUCT_DATA_FIELD_CHANGE,
+    addproduct
+  })
+
+  }
+}
 
 export let addProduct = () => {
   return (dispatcher,getState) => {
@@ -64,12 +83,12 @@ export let addNewProductSuccess = () => {
 }
 
 
-export let getNewProductData = (id) => {
+export let getProductData = (id) => {
   return (dispatcher,getState) => {
     axios.get('/api/products/'+id)
     .then((products) => {
       dispatcher(EditToTrue());
-      dispatcher(getNewProductDataSucess(products.data));
+      dispatcher(getSelectedProductdata(products.data));
     })
   }
 }
@@ -81,10 +100,17 @@ export let getNewProductDataSucess = (data,id) => {
   }
 }
 
+export let getSelectedProductdata = (data) => {
+  return{
+    type: types.GET_SELECTED_PRODUCT_DATA,
+    data
+  }
+}
+
 
 export let EditToTrue = (id) => {
   return{
-    type:types.ADD_NEWPRODUCT_SUCCESS_EDIT,
+    type:types.OPEN_EDIT_PRODUCT_DATA_MODAL,
     id
   }
 }
@@ -117,5 +143,18 @@ export let saveNewProduct = () => {
 export let saveNewProductSuccess = () => {
   return{
     type:types.ADD_NEWPRODUCT_SAVE_DATA
+  }
+}
+
+export let handleChange = (name,value) => {
+  return (dispatcher,getState) => {
+    var { addProduct } = getState();
+
+  addProduct[name] = value;
+
+  dispatcher({
+    type:types.ADD_NEW_PRODUCT_FIELD_CHANGE,
+    addProduct
+  })
   }
 }

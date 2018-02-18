@@ -8,7 +8,7 @@ const initialState ={
 }
 export default function newproductreducers(state=initialState,action={}) {
   switch (action.type) {
-    case types.USER_GET_PRODUCT_SUCCESS:
+    case types.GET_PRODUCTS_DATA_SUCCESS:
       return _.assign({},state,{data:action.data})
 
     default:

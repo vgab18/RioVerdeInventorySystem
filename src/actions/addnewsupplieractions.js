@@ -23,7 +23,7 @@ export let handleChange = (name,value) => {
   addsupplier[name] = value;
 
   dispatcher({
-    type:types.ADD_NEW_SUPPLIER_FIELD_CHANGE,
+    type:types.OPEN_ADD_NEW_SUPPLIER_MODAL_FIELD_CHANGE,
     addsupplier
   })
   }
@@ -35,6 +35,7 @@ export let addSupplier = () => {
     let{addsupplier} = getState();
 
     let data ={
+      id: addsupplier.id,
       firstName: addsupplier.firstName,
       lastName: addsupplier.lastName,
       company: addsupplier.company,
@@ -62,18 +63,45 @@ export let addSupplierSuccess = () => {
   }
 }
 
+export let editSupplierDataSuccess = () => {
+  return{
+    type:types.EDIT_SUPPLER_DATA_SUCCESS
+  }
+}
+
+export let saveSupplier = () => {
+  return((dispatcher,getState) => {
+    let {id} = getState().addsupplier;
+    let {addsupplier}  = getState();
+
+    let data = {
+      firstName: addsupplier.firstName,
+      lastName: addsupplier.lastName,
+      company: addsupplier.company,
+      address:addsupplier.address,
+      contactNo: addsupplier.contactNo,
+    }
+    axios.put('/api/suppliers/'+id,{data})
+    .then((suppliers) => {
+      let data = suppliers.data;
+      dispatcher(editSupplierDataSuccess())
+    })
+  })
+}
+
 export let getSupplierData = (id) => {
   return (dispatcher,getState) => {
     axios.get('/api/suppliers/'+id)
-    .then((users) => {
-      dispatcher(getSupplierDataSucess(users.data));
+    .then((suppliers) => {
+      dispatcher(setEditToTrue(suppliers.data));
+      dispatcher(saveSupplierDataSuccess(suppliers.data));
     })
   }
 }
 
-export let getSupplierDataSucess = (data,id) => {
+export let saveSupplierDataSuccess = (data,id) => {
   return{
-    type:types.ADD_SUPPLIER_GET_DATA,
+    type:types.GET_SELECTED_SUPPLIER_DATA,
     data,
   }
 }
@@ -83,7 +111,10 @@ export let getSuppliers = () => {
   return  (dispatcher,getState) => {
     axios.get('/api/suppliers')
     .then((suppliers) => {
-      dispatcher(getSuppliersSuccess(suppliers.data));
+      var data = suppliers.data;
+      dispatcher(getSuppliersSuccess(data))
+    }).catch((err) => {
+      console.log(err);
     })
   }
 }
@@ -94,4 +125,26 @@ export let getSuppliersSuccess = (data) => {
     data
   }
 
+}
+
+export let setEditToTrue = (id) => {
+  return{
+    type:types.OPEN_EDIT_SUPPLIER_DATA_MODAL,
+    id
+  }
+}
+
+export let handleChangeSupplierField = (name,value) => {
+  return (dispatcher,getState) => {
+    var { addsupplier } = getState();
+
+
+  addsupplier[name] = value;
+
+  dispatcher({
+    type: types.CHOOSE_SUPPLIER_FIELD_CHANGE,
+    addsupplier
+  })
+
+  }
 }

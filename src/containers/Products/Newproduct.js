@@ -14,8 +14,9 @@ import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 import * as products from '../../actions/newproductactions';
 import Addnewproduct from './Addnewproduct';
-import * as addproduct from '../../actions/addnewproductactions'
+import * as addproductActions from '../../actions/addnewproductactions'
 import _ from 'lodash'
+import * as categoryActions from '../../actions/categoryactions';
 
 class Manageproduct extends Component {
   constructor(props){
@@ -29,13 +30,18 @@ class Manageproduct extends Component {
    this.setState({open: true});
  };
 
- handleClose = () => {
-   this.setState({open: false});
- };
+   handleClose = () => {
+     this.setState({open: false});
+   };
 
-handleCloseCategory = () => {
-  this.setState({openCategory: !this.state.openCategory});
-}
+  handleCloseCategory = () => {
+    this.setState({openCategory: !this.state.openCategory});
+  }
+
+  openmodal = (id) =>{
+    this.props.addproductActions.getProductData(id)
+    this.props.categoryActions.getCategory()
+  };
 
 
 
@@ -77,11 +83,7 @@ handleCloseCategory = () => {
               <th>#</th>
               <th>Stock Name</th>
               <th>Category</th>
-              <th>Price</th>
-              <th>Quantity</th>
               <th>Unit</th>
-              <th>Timeframe/Days</th>
-              <th>Total Amount</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -95,13 +97,9 @@ handleCloseCategory = () => {
               <td>{product.id}</td>
               <td>{product.stockName}</td>
               <td>{product.categoryName}</td>
-              <td>{product.price ? product.price: 0}</td>
-              <td>{product.quantity}</td>
               <td>{product.unit}</td>
-              <td>{product.timeFrame}</td>
-              <td>{product.totalAmount}</td>
               <td>{product.status ? 'active' : 'inactive'}</td>
-              <td><button type="button" class="btn btn-warning">Edit</button></td>
+              <td><button type="button" class="btn btn-warning" onClick={()=>this.openmodal(product.id)}>Edit</button></td>
             </tr>
           )
         })
@@ -129,7 +127,8 @@ function mapDispatchToProps(dispatch) {
   return{
     routerActions: bindActionCreators(routerActions,dispatch),
     productaction: bindActionCreators(products,dispatch),
-    addproduct: bindActionCreators(addproduct,dispatch)
+    addproductActions: bindActionCreators(addproductActions,dispatch),
+    categoryActions: bindActionCreators(categoryActions,dispatch)
   }
 }
 

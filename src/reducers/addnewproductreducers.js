@@ -77,6 +77,26 @@ switch (action.type){
               totalAmount:0,
               status:true,
             }
+        case types.GET_SELECTED_PRODUCT_DATA:
+            return _.assign({},
+            state,
+            action.data,
+            {
+              edit:true,
+              open:true,
+            })
+        case types.CLOSE_EDIT_PRODUCT_DATA_MODAL:
+            return _.assign({},
+            state,
+            {
+              edit:false,
+              stockName:'',
+              categoryId: null,
+              unit:'',
+              open:false
+
+            }
+            )
 
 
 

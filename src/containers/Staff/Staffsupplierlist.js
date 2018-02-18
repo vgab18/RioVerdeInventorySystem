@@ -28,11 +28,16 @@ class Staffsupplierlist extends Component {
     this.props.addsupplierActions.getSuppliers();
   }
 
+  openmodal =(id) => {
+    this.props.addsupplier.getSuppliers(id)
+
+  }
+
   handleOpenSupplierModal = () => {
     this.props.addsupplierActions.OpenAddSupplierModal();
   }
 
-  hanldeCloseSupplierModal = () => {
+  handleCloseSupplierModal = () => {
    this.props.addsupplierActions.CloseAddSupplierModal();
   }
 
@@ -69,7 +74,7 @@ class Staffsupplierlist extends Component {
     };
     const actions = [
       <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}} onClick={this.addSupplier}>Save</button>,
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleCloseSupplierModal} style={{marginRight:10}}>Close</button>,
     ];
     return (
       <div>
@@ -93,6 +98,8 @@ class Staffsupplierlist extends Component {
               <th>Company</th>
               <th>Adress</th>
               <th>Contact No.</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -104,6 +111,8 @@ class Staffsupplierlist extends Component {
               <td>{supplier.company}</td>
               <td>{supplier.address}</td>
               <td>{supplier.contactNo}</td>
+              <td>{supplier.status? "Active" : "Inactive"}</td>
+              <td><button type="button" class="btn btn-warning" onClick={() => this.openmodal(supplier.id)}>Edit</button></td>
             </tr>
           )
       })}
@@ -113,12 +122,12 @@ class Staffsupplierlist extends Component {
         </Grid>
           </div>
               <Dialog
-                title="+Add New Supplier"
+                title={this.props.addsupplier.edit? "+Edit Supplier" : "+Add New Supplier"}
                 actions={actions}
                 modal={false}
                 open={this.props.addsupplier.open}
                 autoScrollBodyContent={true}
-                onRequestClose={this.hanldeCloseSupplierModal}
+                onRequestClose={this.handleCloseSupplierModal }
               >
               <Col sm={9}style={{marginLeft:'14%'}}>
               <div class="form-group">

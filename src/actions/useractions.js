@@ -16,7 +16,7 @@ export let getUsers = () => {
 
 export let getUsersSuccess = (data) => {
   return{
-    type:types.USER_GET_ACCOUNT_SUCCESS,
+    type:types.GET_USERS_DATA_SUCCESS,
     data
   }
 }

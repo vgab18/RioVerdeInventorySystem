@@ -8,10 +8,15 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "bootstrap": "4.0.0-beta.2",
+    "classnames": "^2.2.5",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "history": "^4.7.2",
     "loadash": "^1.0.0",
     "material-ui": "^0.19.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "popper.js": "^1.12.6",
     "query-string": "^5.0.1",
     "react": "^16.1.0",
@@ -21,11 +26,15 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
+    "react-validation-mixin": "^5.4.0",
+    "react-validatorjs-strategy": "^0.2.1",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.22.7",
-    "sqlite3": "^3.1.13"
+    "session-file-store": "^1.2.0",
+    "sqlite3": "^3.1.13",
+    "validatorjs": "^3.14.2"
   },
   "devDependencies": {
     "react-scripts": "1.0.17"

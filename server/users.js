@@ -11,6 +11,7 @@ module.exports = function (User) {
       .then(function (users) {
         res.json(users)
       }).catch(function (err) {
+        console.log(err);
         res.sendStatus(404);
       });
   })

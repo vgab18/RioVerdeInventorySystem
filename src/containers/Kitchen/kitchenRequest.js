@@ -10,7 +10,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Navlayout from '../Navlayout';
 import Paper from 'material-ui/Paper';
-import AddCircle from 'material-ui/svg-icons/content/add-circle';
 
 
 class kitchenRequest extends Component {
@@ -110,8 +109,8 @@ render(){
             </tr>
           </tbody>
         </table>
-        <Col md={6}>
-          <button type="button" class="btn btn-primary" style={{width:'150px'}}>+ Add More Row</button>
+        <Col md={12}>
+          <button type="button" class="btn btn-primary" style={{width:'150px'}} >+ Add More Row</button>
         </Col>
         <Row>
           <Col md={6} style={{padding:'2px'}}>

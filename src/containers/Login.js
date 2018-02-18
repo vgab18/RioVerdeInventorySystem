@@ -15,26 +15,31 @@ import TextField from 'material-ui/TextField';
 
 
 
-
 class Login extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      username:'',
+      password:''
+    }
+  }
+
+
   render() {
 
     return (
       <div>
+      <center>
+      <div>
       <Grid style={{marginTop:'80px'}}>
-          <Row>
-          <Col md={5} mdOffset={1} style={{padding:15,borderStyle:'solid',backgroundColor:'white',textAlign:'center'}}>
-          <div style={{height:'380px'}}>
-            <legend>Inventory System</legend>
-            <Image src={logo} style={{width:'400px',height:'350px'}}/>
-          </div>
-          </Col>
-          <Col md={5} style={{padding:15,borderStyle:'solid',backgroundColor:'white',textAlign:'center'}}>
+          <Row style={{align:'center'}}>
+          <Col md={12}>
+          <Col md={4}/>
+          <Col md={4} style={{padding:15,borderStyle:'solid',textAlign:'center'}}>
              <legend style={{marginTop:'10px'}}>User Login</legend>
              <form>
                  <FormGroup>
                          <TextField
-                             hintText="Text Field"
                              floatingLabelText="Username"
                              style={{width:'310px'}}
                              inputStyle={{color:'#0F3057',fontSize:20}}
@@ -43,7 +48,6 @@ class Login extends Component {
                  </FormGroup>
                  <FormGroup>
                    <TextField
-                       hintText="Text Field"
                        floatingLabelText="Password"
                        style={{width:'310px'}}
                        inputStyle={{color:'#0F3057',fontSize:20}}
@@ -53,14 +57,18 @@ class Login extends Component {
                  </FormGroup>
                  <div className="button">
                      <ButtonGroup>
-                         <Button  bsStyle="default" type="submit"
+                         <Button  bsStyle="primary" type="submit" style={{width:'250px',marginTop:'40px',marginBottom:'80px'}}
                          onClick={()=>this.props.routerActions.push("/users")}>Login</Button>
                      </ButtonGroup>
                  </div>
              </form>
              </Col>
+             <Col md={4}/>
+             </Col>
              </Row>
-        </Grid>
+             </Grid>
+            </div>
+          </center>
         </div>
       );
   }

@@ -16,7 +16,7 @@ export let getProducts = () => {
 
 export let getnewProductssSuccess = (data) => {
   return{
-    type:types.USER_GET_PRODUCT_SUCCESS,
+    type:types.GET_PRODUCTS_DATA_SUCCESS,
     data
   }
 }

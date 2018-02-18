@@ -1,7 +1,6 @@
 import * as types from '../constants/AuthActionTypes';
 import {post,get} from '../utils/RestClient';
 import { routerActions } from 'react-router-redux'
-//import {getDefaultRoutesFromRoles} from '~/src/components/shared/RouteRules'
 import * as  healthchecks from './healthchecks';
 import * as dialogactions from './dialogactions'
 

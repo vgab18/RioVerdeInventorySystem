@@ -8,7 +8,7 @@ const initialState ={
 }
 export default function userreducers(state=initialState,action={}) {
   switch (action.type) {
-    case types.USER_GET_ACCOUNT_SUCCESS:
+    case types.GET_USERS_DATA_SUCCESS:
       return _.assign({},state,{data:action.data})
 
     default:
