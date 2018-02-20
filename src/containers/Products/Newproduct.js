@@ -5,7 +5,7 @@ import {Well,
         ControlLabel,Grid,Col,
         HelpBlock,
         Button,nav,
-        ButtonGroup} from 'react-bootstrap';
+        ButtonGroup,Row} from 'react-bootstrap';
 import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -17,6 +17,8 @@ import Addnewproduct from './Addnewproduct';
 import * as addproductActions from '../../actions/addnewproductactions'
 import _ from 'lodash'
 import * as categoryActions from '../../actions/categoryactions';
+import * as addcategoryActions from '../../actions/addcategory';
+import AddnewcategoryForm from './AddnewcategoryForm';
 
 class Manageproduct extends Component {
   constructor(props){
@@ -43,6 +45,43 @@ class Manageproduct extends Component {
     this.props.categoryActions.getCategory()
   };
 
+  openproductmodal = () => {
+    this.props.addproductActions.openAddproduct();
+    this.props.categoryActions.getCategory();
+
+  }
+  handleChangeCategoryField = (e) => {
+    var name = "categoryId"
+    var value = parseInt(e.target.value);
+    this.props.addproductActions.handleChangenewProduct(name,value)
+  }
+
+  addCategory = () => {
+    if (this.props.addcategory.edit) {
+      this.props.addcategoryActions.saveCategory();
+      this.props.categoryActions.getCategory();
+      this.props.addcategoryActions.closeAddcategory();
+    }
+    else {
+      this.props.addcategoryActions.addCategory();
+      this.props.categoryActions.getCategory();
+      this.props.addcategoryActions.closeAddcategory();
+
+    }
+  }
+
+  handleAddnewCatergoryField = (e) => {
+    var name = e.target.name;
+    var value = e.target.value;
+    this.props.addcategoryActions.handleChangeCategory(name,value)
+  }
+
+  closecategorymodal = () => {
+    this.props.addcategoryActions.closeAddcategory()
+
+  }
+  
+
 
 
   componentWillMount()
@@ -60,23 +99,32 @@ class Manageproduct extends Component {
       padding: 20,
       overflowX: 'auto'
     };
-    // const actions = [
-    //   <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
-    //   <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
-    // ];
-    //
-    // const CategoryActions = [
-    //   <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
-    //   <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleCloseCategory} style={{marginRight:10}}>Close</button>,
-    // ];
-
+    
     return (
       <div>
       <Navlayout open={this.handleOpen}/>
-        <Addnewproduct/>
+        <Addnewproduct
+        {...this.props}
+        />
+        <AddnewcategoryForm
+        {...this.props}
+        
+        />
+
+        {/* <AddnewcategoryForm
+          {...this.props}
+        /> */}
+
         <Grid>
         <Paper style={paperstyle} zDepth={2} transitionEnabled={true}>
+        <Row>
+        <Col md={6}>
           <h1>Inventory</h1>
+        </Col>
+        <Col md={6}>
+          <button type="button" class="btn btn-primary" style={{float:'right'}} onClick={this.openproductmodal}>+Add Product</button>
+        </Col>
+        </Row>
           <table class="table table-striped table-hover table-bordered responsive">
           <thead class="thead-dark">
             <tr>
@@ -118,7 +166,10 @@ function mapStateToProps(state) {
     router: state.router,
     auth: state.auth,
     product:state.product,
-    newproduct:state.newproduct
+    newproduct:state.newproduct,
+    addproduct:state.addproduct,
+    addcategory:state.addcategory,
+    category:state.category
 
   }
 }
@@ -128,7 +179,8 @@ function mapDispatchToProps(dispatch) {
     routerActions: bindActionCreators(routerActions,dispatch),
     productaction: bindActionCreators(products,dispatch),
     addproductActions: bindActionCreators(addproductActions,dispatch),
-    categoryActions: bindActionCreators(categoryActions,dispatch)
+    categoryActions: bindActionCreators(categoryActions,dispatch),
+    addcategoryActions: bindActionCreators(addcategoryActions,dispatch),
   }
 }
 

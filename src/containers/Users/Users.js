@@ -17,7 +17,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import PersonAdd from 'material-ui/svg-icons/social/person-add';
 import * as users from '../../actions/useractions';
 import Adduser from './Adduser';
-import * as adduser from '../../actions/adduseractions'
+import * as adduserActions from '../../actions/adduseractions';
+
 
 
 
@@ -31,14 +32,18 @@ class Users extends Component {
   }
 
   openmodal =(id) => {
-    this.props.adduser.getUserData(id)
+    this.props.adduserActions.getUserData(id)
 
+  }
+
+  openusermodal =() => {
+    this.props.adduserActions.openAddUser()
   }
 
 
   componentWillMount()
     {
-      this.props.useraction.getUsers();
+      this.props.users.getUsers();
     }
 
   render() {
@@ -53,12 +58,21 @@ class Users extends Component {
     return (
       <div>
       <Navlayout open={this.handleOpen}/>
-      <Adduser/>
+      <Adduser
+        {...this.props}
+      />
 
         <div>
 <Grid>
 <Paper style={paperstyle} zDepth={2} transitionEnabled={true}>
-  <h1>User List</h1>
+<Row>
+        <Col md={6}>
+          <h1>User List</h1>
+        </Col>
+        <Col md={6}>
+          <button type="button" class="btn btn-primary" style={{float:'right'}} onClick={this.openusermodal}>+Add User</button>
+        </Col>
+        </Row>
   <table class="table table-striped table-hover table-bordered responsive">
   <thead class="thead-dark">
     <tr>
@@ -110,6 +124,7 @@ function mapStateToProps(state) {
     router: state.router,
     auth: state.auth,
     user:state.user,
+    adduser: state.adduser,
 
   }
 }
@@ -117,8 +132,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return{
     routerActions: bindActionCreators(routerActions,dispatch),
-    useraction: bindActionCreators(users,dispatch),
-    adduser: bindActionCreators(adduser,dispatch)
+    users: bindActionCreators(users,dispatch),
+    adduserActions: bindActionCreators(adduserActions,dispatch)
 
   }
 }

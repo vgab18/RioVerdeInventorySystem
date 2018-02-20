@@ -48,17 +48,12 @@ class Navlayout extends Component {
           <div className="collapse navbar-collapse" id="navbarColor01">
 
             <ul className="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/users")}>User List</a>
-              <div class="dropdown-menu">
-                  <a class="dropdown-item" onClick={this.openmodal}>Add User</a>
-              </div>
+            <li className="nav-item">
+              <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/users")}>User List</a>
             </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Stock</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" onClick={this.openproductmodal}>Add Newproduct</a>
-                </div>
+            <li className="nav-item">
+                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Stock</a>
+                
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#" onClick={()=>this.props.routerActions.push("/producthistory")}>Product History</a>

@@ -16,33 +16,109 @@ import * as addproductActions from '../../actions/addnewproductactions';
 import * as productActions from '../../actions/newproductactions';
 import * as addcategoryActions from '../../actions/addcategory';
 import * as categoryActions from '../../actions/categoryactions';
-import DatePicker from 'material-ui/DatePicker';
+import validation from 'react-validation-mixin';
+import strategy from 'react-validatorjs-strategy';
+import validatorjs from 'validatorjs';
+import  classnames from 'classnames';
+
+
 
 class Manageproduct extends Component {
   constructor(props){
     super(props);
     this.state ={
-      open:false,
-      openCategory:false,
+      stockName: false
+    }
+
+    this.validatorTypes=strategy.createSchema(
+      {
+        stockName: 'required',
+      },
+      {
+        "required": "*This field is required*",
+      },
+      function (validator){
+        validator.setAttributeNames({
+          stockName: 'Stock Name',
+        })
+      }
+    )
+  }
+
+  componentWillMount(){
+    this.props.clearValidations()
+  }
+
+  getValidatorData = () => {
+    return this.props.addproduct
+  };
+
+  getClasses = (div,field) => {
+
+    if(this.state[field]){
+      if (div === "container") {
+        return classnames({
+          'success': this.props.isValid(field),
+          'danger': !this.props.isValid(field)
+        });
+      }else{
+        return classnames({
+          'valid': this.props.isValid(field),
+          'invalid': !this.props.isValid(field)
+        });
+      }
     }
   }
-    //
-    // componentWillMount(){
-    //   if(this.props.addproduct.id){
-    //
-    //   }
-    // }
+
+onFormSubmit = (event) => {
+  event.preventDefault();
+
+    this.props.validate(this.onValidate);
+};
+
+getErrorField = (field) => {
+  var error   = this.props.errors[field];
+  if(!error)
+    return null;
+  if(Array.isArray(error)){
+    var message = [];
+    message = error.map((item,i) =>{
+      return (
+        <span key={i}>
+          {item}
+          <br />
+        </span>
+      )
+    });
+    return message;
+  }
+  else
+    return (<span>{error || ''}</span>);
+};
+
+onValidate = (error) => {
+  if(error){
+
+  }
+  else{
+    this.addproduct()
+  }
+}
+   
   handleChange = () => {
     return (e) => {
       var name = e.target.name;
       var value = e.target.value;
-
+      
       this.props.productaction.handleChange(name,value)
     }
   }
 
    handleClose = () => {
      this.props.addproductActions.closeEditproduct();
+     this.setState=({
+       stockName:false
+     })
    };
 
    opencategorymodal = () => {
@@ -123,7 +199,7 @@ class Manageproduct extends Component {
       overflowX: 'auto'
     };
     const actions = [
-      <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}} onClick={this.addnewProduct}>Save</button>,
+      <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}} onClick={this.onFormSubmit}>Save</button>,
       <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
     ];
 
@@ -157,9 +233,23 @@ class Manageproduct extends Component {
           {categories}
           </select>
         </div>
-        <div class="form-group">
+        <div class={"form-group has-"+ this.getClasses("container",'stockName')}>
         <label for="exampleInputEmail1">Stock Name</label>
-        <input type="email" class="form-control" value={this.props.addproduct.stockName} onChange={this.handleChange()} id="exampleInputEmail1" aria-describedby="emailHelp"  name="stockName" onChange={this.handleChangenewProductField}/>
+        <input type="email"
+          class={"form-control is-"+ this.getClasses("input",'firstName')}
+          value={this.props.addproduct.stockName}
+          onChange={this.handleChange()}
+          id="inputValid"
+          name="stockName"
+          onBlur={()=>{
+            this.setState({
+              stockName: true
+            })
+            this.props.validate('stockName');
+          }}/>
+        </div>
+        <div class={this.getClasses("input",'stockName') + "-feedback"} style={this.state.stockName ? {display: "block"} : {display: "none"}}>
+            {this.getErrorField('stockName')}
         </div>
         <div class="form-group">
         <label for="exampleInputEmail1">Unit</label>
@@ -211,4 +301,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Manageproduct);
+export default validation(strategy)(Manageproduct);

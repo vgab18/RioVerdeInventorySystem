@@ -15,6 +15,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as addsupplierActions from '../actions/addnewsupplieractions';
+import SupplierlistForm from './SupplierlistForm';
 
 
 class Supplierlist extends Component {
@@ -132,40 +133,7 @@ class Supplierlist extends Component {
         </table>
         </Paper>
         </Grid>
-
-        <Dialog
-          title={this.props.addsupplier.edit? "+Edit Supplier" : "+Add New Supplier"}
-          actions={actions}
-          modal={false}
-          open={this.props.addsupplier.open}
-          autoScrollBodyContent={true}
-          onRequestClose={this.handleCloseSupplierModal }
-        >
-        <Col sm={9}style={{marginLeft:'14%'}}>
-        <div class="form-group">
-        <label for="exampleInputEmail1">First Name</label>
-        <input name="firstName" onChange={this.handleChange()} value={this.props.addsupplier.firstName} type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Last Name</label>
-        <input name="lastName" onChange={this.handleChange()}  value={this.props.addsupplier.lastName} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Company</label>
-        <input name="company" onChange={this.handleChange()}  value={this.props.addsupplier.company} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Address</label>
-        <input name="address" onChange={this.handleChange()}  value={this.props.addsupplier.address} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Contact Number</label>
-        <input name="contactNo" onChange={this.handleChange()}  value={this.props.addsupplier.contactNo} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-
-        </Col>
-        </Dialog>
-
+          <SupplierlistForm {...this.props}/>
         </div>
         </div>
       );

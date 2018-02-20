@@ -12,19 +12,26 @@ import {bindActionCreators} from 'redux';
 import Paper from 'material-ui/Paper';
 import logo from '../Style/images/logo.jpg';
 import TextField from 'material-ui/TextField';
+import validation from 'react-validation-mixin';
+import strategy from 'react-validatorjs-strategy';
+import validatorjs from 'validatorjs';
+import  classnames from 'classnames';
 
 class LoginForm extends Component{
   constructor(props){
     super(props);
+      this.state={
+        userName:'',
+        password:''
+      }
 
-
-    this.validatorTypes=strategy.createSchema()
+    this.validatorTypes=strategy.createSchema(
     {
       userName:'required',
       password: 'required'
     },
     {
-      "required": "This field :attribute is required!"
+      "required": "*This field is required*"
     },
     {
       function (validator){
@@ -34,11 +41,13 @@ class LoginForm extends Component{
         });
       }
     }
+  )
+  
 
   }
 
     getValidatorData = () => {
-      return this.props.addUser
+      return this.state
     };
 
     getClasses = (field) => {
@@ -56,7 +65,7 @@ class LoginForm extends Component{
   };
 
   getErrorField = (field) => {
-    var error   = this.props.errors[fields];
+    var error = this.props.errors[field];
     if(!error)
       return null;
     if(Array.isArray(error)){
@@ -77,23 +86,34 @@ class LoginForm extends Component{
 
   onValidate = (error) => {
     if(error){
-      event.preventDeafult();
+     
     }
     else{
       this.saveRecord()
     }
   };
 
+  handlechange =(e)=>{
+    let state = this.state
+    state[e.target.name] = e.target.value
+    this.setState(state)
+  }
+
 
   render(){
-    return{
+    return(
       <form>
           <FormGroup>
-                  <TextField
-                      floatingLabelText="Username"
-                      style={{width:'310px'}}
-                      inputStyle={{color:'#0F3057',fontSize:20}}
-                    />
+            <TextField
+                floatingLabelText="Username"
+                style={{width:'310px'}}
+                inputStyle={{color:'#0F3057',fontSize:20}}
+                errorText={this.props.getValidationMessages("userName").length === 0 ? null : this.props.getValidationMessages("userName")}
+                onBlur={()=>this.props.validate('userName')}
+                name="userName"
+                value={this.state.userName}
+                onChange={this.handlechange}
+              />
               <HelpBlock> </HelpBlock>
           </FormGroup>
           <FormGroup>
@@ -102,6 +122,11 @@ class LoginForm extends Component{
                 style={{width:'310px'}}
                 inputStyle={{color:'#0F3057',fontSize:20}}
                 type="password"
+                errorText={this.props.getValidationMessages("password").length === 0 ? null : this.props.getValidationMessages("password")}
+                name="password"
+                onBlur={()=>this.props.validate('password')}
+                value={this.state.password}
+                onChange={this.handlechange}
               />
               <HelpBlock> </HelpBlock>
           </FormGroup>
@@ -112,7 +137,7 @@ class LoginForm extends Component{
               </ButtonGroup>
           </div>
       </form>
-    }
+    )
   }
 
 

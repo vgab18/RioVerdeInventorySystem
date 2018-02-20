@@ -42,12 +42,13 @@ export let handleEditProduct = (name,value) => {
   addproduct[name] = value;
 
   dispatcher({
-    type: types.EDIT_PRODUCT_DATA_FIELD_CHANGE,
+    type: types.ADD_NEW_PRODUCT_FIELD_CHANGE,
     addproduct
   })
 
   }
 }
+
 
 export let addProduct = () => {
   return (dispatcher,getState) => {
