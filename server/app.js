@@ -105,10 +105,12 @@ passport.deserializeUser(function (id,done) {
 // product table config
 var products = require('./products')(db.Product,db.Category,sequelize);
 app.use('/api/products',products);
+
 // category table config
 var category = require('./category')(db.Category);
 app.use('/api/category',category);
 
+// supplier tabale config
 var suppliers = require('./suppliers')(db.Supplier);
 app.use('/api/suppliers',suppliers);
 

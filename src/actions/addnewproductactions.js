@@ -1,11 +1,19 @@
 import * as types from '../constants/AddNewProductActionTypes';
 import axios from 'axios';
 import { routerActions } from 'react-router-redux'
+import * as categoryActions from './categoryactions';
 
 export let openAddproduct = () => {
-  return {
-    type: types.ADD_NEW_PRODUCT_OPEN_MODAL_SUCCESS,
+  return (dispatcher,getState) => {
+    dispatcher( {
+      type: types.ADD_NEW_PRODUCT_OPEN_MODAL_SUCCESS,
+    });
+
+    dispatcher(categoryActions.getCategory())
+    // dispatcher(setDefaultCategory())
+    
   }
+  
 }
 
 export let closeAddproduct = () => {
@@ -149,13 +157,24 @@ export let saveNewProductSuccess = () => {
 
 export let handleChange = (name,value) => {
   return (dispatcher,getState) => {
-    var { addProduct } = getState();
+    var { addproduct } = getState();
 
-  addProduct[name] = value;
+  addproduct[name] = value;
 
   dispatcher({
     type:types.ADD_NEW_PRODUCT_FIELD_CHANGE,
-    addProduct
+    addproduct
   })
+  }
+}
+
+export let  setDefaultCategory = () => {
+  return(dispatcher,getState)=>{
+    let{addproduct, category} = getState();
+    addproduct.categoryId = category.data[0].id;
+    dispatcher({
+      type:types.ADD_NEW_PRODUCT_SET_DEFAULT_CATEGORY,
+      addproduct
+    })
   }
 }

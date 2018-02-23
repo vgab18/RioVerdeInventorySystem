@@ -97,6 +97,11 @@ switch (action.type){
 
             }
             )
+        case types.ADD_NEW_PRODUCT_SET_DEFAULT_CATEGORY:
+            return _.assign({},
+              state,
+               action.addproduct
+            )
 
 
 

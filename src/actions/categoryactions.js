@@ -1,5 +1,6 @@
 import * as types from '../constants/CategoryActionTypes';
 import axios from 'axios';
+import * as addproductActions from './addnewproductactions';
 
 export let getCategory = () => {
   return (dispatcher,getState) => {
@@ -15,8 +16,11 @@ export let getCategory = () => {
 }
 
 export let getCategorySuccess = (data) => {
-  return{
-    type:types.USER_GET_CATEGORY_SUCCESS,
-    data
+  return (dispatcher,getState) => {
+    dispatcher({
+      type:types.USER_GET_CATEGORY_SUCCESS,
+      data
+    })
+    dispatcher(addproductActions.setDefaultCategory())
   }
 }

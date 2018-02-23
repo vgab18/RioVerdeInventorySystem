@@ -101,7 +101,7 @@ onValidate = (error) => {
 
   }
   else{
-    this.addproduct()
+    this.addnewProduct()
   }
 }
    
@@ -110,7 +110,7 @@ onValidate = (error) => {
       var name = e.target.name;
       var value = e.target.value;
       
-      this.props.productaction.handleChange(name,value)
+      this.props.addproductActions.handleChange(name,value)
     }
   }
 

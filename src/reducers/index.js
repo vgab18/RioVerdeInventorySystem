@@ -11,6 +11,7 @@ import addcategoryreducers from './addcategoryreducers';
 import categoryreducers from './categoryreducers';
 import newproductreducers from './newproductreducers';
 import addsupplierreducers from './addsupplierreducers';
+import inventoryreducers from './inventoryreducers';
 
 
 
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
     addcategory:addcategoryreducers,
     category:categoryreducers,
     newproduct:newproductreducers,
-    addsupplier:addsupplierreducers
+    addsupplier:addsupplierreducers,
+    inventory:inventoryreducers
 });
 
 export default rootReducer;

@@ -16,6 +16,7 @@ import * as products from '../../actions/newproductactions';
 import * as addproduct from '../../actions/addnewproductactions'
 import _ from 'lodash';
 import * as addsupplierActions from '../../actions/addnewsupplieractions';
+import * as inventoryActions from '../../actions/inventoryactions';
 
 
 class Inventory extends Component {
@@ -27,20 +28,16 @@ class Inventory extends Component {
     }
   }
   handleOpen = () => {
-   this.setState({open: true});
+   this.props.inventoryActions.openStockIn();
  };
 
  handleClose = () => {
-   this.setState({open: false});
+   this.props.inventoryActions.closeStockIn();
  };
 
- handleOpenSupplierModal = () => {
-   this.props.addsupplierActions.OpenAddSupplierModal();
- }
+ 
 
-hanldeCloseSupplierModal = () => {
-  this.props.addsupplierActions.CloseAddSupplierModal();
-}
+ 
 
 
 
@@ -117,7 +114,7 @@ hanldeCloseSupplierModal = () => {
           title="Stock In"
           actions={Actions}
           modal={false}
-          open={this.state.open}
+          open={this.props.inventory.openStockIn}
           autoScrollBodyContent={true}
           onRequestClose={this.handleClose}
           bodyStyle={'auto'}
@@ -131,9 +128,13 @@ hanldeCloseSupplierModal = () => {
             </Col>
             <Col md={4} style={{paddingRight:'5px',paddingLeft:'5px'}}>
             <select multiple="" class="form-control" id="exampleSelect2" style={{width:'100%'}} onChange={this.handleChangeUnitField} name="unit">
-              <option value="Chicken">Alturas</option>
-              <option value="Pork">ICM</option>
-              <option value="Coke">Suarez Minimart</option>
+              {
+                this.props.addsupplier.data.map((supplier,index) => {
+                  return (
+                    <option value={supplier.company}>{supplier.company}</option>
+                  )
+                })
+              }
             </select>
             </Col>
           </Row>
@@ -250,7 +251,6 @@ hanldeCloseSupplierModal = () => {
         <label for="exampleInputEmail1">Contact Number</label>
         <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
         </div>
-
         </Col>
         </Dialog>
 
@@ -266,7 +266,8 @@ function mapStateToProps(state) {
     auth: state.auth,
     product:state.product,
     newproduct:state.newproduct,
-    addsupplier:state.addsupplier
+    addsupplier:state.addsupplier,
+    inventory:state.inventory
   }
 }
 
@@ -275,7 +276,8 @@ function mapDispatchToProps(dispatch) {
     routerActions: bindActionCreators(routerActions,dispatch),
     productaction: bindActionCreators(products,dispatch),
     addproduct: bindActionCreators(addproduct,dispatch),
-    addsupplierActions: bindActionCreators(addsupplierActions,dispatch)
+    addsupplierActions: bindActionCreators(addsupplierActions,dispatch),
+    inventoryActions: bindActionCreators(inventoryActions,dispatch)
   }
 }
 

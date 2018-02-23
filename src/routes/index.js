@@ -29,7 +29,6 @@ let route = (
         <Route exact path="/inventory" component={Inventory}/>
         <Route exact path="/staffsupplierlist" component={Staffsupplierlist}/>
 
-
         <Route component={NotFound}/>
     </Switch>
 );

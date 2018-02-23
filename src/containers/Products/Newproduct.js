@@ -47,7 +47,6 @@ class Manageproduct extends Component {
 
   openproductmodal = () => {
     this.props.addproductActions.openAddproduct();
-    this.props.categoryActions.getCategory();
 
   }
   handleChangeCategoryField = (e) => {
@@ -86,7 +85,7 @@ class Manageproduct extends Component {
 
   componentWillMount()
     {
-      this.props.productaction.getProducts();
+      this.props.productActions.getProducts();
     }
 
   render() {
@@ -177,7 +176,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return{
     routerActions: bindActionCreators(routerActions,dispatch),
-    productaction: bindActionCreators(products,dispatch),
+    productActions: bindActionCreators(products,dispatch),
     addproductActions: bindActionCreators(addproductActions,dispatch),
     categoryActions: bindActionCreators(categoryActions,dispatch),
     addcategoryActions: bindActionCreators(addcategoryActions,dispatch),
