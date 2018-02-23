@@ -17,6 +17,12 @@ import * as addproduct from '../../actions/addnewproductactions'
 import _ from 'lodash';
 import * as addsupplierActions from '../../actions/addnewsupplieractions';
 import * as inventoryActions from '../../actions/inventoryactions';
+import * as categoryActions from '../../actions/addcategory';
+import Clear from 'material-ui/svg-icons/content/clear';
+import { EAFNOSUPPORT } from 'constants';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+
+
 
 
 class Inventory extends Component {
@@ -29,16 +35,27 @@ class Inventory extends Component {
   }
   handleOpen = () => {
    this.props.inventoryActions.openStockIn();
+
  };
 
  handleClose = () => {
    this.props.inventoryActions.closeStockIn();
  };
 
- 
+ addRows = () => {
+   this.props.inventoryActions.addRows();
+ }
 
+ deleteRows =(index) => {
+   this.props.inventoryActions.deleteRows(index);
+ }
  
-
+ changeProduct = (e,inventoryIndex) => {
+   var name = e.target.name;
+   var value = e.target.value
+   console.log(inventoryIndex)
+   this.props.inventoryActions.changeProduct(value,inventoryIndex);
+ }
 
 
 
@@ -99,9 +116,7 @@ class Inventory extends Component {
               <th>Price</th>
               <th>Quantity</th>
               <th>Unit</th>
-              <th>Timeframe/Days</th>
               <th>Total Amount</th>
-              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -127,11 +142,11 @@ class Inventory extends Component {
               <h4 style={{float:'right'}}>Supplier:*</h4>
             </Col>
             <Col md={4} style={{paddingRight:'5px',paddingLeft:'5px'}}>
-            <select multiple="" class="form-control" id="exampleSelect2" style={{width:'100%'}} onChange={this.handleChangeUnitField} name="unit">
+            <select multiple="" class="form-control" id="exampleSelect2" style={{width:'90%'}} onChange={this.handleChangeUnitField} name="unit">
               {
                 this.props.addsupplier.data.map((supplier,index) => {
                   return (
-                    <option value={supplier.company}>{supplier.company}</option>
+                  <option value={supplier.company}>{supplier.firstName+" "+supplier.lastName}</option>
                   )
                 })
               }
@@ -152,18 +167,30 @@ class Inventory extends Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {
+            this.props.inventory.data.map((inventory,inventoryIndex) => {
+              return(
+
+                <tr>
             <td>
-              <select multiple="" class="form-control" id="exampleSelect2" style={{width:'100%'}} onChange={this.handleChangeUnitField} name="unit">
-                <option value="Chicken">Chicken</option>
-                <option value="Pork">Pork</option>
-                <option value="Coke">Coke</option>
+              <select multiple="" class="form-control" id="exampleSelect2" style={{width:'100%'}}  onChange={(e)=>this.changeProduct(e,inventoryIndex)} name="unit">
+              {
+                this.props.newproduct.data.map((products,productIndex) => {
+                  return (
+                    <option name="stockName" value={productIndex}>{products.stockName}</option>
+                  )
+                })
+              }
               </select>
             </td>
             <td>
-              <div class="input-group">
-              <div class="input-group-addon">₱</div>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="price" style={{width:'90%'}}/>
+             <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">₱</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"/>
+                  </div>
               </div>
             </td>
             <td>
@@ -182,43 +209,21 @@ class Inventory extends Component {
                 <option value="Drinks">Drinks</option>
               </select>
             </td>
-          </tr>
-          <tr>
             <td>
-              <select multiple="" class="form-control" id="exampleSelect2" style={{width:'100%'}} onChange={this.handleChangeUnitField} name="unit">
-                <option value="Chicken">Chicken</option>
-                <option value="Pork">Pork</option>
-                <option value="Coke">Coke</option>
-              </select>
-            </td>
-            <td>
-              <div class="input-group">
-              <div class="input-group-addon">₱</div>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="price" style={{width:'90%'}}/>
-              </div>
-            </td>
-            <td>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="unit" style={{width:'90%'}}/>
-            </td>
-            <td>
-              <select multiple="" class="form-control" id="exampleSelect2" style={{width:'100%'}} onChange={this.handleChangeUnitField} name="unit">
-                <option value="Kg">Kg</option>
-                <option value="Liter">Liter</option>
-              </select>
-            </td>
-            <td>
-              <select multiple="" class="form-control" id="exampleSelect2" style={{width:'100%'}} onChange={this.handleChangeUnitField} name="unit">
-                <option value="Meat">Meat</option>
-                <option value="Seafood">Seafood</option>
-                <option value="Drinks">Drinks</option>
-              </select>
+              <FloatingActionButton backgroundColor='#F44336' mini={true} onClick={()=>this.deleteRows(inventoryIndex)}>
+                <Clear />
+              </FloatingActionButton>
             </td>
           </tr>
+          )
+        })
+          }
+         
         </tbody>
       </table>
 
       <Col md={6}>
-        <button type="button" class="btn btn-primary" style={{width:'150px'}}>+ Add More Row</button>
+        <button type="button" class="btn btn-primary" style={{width:'150px'}} onClick={this.addRows}>+ Add More Row</button>
       </Col>
       <br />
         </Dialog>
@@ -267,7 +272,8 @@ function mapStateToProps(state) {
     product:state.product,
     newproduct:state.newproduct,
     addsupplier:state.addsupplier,
-    inventory:state.inventory
+    inventory:state.inventory,
+    category:state.category
   }
 }
 
@@ -277,7 +283,8 @@ function mapDispatchToProps(dispatch) {
     productaction: bindActionCreators(products,dispatch),
     addproduct: bindActionCreators(addproduct,dispatch),
     addsupplierActions: bindActionCreators(addsupplierActions,dispatch),
-    inventoryActions: bindActionCreators(inventoryActions,dispatch)
+    inventoryActions: bindActionCreators(inventoryActions,dispatch),
+    categoryActions: bindActionCreators(categoryActions,dispatch)
   }
 }
 

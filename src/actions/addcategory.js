@@ -105,3 +105,15 @@ export let saveCategorySuccess = () => {
     type:types.ADD_CATEGORY_SAVE_DATA
   }
 }
+
+export let getCategories = () => {
+  return  (dispatcher,getState) => {
+    axios.get('/api/category')
+    .then((category) => {
+      var data = category.data;
+      dispatcher(getCategoryDataSucess(data))
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+}

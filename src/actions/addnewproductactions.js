@@ -2,6 +2,7 @@ import * as types from '../constants/AddNewProductActionTypes';
 import axios from 'axios';
 import { routerActions } from 'react-router-redux'
 import * as categoryActions from './categoryactions';
+import { getnewProductssSuccess } from './newproductactions';
 
 export let openAddproduct = () => {
   return (dispatcher,getState) => {
@@ -175,6 +176,18 @@ export let  setDefaultCategory = () => {
     dispatcher({
       type:types.ADD_NEW_PRODUCT_SET_DEFAULT_CATEGORY,
       addproduct
+    })
+  }
+}
+
+export let getProducts = () => {
+  return  (dispatcher,getState) => {
+    axios.get('/api/products')
+    .then((products) => {
+      var data = products.data;
+      dispatcher(getnewProductssSuccess(data))
+    }).catch((err) => {
+      console.log(err);
     })
   }
 }

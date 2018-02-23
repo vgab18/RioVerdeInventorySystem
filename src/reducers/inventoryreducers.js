@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 const initialState = {
     openStockIn:false,
-    openStockOut:false
+    openStockOut:false,
+    data:[]
 }
 
 export default function inventoryreducers(state=initialState,action={}) {
@@ -21,6 +22,30 @@ export default function inventoryreducers(state=initialState,action={}) {
             openStockIn:false
             }
         )
+
+        case types.SET_DEFAULT_PRODUCT:
+            return _.assign({},
+                state,
+                action.inventory
+                )
+
+        case types.ADD_MORE_ROWS_SUCCESS:
+            return _.assign({},
+                state,
+                action.inventory
+                )
+
+        case types.DELETE_ROWS_SUCCESS:
+            return _.assign({},
+                state,
+                action.inventory
+                )
+
+        case types:SELECT_PRODUCT_FIELD_CHANGE:
+            return _.assign({},
+                state,
+                action.inventory,
+            )
     
         default:
         return state
