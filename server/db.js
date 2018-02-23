@@ -52,7 +52,7 @@ module.exports = function (sequelize) {
          gender: 'Male',
          userName: 'admin',
          password: '12345',
-         role: 'Admin',
+         role: 'admin',
          status: true
      });
   }).catch(function (err) {

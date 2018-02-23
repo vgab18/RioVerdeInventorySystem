@@ -21,13 +21,13 @@ let route = (
         <Route exact path="/login" component={Login}/>
         <Route exact path="/navbar" component={Navlayout}/>
         <Route exact path="/users" component={requireAuthentication("admin",Users)}/>
-        <Route exact path="/manageproduct" component={Manageproduct}/>
-        <Route exact path="/producthistory" component={Producthistory}/>
-        <Route exact path="/supplierlist" component={Supplierlist}/>
-        <Route exact path="/transactionhistory" component={Transactionhistory}/>
-        <Route exact path="/kitchenrequest" component={Kitchen}/>
-        <Route exact path="/inventory" component={Inventory}/>
-        <Route exact path="/staffsupplierlist" component={Staffsupplierlist}/>
+        <Route exact path="/manageproduct" component={requireAuthentication("admin",Manageproduct)}/>
+        <Route exact path="/producthistory" component={requireAuthentication("admin",Producthistory)}/>
+        <Route exact path="/supplierlist" component={requireAuthentication("admin",Supplierlist)}/>
+        <Route exact path="/transactionhistory" component={requireAuthentication("admin",Transactionhistory)}/>
+        <Route exact path="/kitchenrequest" component={requireAuthentication("kitchen",Kitchen)}/>
+        <Route exact path="/inventory" component={requireAuthentication("staff",Inventory)}/>
+        <Route exact path="/staffsupplierlist" component={requireAuthentication("staff",Staffsupplierlist)}/>
 
         <Route component={NotFound}/>
     </Switch>

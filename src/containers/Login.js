@@ -37,7 +37,7 @@ class Login extends Component {
           <Row style={{align:'center'}}>
           <Col md={12}>
           <Col md={4}/>
-          <Col md={4} style={{padding:15,textAlign:'center'}}>
+            <Col md={4} style={{padding:15,textAlign:'center'}}>
              <legend style={{marginTop:'10px'}}><img src={logo} width="250"/></legend>
              <legend style={{marginTop:'10px'}}>Inventory System</legend>
               <LoginForm {...this.props} />
