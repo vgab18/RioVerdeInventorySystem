@@ -66,14 +66,14 @@ var db = require('./db')(sequelize);
 
 passport.use(new LocalStrategy(
   {
-    usernameField:'username',
+    usernameField:'userName',
     passwordField:'password'
   },
-  (req,username,passwordmdone) => {
+  (username,password,done) => {
     let User = db.User;
     User.findOne({
       where:{
-        [Op.and] : [{username:username},{password:password}]
+        [Op.and] : [{userName:username},{password:password}]
       }
     }).then(function (user) {
       if(user) {
@@ -94,13 +94,15 @@ passport.serializeUser(function (user,done) {
 
 passport.deserializeUser(function (id,done) {
   var User = db.User;
-  User.FindById(id).then(function (user) {
+  User.findById(id).then(function (user) {
     done(null,user)
   }).catch((err) => {
     done(err,false)
   })
 })
 
+var auth = require('./auth')(passport);
+app.use('/api',auth);
 
 // product table config
 var products = require('./products')(db.Product,db.Category,sequelize);

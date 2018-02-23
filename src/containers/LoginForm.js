@@ -42,7 +42,7 @@ class LoginForm extends Component{
       }
     }
   )
-  
+
 
   }
 
@@ -86,10 +86,15 @@ class LoginForm extends Component{
 
   onValidate = (error) => {
     if(error){
-     
+
     }
     else{
-      this.saveRecord()
+      var target = this.props.location.query.target;
+      this.props.authActions.login(this.state,target)
+      this.setState({
+        userName: '',
+        password: ''
+      })
     }
   };
 
@@ -100,26 +105,24 @@ class LoginForm extends Component{
   }
 
 
+
   render(){
+
+
     return(
       <form>
-          <FormGroup>
             <TextField
                 floatingLabelText="Username"
-                style={{width:'310px'}}
                 inputStyle={{color:'#0F3057',fontSize:20}}
                 errorText={this.props.getValidationMessages("userName").length === 0 ? null : this.props.getValidationMessages("userName")}
                 onBlur={()=>this.props.validate('userName')}
                 name="userName"
                 value={this.state.userName}
                 onChange={this.handlechange}
+                fullWidth={true}
               />
-              <HelpBlock> </HelpBlock>
-          </FormGroup>
-          <FormGroup>
             <TextField
                 floatingLabelText="Password"
-                style={{width:'310px'}}
                 inputStyle={{color:'#0F3057',fontSize:20}}
                 type="password"
                 errorText={this.props.getValidationMessages("password").length === 0 ? null : this.props.getValidationMessages("password")}
@@ -127,13 +130,12 @@ class LoginForm extends Component{
                 onBlur={()=>this.props.validate('password')}
                 value={this.state.password}
                 onChange={this.handlechange}
+                fullWidth={true}
               />
-              <HelpBlock> </HelpBlock>
-          </FormGroup>
           <div className="button">
-              <ButtonGroup>
-                  <Button  bsStyle="primary" type="submit" style={{width:'250px',marginTop:'40px',marginBottom:'80px'}}
-                  onClick={()=>this.props.routerActions.push("/users")}>Login</Button>
+              <ButtonGroup block>
+                  <Button  bsStyle="primary" type="submit" style={{marginTop:'40px',marginBottom:'80px'}}
+                  onClick={this.onFormSubmit} block>Login</Button>
               </ButtonGroup>
           </div>
       </form>

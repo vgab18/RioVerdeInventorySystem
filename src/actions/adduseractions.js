@@ -67,6 +67,7 @@ export let getUserData = (id) => {
     axios.get('/api/users/'+id)
     .then((users) => {
       dispatcher(setEditToTrue());
+      users.data.confirmpassword = users.data.password
       dispatcher(getUsersDataSucess(users.data));
     })
   }

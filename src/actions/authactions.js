@@ -1,166 +1,83 @@
 import * as types from '../constants/AuthActionTypes';
 import {post,get} from '../utils/RestClient';
-import { routerActions } from 'react-router-redux'
-import * as  healthchecks from './healthchecks';
-import * as dialogactions from './dialogactions'
+import {routerActions} from 'react-router-redux';
 
 
+export let login = (state,target) => {
+  return (dispatcher,getState) => {
+    post('/api/authentication',{},{
+      headers:{
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      params:state
+    }).then((response) => {
+      dispatcher({
+        type: types.AUTH_LOGIN_PENDING
+      })
+      dispatcher(loginSuccess(target))
+    }).catch((err) => {
+      console.log(err);
+      dispatcher(loginFailed())
+    })
+  }
+}
 
+export let loginSuccess = (target) => {
+  return (dispatcher, getState) => {
+    get('/api/account')
+      .then((account) => {
+        let {router} = getState();
+        // var target = router.location.query.target;
+        dispatcher(accountReceived(account.data));
 
-export let accountReceived = (account,fromRefresh)=>{
+        if (target) {
+          dispatcher(routerActions.push(target))
+        }else{
+          dispatcher(routerActions.push("/users"))
+        }
+        localStorage.login = btoa(account.data.firstname)
+      }).catch((err) => {
+        localStorage.removeItem("login")
+        dispatcher(routerActions.push("/login"))
+        console.log(err);
+      })
+  }
+}
 
-
+export let loginFailed = () => {
+  return (dispatcher,getState) =>{
     return {
-        type: types.AUTH_ACCOUNTRECIEVE,
-        account:account,
-        fromRefresh:fromRefresh
+        type: types.AUTH_LOGIN_FAILED,
     }
-};
-
-export let loginSuccess= (targetPath,fromRefresh)=>{
-
-
-    return dispatch => {
+  }
+}
 
 
-        get('/api/account').then((response)=>{
-            // refresh CSRF
-            dispatch(healthchecks.ping());
+export let accountReceived = (account) => {
+  return {
+    type: types.AUTH_ACCOUNT_RECEIVE,
+    account,
+  }
+}
 
-            let account = response.data;
+export let logout = () => {
+  return (dispatcher,getState) => {
+    post('/api/logout',{},{
+      headers:{
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    }).then((response) => {
+      localStorage.removeItem("login")
+      dispatcher(routerActions.push('/login'))
+      dispatcher(logoutSuccess(response));
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+}
 
-            dispatch(accountReceived(account,fromRefresh));
-
-            if(!account.active){
-                dispatch(routerActions.push("/user/forchangepassword"));
-            }
-            else {
-                dispatch(routerActions.push(targetPath));
-            }
-
-            localStorage.setItem("login",btoa(response.data.login));
-
-
-
-        }).catch((error)=>{
-
-            if (error.response) {
-                localStorage.removeItem("login");
-                // refresh CSRF
-                dispatch(healthchecks.ping());
-                if(targetPath)
-                    dispatch(routerActions.push("/login?targetPath="+targetPath)); // go back to login
-                else{
-                    dispatch(routerActions.push("/login"));
-                }
-            }
-
-
-        });
-
-    };
-
-};
-
-
-
-export let loginFailed = ()=>{
-
-    return {
-        type: types.AUTH_LOGIN_FAILED
-    }
-};
-
-export let login= (loginstate,targetPath)=>{
-
-
-
-    return dispatch => {
-
-
-
-        post('/api/authentication',{},{
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            params:loginstate
-        }).then((response)=>{
-            dispatch(loginSuccess(targetPath));
-        }).catch((error)=>{
-            dispatch(loginFailed());
-            dispatch(healthchecks.ping());
-        });
-
-    }
-};
-
-export let logoutSuccess= (targetPath)=>{
-
-    return {
-        type: types.AUTH_LOGOUT_SUCCESS,
-        targetPath
-    }
-
-};
-
-
-
-export let logout= (targetPath)=>{
-
-    return dispatch => {
-        post('/api/logout',{},{
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then((response)=>{
-            localStorage.removeItem("login");
-            dispatch(routerActions.push("/login"  + (targetPath ? "?targetPath="+targetPath:"")));
-            dispatch(logoutSuccess(targetPath));
-            dispatch(healthchecks.ping());
-        }).catch((error)=>{
-            localStorage.removeItem("login");
-            dispatch(logoutSuccess(targetPath));
-            dispatch(routerActions.push("/login"  + (targetPath ? "?targetPath="+targetPath:"")));
-            dispatch(healthchecks.ping());
-        });
-
-    }
-};
-
-
-
-export let updateUserStart= ()=>{
-
-    return {
-        type: types.AUTH_UPDATEUSERSTART
-    }
-
-};
-
-export let updateUserSuccess= ()=>{
-
-    return {
-        type: types.AUTH_UPDATEUSERFINISHED
-    }
-
-};
-
-
-
-
-export let updateUser= (user)=>{
-    return dispatch => {
-        dispatch(updateUserStart());
-
-
-        post('/api/account',user).then((response)=>{
-            dispatch(updateUserSuccess(response.data));
-            //dispatch(dialogactions.addNotification('Success','Record Save Successfully','success','bl'));
-            dispatch(dialogactions.openAlert("Record save successfully",'Success','success'));
-        }).catch((error)=>{
-            dispatch(dialogactions.openAlert("Failed to update record",'Failure'));
-            dispatch(updateUserSuccess());
-        });
-
-    }
-};
+export let logoutSuccess = () => {
+  return {
+    type: types.AUTH_LOGOUT_SUCCESS
+  }
+}

@@ -7,7 +7,7 @@ import {Well,
         Button,
         ButtonGroup,
         DropdownButton,Grid,Modal,
-      MenuItem} from 'react-bootstrap';
+      MenuItem,Glyphicon} from 'react-bootstrap';
 import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -53,7 +53,7 @@ class Navlayout extends Component {
             </li>
             <li className="nav-item">
                 <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Stock</a>
-                
+
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#" onClick={()=>this.props.routerActions.push("/producthistory")}>Product History</a>
@@ -67,8 +67,17 @@ class Navlayout extends Component {
 
 
             </ul>
+
+
             <form className="form-inline my-2 my-lg-0">
-              <button className="btn btn-secondary my-2 my-sm-0" type="submit" onClick={()=>this.props.routerActions.push("/")}>Logout</button>
+              <ul className="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Username</a>
+                             <div class="dropdown-menu">
+                                 <a class="dropdown-item" onClick={()=>this.props.routerActions.push("/")}>Logout</a>
+                             </div>
+                           </li>
+              </ul>
             </form>
           </div>
           </Grid>

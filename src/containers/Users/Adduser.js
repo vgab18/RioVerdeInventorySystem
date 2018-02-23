@@ -133,6 +133,15 @@ class Adduser extends Component {
 
 onFormSubmit = (event) => {
   event.preventDefault();
+    this.setState({
+      firstName: true,
+      lastname: true,
+      address: true,
+      contactNo: true,
+      userName: true,
+      password: true,
+      confirmpassword: true
+    })
 
     this.props.validate(this.onValidate);
 };
@@ -159,7 +168,7 @@ getErrorField = (field) => {
 
 onValidate = (error) => {
   if(error){
-    
+    console.log("errpr");
   }
   else{
     this.addUser()
@@ -205,8 +214,8 @@ render(){
         </FormGroup>
           <div class={"form-group has-"+ this.getClasses("container",'firstName')}>
             <label for="exampleInputEmail1">First Name</label>
-            <input name="firstName" 
-              onChange={this.handleChange()} 
+            <input name="firstName"
+              onChange={this.handleChange()}
               onBlur={()=>{
                 this.setState({
                   firstName: true
@@ -214,8 +223,8 @@ render(){
                 this.props.validate('firstName');
               }}
               class={"form-control is-"+ this.getClasses("input",'firstName')}
-              value={this.props.adduser.firstName} 
-              type="text" 
+              value={this.props.adduser.firstName}
+              type="text"
               id="inputValid"
             />
             <div class={this.getClasses("input",'firstName') + "-feedback"} style={this.state.firstName ? {display: "block"} : {display: "none"}}>
@@ -226,8 +235,8 @@ render(){
           <label for="exampleInputEmail1">Last Name</label>
           <input name="lastName"
             onChange={this.handleChange()}
-            value={this.props.adduser.lastName} type="text" class={"form-control is-"+ this.getClasses("input",'lastName')} 
-            id="inputValid" 
+            value={this.props.adduser.lastName} type="text" class={"form-control is-"+ this.getClasses("input",'lastName')}
+            id="inputValid"
             onBlur={()=>{
               this.setState({
                 lastName: true
@@ -240,10 +249,10 @@ render(){
           </div>
           <div class={"form-group has-"+ this.getClasses("container",'address')}>
           <label for="exampleInputEmail1">Address</label>
-          <input name="address" 
+          <input name="address"
             onChange={this.handleChange()}
             value={this.props.adduser.address} type="text" class={"form-control is-"+ this.getClasses("input",'address')}
-            id="inputValid" 
+            id="inputValid"
             onBlur={()=>{
               this.setState({
                 address: true
@@ -259,7 +268,7 @@ render(){
           <input name="contactNo"
             onChange={this.handleChange()}
             value={this.props.adduser.contactNo} type="number" class={"form-control is-"+ this.getClasses("input",'contactNo')}
-            id="inputValid" 
+            id="inputValid"
             onBlur={()=>{
               this.setState({
                 contactNo: true
@@ -294,8 +303,8 @@ render(){
             </Row>
           <div class={"form-group has-"+ this.getClasses("container",'userName')}>
           <label for="exampleInputEmail1">Username</label>
-          <input name="userName" 
-            onChange={this.handleChange()} 
+          <input name="userName"
+            onChange={this.handleChange()}
             value={this.props.adduser.userName} type="email" class={"form-control is-"+ this.getClasses("input",'userName')}
             id="inputValid"
             onBlur={()=>{
@@ -329,7 +338,7 @@ render(){
           <input name="confirmpassword"
             onChange={this.handleChange()}
             value={this.props.adduser.confirmpassword} type="password" class={"form-control is-"+ this.getClasses("input",'confirmpassword')}
-             id="inputValid" 
+             id="inputValid"
              onBlur={()=>{
               this.setState({
                 confirmpassword: true
