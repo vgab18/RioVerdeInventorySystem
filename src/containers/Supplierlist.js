@@ -113,6 +113,7 @@ class Supplierlist extends Component {
               <th>Contact No.</th>
               <th>Status</th>
               <th>Actions</th>
+              <th>Message</th>
             </tr>
           </thead>
           <tbody>
@@ -126,6 +127,7 @@ class Supplierlist extends Component {
                   <td>{supplier.contactNo}</td>
                   <td>{supplier.status ? "Active" : "Inactive"}</td>
                   <td><button type="button" class="btn btn-warning" onClick={()=>this.openmodal(supplier.id)}>Edit</button></td>
+                  <td><h6>Glyphicon</h6></td>
                 </tr>
               )
           })}

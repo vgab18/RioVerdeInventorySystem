@@ -4,7 +4,7 @@ import { routerActions } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import * as authActions from '../actions/authactions'
 
-export let requireAuthentication = (role,PassedComponent) => {
+export let RequireAuthentication = (PassedComponent) => {
 
 
   class RenderComponent extends Component {
@@ -21,7 +21,7 @@ export let requireAuthentication = (role,PassedComponent) => {
           }
         }else {
           if (!this.props.auth.loggingIn) {
-            dispatch(routerActions.push('/login?target=/users'))
+            dispatch(routerActions.push('/login?target=/dashboard'))
           }
         }
     }

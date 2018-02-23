@@ -13,6 +13,7 @@ import Paper from 'material-ui/Paper';
 import logo from '../Style/images/logo.jpg';
 import TextField from 'material-ui/TextField';
 import LoginForm from './LoginForm';
+import * as authActions from '../actions/authactions';
 
 
 
@@ -36,9 +37,10 @@ class Login extends Component {
           <Row style={{align:'center'}}>
           <Col md={12}>
           <Col md={4}/>
-          <Col md={4} style={{padding:15,borderStyle:'solid',textAlign:'center'}}>
-             <legend style={{marginTop:'10px'}}>User Login</legend>
-              <LoginForm />
+          <Col md={4} style={{padding:15,textAlign:'center'}}>
+             <legend style={{marginTop:'10px'}}><img src={logo} width="250"/></legend>
+             <legend style={{marginTop:'10px'}}>Inventory System</legend>
+              <LoginForm {...this.props} />
              </Col>
              <Col md={4}/>
              </Col>
@@ -60,7 +62,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return{
-    routerActions: bindActionCreators(routerActions,dispatch)
+    routerActions: bindActionCreators(routerActions,dispatch),
+    authActions: bindActionCreators(authActions,dispatch)
   }
 }
 

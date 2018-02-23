@@ -14,7 +14,7 @@ const initialState ={
   role:'Staff',
   status:true,
   seepassword: '',
-
+  confirmpassword: '',
   open:false
 }
 

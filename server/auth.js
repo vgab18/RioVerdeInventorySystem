@@ -1,22 +1,20 @@
 var express = require('express');
-var passport = require('passport')
-var auth = require('basic-auth')
-
+var passport = require('passport');
 var router = express.Router();
 
 module.exports = function (passport) {
 
-
-  // create the login get and post routes
-
-  router.get('/authenticatedAccount', function (req,res) {
+  router.get('/account', function (req,res) {
     if (!req.user) {
+      //no authenticated account
       res.sendStatus(401)
     }else {
+      //send the authenticated account
       res.status(200).json(req.user)
     }
   })
 
+  //this is where authentication happens
   router.post('/authentication',
     passport.authenticate('local'),(req,res) => {
       res.send("OK")

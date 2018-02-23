@@ -44,13 +44,13 @@ class AddnewcategoryForm extends Component {
     componentWillMount(){
         this.props.clearValidations()
       }
-    
+
       getValidatorData = () => {
         return this.props.addcategory
       };
-    
+
       getClasses = (div,field) => {
-    
+
         if(this.state[field]){
           if (div === "container") {
             return classnames({
@@ -65,13 +65,13 @@ class AddnewcategoryForm extends Component {
           }
         }
       }
-    
+
       onFormSubmit = (event) => {
         event.preventDefault();
-      
+
           this.props.validate(this.onValidate);
       };
-      
+
       getErrorField = (field) => {
         var error   = this.props.errors[field];
         if(!error)
@@ -91,10 +91,10 @@ class AddnewcategoryForm extends Component {
         else
           return (<span>{error || ''}</span>);
       };
-      
+
       onValidate = (error) => {
         if(error){
-          
+
         }
         else{
           this.props.addnewProduct()

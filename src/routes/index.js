@@ -18,9 +18,9 @@ import Staffsupplierlist from '../containers/Staff/Staffsupplierlist';
 
 let route = (
     <Switch>
-        <Route exact path="/" component={Login}/>
+        <Route exact path="/login" component={Login}/>
         <Route exact path="/navbar" component={Navlayout}/>
-        <Route exact path="/users" component={Users}/>
+        <Route exact path="/users" component={requireAuthentication("admin",Users)}/>
         <Route exact path="/manageproduct" component={Manageproduct}/>
         <Route exact path="/producthistory" component={Producthistory}/>
         <Route exact path="/supplierlist" component={Supplierlist}/>

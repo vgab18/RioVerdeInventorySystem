@@ -1,101 +1,41 @@
-import  * as actions from '../constants/AuthActionTypes';
-import  update from 'react-addons-update';
+import * as types from '../constants/AuthActionTypes';
+import _ from 'lodash';
+
+const initialState={
+  isAuthenticated: false,
+  errors: [],
+  account: null,
+  logoutSuccess: false,
+  loggingIn: false,
+}
+
+export default function authreducers(state=initialState,action={}) {
+
+  switch (action.type) {
+    case types.AUTH_ACCOUNT_RECEIVE:
+      return _.assign({},state,{
+        account: action.account,
+        isAuthenticated: true,
+      })
+    case types.AUTH_LOGIN_PENDING:
+      return _.assign({},state,{
+        loggingIn: true,
+      })
+    case types.AUTH_LOGIN_FAILED:
+      return _.assign({},state,{
+        logoutSuccess: false,
+      })
+    case types.AUTH_LOGOUT_SUCCESS:
+      return _.assign({},state,{
+        isAuthenticated: false,
+        errors: [],
+        account: null,
+        logoutSuccess: true,
+        loggingIn: false,
+      })
 
 
-
-export default function authreducers(state={
-    isAuthenticated: false,
-    hideAdminNav:false,
-    isWrongCredentials: false,
-    account:null,
-    logoutSuccess:false,
-    fromStart:false,
-    disableSaveEditUser: false
-}, action={}) {
-
-    switch (action.type) {
-
-        case actions.AUTH_SHOWADMINNAV:
-            return   update(state,{
-                hideAdminNav:{
-                    $set:false
-                }
-            });
-
-        case actions.AUTH_HIDEADMINNAV:
-            return   update(state,{
-                hideAdminNav:{
-                    $set:true
-                }
-            });
-
-        case actions.AUTH_ACCOUNTRECIEVE:
-            return update(state,{
-                isAuthenticated:{
-                    $set:true
-                },
-                isWrongCredentials: {
-                    $set:false
-                },
-                logoutSuccess: {
-                    $set:false
-                },
-                account:{
-                    $set:action.account
-                },
-                fromStart: {
-                    $set:(action.fromRefresh) ?  false  :true
-                }
-            });
-
-        case actions.AUTH_LOGOUT_FAILED:
-            return update(state,{
-                isAuthenticated: {
-                    $set:false
-                },
-                isWrongCredentials: {
-                    $set:true
-                },
-                logoutSuccess:{
-                    $set:false
-                },
-                account:{
-                    $set:null
-                }
-            });
-        case actions.AUTH_LOGOUT_SUCCESS:
-            return update(state,{
-                logoutSuccess:{
-                    $set: !action.targetPath
-                },
-                isAuthenticated: {
-                    $set:false
-                },
-                isWrongCredentials: {
-                    $set:false
-                },
-                account:{
-                    $set:null
-                }
-            });
-
-        case actions.AUTH_UPDATEUSERSTART:
-            return update(state,{
-                disableSaveEditUser:{
-                    $set:true
-                }
-            });
-
-        case actions.AUTH_UPDATEUSERFINISHED:
-            return update(state,{
-                disableSaveEditUser:{
-                    $set:false
-                }
-            });
-
-        default:
-            return state;
-    }
-
-
+    default:
+      return state
+  }
 }
