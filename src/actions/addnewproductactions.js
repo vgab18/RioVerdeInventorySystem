@@ -145,7 +145,7 @@ export let saveNewProduct = () => {
     .then((products) => {
       let data = products.data;
       dispatcher(this.saveNewProductSuccess())
-      dispatcher(routerActions.push("/products"))
+      // dispatcher(routerActions.push("/products"))
     })
   })
 }

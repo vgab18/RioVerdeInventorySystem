@@ -125,7 +125,7 @@ class SupplierlistForm extends Component {
     addSupplier = () => {
         if (this.props.addsupplier.edit) {
           this.props.addsupplierActions.saveSupplier();
-          this.props.addsupplierActions.getSuppliers();
+        //   this.props.addsupplierActions.getSuppliers();
         }
         else {
           this.props.addsupplierActions.addSupplier();

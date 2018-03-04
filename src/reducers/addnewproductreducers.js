@@ -103,6 +103,15 @@ switch (action.type){
                action.addproduct
             )
 
+        case types.OPEN_EDIT_PRODUCT_DATA_MODAL:
+            return _.assign({},
+              state,{
+                edit:true,
+                open:true,
+                id: action.id,
+              }
+            )
+
 
 
 

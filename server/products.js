@@ -18,7 +18,7 @@ module.exports = function (Product,Category,sequelize) {
   })
    //add products
   router.post('/',function (req,res,next) {
-
+    console.log(req.body);
     Product.create(req.body.data)
       .then(function (products) {
         console.log(products);

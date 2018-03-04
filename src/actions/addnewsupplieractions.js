@@ -85,6 +85,7 @@ export let saveSupplier = () => {
     .then((suppliers) => {
       let data = suppliers.data;
       dispatcher(editSupplierDataSuccess())
+      dispatcher(getSuppliers())
     })
   })
 }

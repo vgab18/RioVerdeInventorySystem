@@ -7,6 +7,7 @@ export let getProducts = () => {
     .then((products) => {
 
       var data = products.data;
+      console.log(data);
       dispatcher(getnewProductssSuccess(data))
     }).catch((err) => {
       console.log(err);
@@ -16,6 +17,7 @@ export let getProducts = () => {
 
 export let getnewProductssSuccess = (data) => {
   return{
+    
     type:types.GET_PRODUCTS_DATA_SUCCESS,
     data
   }

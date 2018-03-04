@@ -41,6 +41,7 @@ class Manageproduct extends Component {
   }
 
   openmodal = (id) =>{
+    console.log(id);
     this.props.addproductActions.getProductData(id)
     this.props.categoryActions.getCategory()
   };
