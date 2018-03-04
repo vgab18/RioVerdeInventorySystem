@@ -10,7 +10,7 @@
 /build
 
 # server
-/server/database
+/server/database/rioverde.db
 
 # misc
 .DS_Store
