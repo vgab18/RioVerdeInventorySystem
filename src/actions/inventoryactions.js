@@ -3,6 +3,7 @@ import axios from 'axios';
 import { routerActions } from 'react-router-redux'
 import * as supplieractions from './addnewsupplieractions';
 import * as productsActions from './addnewproductactions';
+import _ from 'lodash'
 
 export let openStockIn = () => {
     return (dispatcher,getState) => {
@@ -11,7 +12,6 @@ export let openStockIn = () => {
       });
       dispatcher(supplieractions.getSuppliers());
       dispatcher(productsActions.getProducts());
-      dispatcher(setDefaultProduct());
     }
   }
 
@@ -23,22 +23,14 @@ export let closeStockIn = () => {
   }
 }
 
-export let setDefaultProduct = () => {
-    return (dispatcher,getState) => {
-      let{inventory, newproduct} = getState();
-      newproduct.data[0].rowIndex = 0;
-      inventory.data[0] = newproduct.data[0];
-      dispatcher({
-      type:types.SET_DEFAULT_PRODUCT,
-      inventory
-      });
-  }
-}
+
 
 export let addRows = () => {
     return (dispatcher,getState) => {
       let {inventory, newproduct} = getState();
-      inventory.data.push( newproduct.data[0]);
+      const product = newproduct.data[0]
+      product.index = 0
+      inventory.data.push( product);
       dispatcher({
         type:types.ADD_MORE_ROWS_SUCCESS,
         inventory
@@ -47,10 +39,8 @@ export let addRows = () => {
 }
 
 export let deleteRows = () => {
-  console.log();
     return (dispatcher,getState) => {
       let {inventory} = getState();
-      inventory.data.splice(0,1);
       dispatcher({
         type:types.DELETE_ROWS_SUCCESS,
         inventory
@@ -59,18 +49,58 @@ export let deleteRows = () => {
   
 }
 
-export let changeProduct = (productIndex,inventoryIndex) => {
+export let changeProduct = (value,name) => {
   return (dispatcher,getState) => {
     var { inventory,newproduct } = getState();
-    inventory.data[inventoryIndex] = newproduct.data[productIndex];
-    
+
+    inventory[name] = parseInt(value)
+
   dispatcher({
     type:types.SELECT_PRODUCT_FIELD_CHANGE,
     inventory
   })
   }
-
   }
+
+// export let getProduct = (id) => {
+//     return (dispatcher,getState) => {
+//       axios.get('api/products'+id)
+//       .then((products) => {
+
+//       })
+//     }
+// }
+
+export let changeSupplier = (value,name) => {
+  return (dispatcher,getState) => {
+    var {inventory} = getState();  
+
+    inventory[name] = parseInt(value)
+
+    dispatcher({
+      type:types.SELECT_SUPPLIER_FIELD_CHANGE,
+      inventory
+    })
+  }
+}
+
+export let handlePriceField = (value,name) => {
+    return{
+      type:types.ADD_ITEM_PRICE_FIELD_CHANGE,
+      value
+    }
+}
+
+// export const addProductIntoRow = () => {
+//     return (dispatcher, getState) => {
+    
+//     let product = {}
+
+//     product.stockName = 
+      
+//     }
+// }; 
+
   
 
 

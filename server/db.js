@@ -155,6 +155,43 @@ module.exports = function (sequelize) {
   Supplier.sync({force: false})
 
 
+
+  //===================Inventory==================\\
+ 
+  const Inventory = sequelize.define('supplier',{
+    id: {
+      type: Sequelize.INTEGER,
+      field: 'id',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    stockName: {
+      type: Sequelize.STRING
+    },
+    price: {
+      type: Sequelize.INTEGER
+    },
+    quantity: {
+      type: Sequelize.INTEGER
+    },
+    unit: {
+      type: Sequelize.STRING
+    },
+    categoryName: {
+      type: Sequelize.STRING
+    },
+    totalamount: {
+      type: Sequelize.INTEGER
+    },
+    timeframe: {
+      type: Sequelize.DATE
+    },
+  })
+
+  Inventory.sync({force: false})
+
+  Category.belongsTo(Inventory);
+
   return {
     User: User,
     Product: Product,

@@ -1,8 +1,9 @@
 import React from 'react';
 import {
     Route,
-    Switch
+    Switch,
 } from 'react-router-dom';
+import {Redirect} from 'react-router';
 import Login from '../containers/Login';
 import Navlayout from '../containers/Navlayout';
 import Users from '../containers/Users/Users';
@@ -28,8 +29,7 @@ let route = (
         <Route exact path="/kitchenrequest" component={requireAuthentication("kitchen",Kitchen)}/>
         <Route exact path="/inventory" component={requireAuthentication("staff",Inventory)}/>
         <Route exact path="/staffsupplierlist" component={requireAuthentication("staff",Staffsupplierlist)}/>
-
-        <Route component={NotFound}/>
+        <Redirect to="/users" />
     </Switch>
 );
 

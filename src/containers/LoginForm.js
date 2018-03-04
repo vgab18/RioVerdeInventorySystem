@@ -135,7 +135,7 @@ class LoginForm extends Component{
           <div className="button">
               <ButtonGroup block>
                   <Button  bsStyle="primary" type="submit" style={{marginTop:'40px',marginBottom:'80px'}}
-                  onClick={this.onFormSubmit} block>Login</Button>
+                  onClick={this.onFormSubmit} onKeyUp={this.onFormSubmit}>Login</Button>
               </ButtonGroup>
           </div>
       </form>

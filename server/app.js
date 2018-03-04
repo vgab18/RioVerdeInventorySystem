@@ -101,24 +101,31 @@ passport.deserializeUser(function (id,done) {
   })
 })
 
+function requireAuthentication(req,res,next) {
+  if (!req.user) 
+    res.sendStatus(401)
+  else
+    next()
+}
+
 var auth = require('./auth')(passport);
 app.use('/api',auth);
 
 // product table config
 var products = require('./products')(db.Product,db.Category,sequelize);
-app.use('/api/products',products);
+app.use('/api/products',requireAuthentication,products);
 
 // category table config
 var category = require('./category')(db.Category);
-app.use('/api/category',category);
+app.use('/api/category',requireAuthentication,category);
 
 // supplier tabale config
 var suppliers = require('./suppliers')(db.Supplier);
-app.use('/api/suppliers',suppliers);
+app.use('/api/suppliers',requireAuthentication,suppliers);
 
 // user table config
 var users = require('./users')(db.User);
-app.use('/api/users',users);
+app.use('/api/users',requireAuthentication,users);
 
 
 

@@ -1,10 +1,14 @@
 import * as types from '../constants/InventoryActionTypes.js';
 import _ from 'lodash';
+import update from 'react-addons-update'
 
 const initialState = {
     openStockIn:false,
     openStockOut:false,
-    data:[]
+    selectedSupplier: 0,
+    selectedProduct: 0,
+    price: 0,
+    quantity: 0
 }
 
 export default function inventoryreducers(state=initialState,action={}) {
@@ -23,12 +27,6 @@ export default function inventoryreducers(state=initialState,action={}) {
             }
         )
 
-        case types.SET_DEFAULT_PRODUCT:
-            return _.assign({},
-                state,
-                action.inventory
-                )
-
         case types.ADD_MORE_ROWS_SUCCESS:
             return _.assign({},
                 state,
@@ -41,10 +39,20 @@ export default function inventoryreducers(state=initialState,action={}) {
                 action.inventory
                 )
 
-        case types:SELECT_PRODUCT_FIELD_CHANGE:
+        case types.SELECT_SUPPLIER_FIELD_CHANGE:
+            return Object.assign({}, state, action.inventory)
+
+        case types.SELECT_PRODUCT_FIELD_CHANGE:
             return _.assign({},
                 state,
-                action.inventory,
+                action.inventory)
+                
+        case types.ADD_ITEM_PRICE_FIELD_CHANGE:
+            return _.assign({},
+                state,
+                {
+                    price: action.value
+                }
             )
     
         default:
