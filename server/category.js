@@ -35,6 +35,7 @@ module.exports = function (Category) {
         .then(function (category) {
           res.json(category)
         }).catch(function (err) {
+          console.log(err)
           res.sendStatus(404);
         });
     })

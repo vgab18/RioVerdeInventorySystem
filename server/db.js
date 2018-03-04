@@ -115,7 +115,11 @@ module.exports = function (sequelize) {
       type: Sequelize.STRING,
       unique:true
     },
+   supplierId: {
+     type: Sequelize.STRING
+   }
   });
+
 
 
   Category.sync({force: false})

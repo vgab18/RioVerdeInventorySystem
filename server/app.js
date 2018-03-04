@@ -117,7 +117,7 @@ app.use('/api/products',requireAuthentication,products);
 
 // category table config
 var category = require('./category')(db.Category);
-app.use('/api/category',requireAuthentication,category);
+app.use('/api/category',category);
 
 // supplier tabale config
 var suppliers = require('./suppliers')(db.Supplier);

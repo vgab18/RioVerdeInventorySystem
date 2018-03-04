@@ -97,7 +97,7 @@ class AddnewcategoryForm extends Component {
 
         }
         else{
-          this.props.addnewProduct()
+          this.props.addCategory()
         }
       };
 
@@ -114,11 +114,12 @@ class AddnewcategoryForm extends Component {
           categoryName:false
         })
       }
+      
 
 render(){
 
     const CategoryActions = [
-        <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}} onClick={this.addCategory}>Save</button>,
+        <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}} onClick={this.onFormSubmit}>Save</button>,
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.closecategorymodal} style={{marginRight:10}}>Close</button>,
       ];
 
@@ -141,9 +142,7 @@ render(){
             onChange={this.handleAddnewCatergoryField}
             value={this.props.addcategory.categoryName}
             onBlur={()=>{
-                this.setState({
-                  categoryName: true
-                })
+                this.setState({categoryName: true})
                 this.props.validate('categoryName');
               }}/>
             <div class={this.getClasses("input",'categoryName') + "-feedback"} style={this.state.categoryName ? {display: "block"} : {display: "none"}}>

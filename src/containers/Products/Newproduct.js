@@ -107,7 +107,7 @@ class Manageproduct extends Component {
         />
         <AddnewcategoryForm
         {...this.props}
-        
+        addCategory={this.addCategory} 
         />
 
         {/* <AddnewcategoryForm
@@ -169,7 +169,6 @@ function mapStateToProps(state) {
     addproduct:state.addproduct,
     addcategory:state.addcategory,
     category:state.category
-
   }
 }
 
