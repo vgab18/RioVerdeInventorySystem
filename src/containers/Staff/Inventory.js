@@ -63,9 +63,15 @@ class Inventory extends Component {
  }
 
  handlePriceField = (e) => {
-   var name = e.target.value
+   var name = e.target.name
    var value = e.target.value
    this.props.inventoryActions.handlePriceField(value,name);
+ }
+
+ handlequantityfield = (e) => {
+   var name = e.target.value
+   var value = e.target.value
+   this.props.inventoryActions.handlequantityfield(value,name)
  }
 
 
@@ -209,7 +215,7 @@ class Inventory extends Component {
               </div>
             </Col>
             <Col md={3}>
-              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="quantity"  name="unit" style={{width:'100%'}}/>
+              <input type="number" onChange={this.handlequantityfield} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="quantity" value={this.props.inventory.quantity}  name="quantity" style={{width:'100%'}}/>
             </Col>
             <Col md={2} style={{textAlign:'center'}}>
               <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].unit || ''}</p>
@@ -221,7 +227,7 @@ class Inventory extends Component {
           </Row>
           <Row>
             <Col md={12}>
-              <RaisedButton label="+ADD" primary={true} fullWidth={true}/>
+              <RaisedButton label="+ADD" primary={true} fullWidth={true} onClick={this.addRows}/>
             </Col>
           </Row>
         </Grid>

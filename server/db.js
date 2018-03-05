@@ -176,15 +176,18 @@ module.exports = function (sequelize) {
     },
     userId: {
       type: Sequelize.INTEGER
+    },
+    type: {
+      type: Sequelize.STRING
     }
 
   })
 
   Inventory.sync({force: false})
-  User.belongsTo(Inventory);
-  Product.belongsTo(Inventory);
-  Supplier.belongsTo(Inventory);
-  Category.belongsTo(Inventory);
+  Inventory.belongsTo(User)
+  Inventory.belongsTo(Product)
+  Inventory.belongsTo(Supplier)
+  Inventory.belongsTo(Category)
 
 
   return {
@@ -192,6 +195,7 @@ module.exports = function (sequelize) {
     Product: Product,
     Category: Category,
     Supplier: Supplier,
+    Inventory: Inventory
 
   }
 
