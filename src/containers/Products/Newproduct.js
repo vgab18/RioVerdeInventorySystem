@@ -41,7 +41,6 @@ class Manageproduct extends Component {
   }
 
   openmodal = (id) =>{
-    console.log(id);
     this.props.addproductActions.getProductData(id)
     this.props.categoryActions.getCategory()
   };
@@ -144,7 +143,7 @@ class Manageproduct extends Component {
             <tr>
               <td>{product.id}</td>
               <td>{product.stockName}</td>
-              <td>{product.categoryName}</td>
+              <td>{product.category.categoryName}</td>
               <td>{product.unit}</td>
               <td>{product.status ? 'active' : 'inactive'}</td>
               <td><button type="button" class="btn btn-warning" onClick={()=>this.openmodal(product.id)}>Edit</button></td>

@@ -155,7 +155,6 @@ class Inventory extends Component {
             </Col>
             <Col md={4} style={{paddingRight:'5px',paddingLeft:'5px'}}>
             <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Select</ControlLabel>
               <FormControl value={this.props.inventory.selectedSupplier} componentClass="select" placeholder="select" onChange={this.changeSupplier} name="selectedSupplier">
               {
                 this.props.addsupplier.data.map((supplier,index) => {
@@ -216,6 +215,7 @@ class Inventory extends Component {
               <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].unit || ''}</p>
             </Col>
             <Col md={2} style={{textAlign:'center'}}>
+                
               <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].categoryName}</p>
             </Col>
           </Row>
