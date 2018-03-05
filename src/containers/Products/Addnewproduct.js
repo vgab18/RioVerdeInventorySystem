@@ -241,12 +241,7 @@ onValidate = (error) => {
           onChange={this.handleChange()}
           id="inputValid"
           name="stockName"
-          onBlur={()=>{
-            this.setState({
-              stockName: true
-            })
-            this.props.validate('stockName');
-          }}/>
+          />
         </div>
         <div class={this.getClasses("input",'stockName') + "-feedback"} style={this.state.stockName ? {display: "block"} : {display: "none"}}>
             {this.getErrorField('stockName')}

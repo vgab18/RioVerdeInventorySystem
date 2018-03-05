@@ -216,7 +216,7 @@ class Inventory extends Component {
             </Col>
             <Col md={2} style={{textAlign:'center'}}>
                 
-              <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].categoryName}</p>
+              <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].category.categoryName}</p>
             </Col>
           </Row>
           <Row>

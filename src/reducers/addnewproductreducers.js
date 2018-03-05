@@ -30,7 +30,7 @@ switch (action.type){
         categoryId: null,
         price:0,
         quantity:0,
-        unit:'',
+        unit:'Kg',
         timeFrame:new Date(),
         totalAmount:0,
         status:true,
@@ -46,7 +46,7 @@ switch (action.type){
             categoryId: null,
             price:0,
             quantity:0,
-            unit:'',
+            unit:'Kg',
             timeFrame:new Date(),
             totalAmount:0,
             status:true,
@@ -72,7 +72,7 @@ switch (action.type){
               categoryId: null,
               price:0,
               quantity:0,
-              unit:'',
+              unit:'Kg',
               timeFrame:new Date(),
               totalAmount:0,
               status:true,
@@ -92,7 +92,7 @@ switch (action.type){
               edit:false,
               stockName:'',
               categoryId: null,
-              unit:'',
+              unit:'Kg',
               open:false
 
             }
