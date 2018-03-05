@@ -29,6 +29,7 @@ let route = (
         <Route exact path="/kitchenrequest" component={requireAuthentication("kitchen",Kitchen)}/>
         <Route exact path="/inventory" component={requireAuthentication("staff",Inventory)}/>
         <Route exact path="/staffsupplierlist" component={requireAuthentication("staff",Staffsupplierlist)}/>
+        <Route exact path="/accessdenied" component={NotFound}/>
         <Redirect to="/users" />
     </Switch>
 );

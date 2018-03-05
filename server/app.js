@@ -102,8 +102,10 @@ passport.deserializeUser(function (id,done) {
 })
 
 function requireAuthentication(req,res,next) {
-  if (!req.user) 
+  if (!req.user) {
+    console.log("not authorized!");
     res.sendStatus(401)
+  }
   else
     next()
 }
