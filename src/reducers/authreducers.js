@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 const initialState={
   isAuthenticated: false,
+  isWrongCredentials: null,
   errors: [],
   account: null,
   logoutSuccess: false,
@@ -24,6 +25,7 @@ export default function authreducers(state=initialState,action={}) {
     case types.AUTH_LOGIN_FAILED:
       return _.assign({},state,{
         logoutSuccess: false,
+        isWrongCredentials: true
       })
     case types.AUTH_LOGOUT_SUCCESS:
       return _.assign({},state,{
@@ -33,7 +35,6 @@ export default function authreducers(state=initialState,action={}) {
         logoutSuccess: true,
         loggingIn: false,
       })
-
 
     default:
       return state

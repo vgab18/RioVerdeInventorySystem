@@ -16,6 +16,10 @@ import * as userAction from '../actions/useractions';
 import * as addproduct from '../actions/addnewproductactions';
 import * as productAction from '../actions/newproductactions';
 import * as categoryActions from '../actions/categoryactions';
+import * as authActions from '../actions/authactions';
+
+import StaffNav from './NavBars/StaffNav'
+import AdminNav from './NavBars/AdminNav'
 
 class Navlayout extends Component {
   constructor(props){
@@ -35,6 +39,21 @@ class Navlayout extends Component {
     this.props.categoryActions.getCategory();
 
   }
+
+  renderLinks(){
+    switch (this.props.auth.account.role) {
+      case "admin":
+        return <AdminNav />
+      case "Staff":
+        return <StaffNav />
+      case "kitchen":
+        return 
+    
+      default:
+        return null
+    }
+  }
+
   render() {
     return (
       <div>
@@ -47,34 +66,14 @@ class Navlayout extends Component {
 
           <div className="collapse navbar-collapse" id="navbarColor01">
 
-            <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/users")}>User List</a>
-            </li>
-            <li className="nav-item">
-                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/manageproduct")}>Manage Stock</a>
-
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#" onClick={()=>this.props.routerActions.push("/producthistory")}>Product History</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#" onClick={()=>this.props.routerActions.push("/transactionhistory")}>Transaction History</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#" onClick={()=>this.props.routerActions.push("/supplierlist")}>Supplier List</a>
-              </li>
-
-
-            </ul>
-
+            {this.renderLinks()}
 
             <form className="form-inline my-2 my-lg-0">
               <ul className="navbar-nav mr-auto">
               <li class="nav-item dropdown">
-                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Username</a>
+                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b>{this.props.auth.account.userName}</b></a>
                              <div class="dropdown-menu">
-                                 <a class="dropdown-item" onClick={()=>this.props.routerActions.push("/")}>Logout</a>
+                                 <a class="dropdown-item" onClick={this.props.authActions.logout}>Logout</a>
                              </div>
                            </li>
               </ul>
@@ -100,7 +99,8 @@ function mapDispatchToProps(dispatch) {
     addproduct: bindActionCreators(addproduct,dispatch),
     productAction: bindActionCreators(productAction, dispatch),
     adduser: bindActionCreators(adduser,dispatch),
-    categoryActions:bindActionCreators(categoryActions,dispatch)
+    categoryActions:bindActionCreators(categoryActions,dispatch),
+    authActions: bindActionCreators(authActions,dispatch)
   }
 }
 

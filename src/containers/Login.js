@@ -40,6 +40,10 @@ class Login extends Component {
             <Col md={4} style={{padding:15,textAlign:'center'}}>
              <legend style={{marginTop:'10px'}}><img src={logo} width="250"/></legend>
              <legend style={{marginTop:'10px'}}>Inventory System</legend>
+             {
+               this.props.auth.isWrongCredentials ? <h4> Wrong Credentials </h4> : ''
+             }
+             
               <LoginForm {...this.props} />
              </Col>
              <Col md={4}/>

@@ -4,6 +4,7 @@ import { routerActions } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import * as authActions from '../actions/authactions'
 import _ from 'lodash'
+import { clearTimeout } from 'timers';
 
 
 export function isInRole(role,rolesRepo){
@@ -42,11 +43,6 @@ export let requireAuthentication = (roles,PassedComponent) => {
 
   class RenderComponent extends Component {
 
-    componentWillMount(){
-
-      
-    }
-
     state = {
       allowRender: false
   };
@@ -63,6 +59,9 @@ export let requireAuthentication = (roles,PassedComponent) => {
             dispatch(authActions.loginSuccess(target))
             // dispatch(routerActions.push('/login?target='+this.props.router.location.pathname))
           }
+          else{
+            this.checkRoles(this.props.auth.account)
+          }
         }else {
           if (!this.props.auth.loggingIn) {
             if(target)
@@ -73,11 +72,17 @@ export let requireAuthentication = (roles,PassedComponent) => {
                   dispatch(authActions.logout());
           }
           else {
+             
               this.checkRoles(newProps.auth.account);
           }
         }
 
   };
+
+  componentDidMount(){
+    //   console.log("hey!");
+    //    this.authenticate()
+  }
 
 
   componentWillReceiveProps(nextProps){
@@ -99,7 +104,7 @@ export let requireAuthentication = (roles,PassedComponent) => {
 
       if(account){
 
-          var roles = account.roles;
+          var roles = account.role;
 
 
           if (roles == null || roles.length == 0) {
@@ -107,15 +112,12 @@ export let requireAuthentication = (roles,PassedComponent) => {
               return;
           }
 
-
-
           if (rolesArray.length > 0) {
               if (rolesArray.length == 1) {
                   if (!isInRole(rolesArray[0], roles)){
                       setTimeout(()=>{
                           dispatch(routerActions.push("/accessdenied"));
                       },100);
-
                   }
               }
               else {
@@ -133,12 +135,26 @@ export let requireAuthentication = (roles,PassedComponent) => {
 
     render(){
 
-      setTimeout(()=>{
-        this.authenticate();
-      },200);
-      return (
-        <PassedComponent {...this.props}/>
-      )
+        var renderMe= null
+        var isAuthorized = false;
+       
+
+            if( this.props.auth &&
+                this.props.auth.account &&
+                this.props.auth.isAuthenticated)
+                renderMe=(<PassedComponent {...this.props}/>);
+
+            this.authenticate();
+
+            if (!isInRole(rolesArray[0], roles)){
+                return null
+            }else{
+                return (
+                    <div>
+                        {renderMe}
+                    </div>
+                );
+            }
     }
   }
 

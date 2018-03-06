@@ -1,6 +1,7 @@
 import * as types from '../constants/AuthActionTypes';
 import {post,get} from '../utils/RestClient';
 import {routerActions} from 'react-router-redux';
+import * as authUtils from '../utils/AuthUtils';
 
 
 export let login = (state,target) => {
@@ -16,7 +17,6 @@ export let login = (state,target) => {
       })
       dispatcher(loginSuccess(target))
     }).catch((err) => {
-      console.log(err);
       dispatcher(loginFailed())
     })
   }
@@ -33,7 +33,18 @@ export let loginSuccess = (target) => {
         if (target) {
           dispatcher(routerActions.push(target))
         }else{
-          dispatcher(routerActions.push("/users"))
+            if(account.data === "admin")
+              return  dispatcher(routerActions.push("/users"))
+            else if(account.data === "Staff")
+              return  dispatcher(routerActions.push("/inventory"))
+            else if(account.data === "kitchen")
+              return  dispatcher(routerActions.push("/kitchenrequest"))
+            else
+              return dispatcher(routerActions.push("/users"))
+          
+         
+          // dispatcher(routerActions.push("/users"))
+         
         }
         localStorage.login = btoa(account.data.firstname)
       }).catch((err) => {
@@ -44,12 +55,21 @@ export let loginSuccess = (target) => {
   }
 }
 
+export let getAccount = (target) => {
+  return (dispatcher, getState) => {
+    get('/api/account')
+      .then((account) => {
+        dispatcher(accountReceived(account.data));
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
+}
+
 export let loginFailed = () => {
-  return (dispatcher,getState) =>{
     return {
         type: types.AUTH_LOGIN_FAILED,
     }
-  }
 }
 
 

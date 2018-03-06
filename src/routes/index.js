@@ -13,7 +13,7 @@ import Transactionhistory from '../containers/Transactionhistory';
 import Supplierlist from '../containers/Supplierlist';
 import Kitchen from '../containers/Kitchen/kitchenRequest';
 import Inventory from '../containers/Staff/Inventory';
-import NotFound from '../components/404NotFound';
+import AccessDenied from '../components/AccessDenied';
 import  {requireAuthentication} from '../utils/AuthUtils';
 import Staffsupplierlist from '../containers/Staff/Staffsupplierlist';
 
@@ -27,9 +27,9 @@ let route = (
         <Route exact path="/supplierlist" component={requireAuthentication("admin",Supplierlist)}/>
         <Route exact path="/transactionhistory" component={requireAuthentication("admin",Transactionhistory)}/>
         <Route exact path="/kitchenrequest" component={requireAuthentication("kitchen",Kitchen)}/>
-        <Route exact path="/inventory" component={requireAuthentication("staff",Inventory)}/>
-        <Route exact path="/staffsupplierlist" component={requireAuthentication("staff",Staffsupplierlist)}/>
-        <Route exact path="/accessdenied" component={NotFound}/>
+        <Route exact path="/inventory" component={requireAuthentication("Staff",Inventory)}/>
+        <Route exact path="/staffsupplierlist" component={requireAuthentication("Staff",Staffsupplierlist)}/>
+        <Route exact path="/accessdenied" component={AccessDenied}/>
         <Redirect to="/users" />
     </Switch>
 );
