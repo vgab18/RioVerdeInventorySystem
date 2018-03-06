@@ -27,16 +27,26 @@ export let closeStockIn = () => {
 
 export let addRows = () => {
     return (dispatcher,getState) => {
-      let {inventory, newproduct} = getState();
-      const product = newproduct.data[0]
-      product.index = 0
-      inventory.data.push( product);
+      let {inventory, newproduct, addsupplier, auth} = getState();
+      let data = {
+        stockName: newproduct.data[inventory.selectedProduct].stockName,
+        categoryname: newproduct.data[inventory.selectedProduct].category.categoryName,
+        price: inventory.price,
+        quantity: inventory.quantity,
+        unit: newproduct.data[inventory.selectedProduct].unit,
+        totalAmount: inventory.price*inventory.quantity,
+        supplierId: addsupplier.data[inventory.selectedSupplier-1].id,
+        userId: auth.account.id,
+        type:"IN"
+      }
+      inventory.inventorydata.push(data)
       dispatcher({
         type:types.ADD_MORE_ROWS_SUCCESS,
-        inventory
+        inventorydata: inventory
       })
-    }
 }
+}
+
 
 export let deleteRows = () => {
     return (dispatcher,getState) => {
@@ -62,14 +72,6 @@ export let changeProduct = (value,name) => {
   }
   }
 
-// export let getProduct = (id) => {
-//     return (dispatcher,getState) => {
-//       axios.get('api/products'+id)
-//       .then((products) => {
-
-//       })
-//     }
-// }
 
 export let changeSupplier = (value,name) => {
   return (dispatcher,getState) => {
@@ -91,20 +93,11 @@ export let handlePriceField = (value,name) => {
     }
 }
 
-// export const addProductIntoRow = () => {
-//     return (dispatcher, getState) => {
-    
-//     let product = {}
-
-//     product.stockName = 
-      
-//     }
-// }; 
+export let handlequantityfield = (value,name) => {
+  return{
+    type:types.ADD_ITEM_QUANTITY_FIELD_CHANGE,
+    value
+  }
+}
 
   
-
-
-
-
-
-

@@ -141,10 +141,7 @@ render(){
             name="categoryName"
             onChange={this.handleAddnewCatergoryField}
             value={this.props.addcategory.categoryName}
-            onBlur={()=>{
-                this.setState({categoryName: true})
-                this.props.validate('categoryName');
-              }}/>
+            />
             <div class={this.getClasses("input",'categoryName') + "-feedback"} style={this.state.categoryName ? {display: "block"} : {display: "none"}}>
                 {this.getErrorField('categoryName')}
             </div>

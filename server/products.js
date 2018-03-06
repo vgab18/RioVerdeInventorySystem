@@ -8,12 +8,21 @@ module.exports = function (Product,Category,sequelize) {
   //get all products
   router.get('/',function (req,res) {
 
-     sequelize.query(" SELECT * from products p, categories c where p.categoryId=c.id", {type: sequelize.QueryTypes.SELECT})
-      .then(function (products) {
+    //  sequelize.query(" SELECT p.id, c.id from products p, categories c where p.categoryId=c.id", {type: sequelize.QueryTypes.SELECT})
+    //   .then(function (products) {
+    //     res.status(200).json(products)
+    //   }).catch(function (err) {
+    //     console.log(err);
+      // })
+
+    Product.findAll({
+      include: [Category]
+    }).then(function (products) {
         res.status(200).json(products)
-      }).catch(function (err) {
+    }).catch(function (err) {
         console.log(err);
-      })
+        res.status(500)
+    })
 
   })
    //add products

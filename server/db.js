@@ -77,20 +77,8 @@ module.exports = function (sequelize) {
     categoryId: {
       type: Sequelize.INTEGER
     },
-    price: {
-      type: Sequelize.FLOAT
-    },
-    quantity: {
-      type: Sequelize.INTEGER
-    },
     unit: {
       type: Sequelize.STRING
-    },
-    timeFrame: {
-      type: Sequelize.DATE
-    },
-    totalAmount: {
-      type: Sequelize.FLOAT
     },
     status: {
       type: Sequelize.BOOLEAN
@@ -124,7 +112,6 @@ module.exports = function (sequelize) {
 
   Category.sync({force: false})
 
-  // Category.hasMany(Product);
   Product.belongsTo(Category);
 
   //====================Supplier====================\\
@@ -162,45 +149,53 @@ module.exports = function (sequelize) {
 
   //===================Inventory==================\\
  
-  const Inventory = sequelize.define('supplier',{
+  const Inventory = sequelize.define('inventory',{
     id: {
       type: Sequelize.INTEGER,
       field: 'id',
       primaryKey: true,
       autoIncrement: true
     },
-    stockName: {
+    productId: {
       type: Sequelize.STRING
     },
-    price: {
+    categoryId: {
       type: Sequelize.INTEGER
+    },
+    price: {
+      type: Sequelize.DOUBLE
     },
     quantity: {
       type: Sequelize.INTEGER
     },
-    unit: {
-      type: Sequelize.STRING
-    },
-    categoryName: {
-      type: Sequelize.STRING
-    },
     totalamount: {
+      type: Sequelize.DOUBLE
+    },
+    supplierId: {
       type: Sequelize.INTEGER
     },
-    timeframe: {
-      type: Sequelize.DATE
+    userId: {
+      type: Sequelize.INTEGER
     },
+    type: {
+      type: Sequelize.STRING
+    }
+
   })
 
   Inventory.sync({force: false})
+  Inventory.belongsTo(User)
+  Inventory.belongsTo(Product)
+  Inventory.belongsTo(Supplier)
+  Inventory.belongsTo(Category)
 
-  Category.belongsTo(Inventory);
 
   return {
     User: User,
     Product: Product,
     Category: Category,
     Supplier: Supplier,
+    Inventory: Inventory
 
   }
 

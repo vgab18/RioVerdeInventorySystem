@@ -63,9 +63,15 @@ class Inventory extends Component {
  }
 
  handlePriceField = (e) => {
-   var name = e.target.value
+   var name = e.target.name
    var value = e.target.value
    this.props.inventoryActions.handlePriceField(value,name);
+ }
+
+ handlequantityfield = (e) => {
+   var name = e.target.value
+   var value = e.target.value
+   this.props.inventoryActions.handlequantityfield(value,name)
  }
 
 
@@ -155,7 +161,6 @@ class Inventory extends Component {
             </Col>
             <Col md={4} style={{paddingRight:'5px',paddingLeft:'5px'}}>
             <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Select</ControlLabel>
               <FormControl value={this.props.inventory.selectedSupplier} componentClass="select" placeholder="select" onChange={this.changeSupplier} name="selectedSupplier">
               {
                 this.props.addsupplier.data.map((supplier,index) => {
@@ -210,18 +215,19 @@ class Inventory extends Component {
               </div>
             </Col>
             <Col md={3}>
-              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="quantity"  name="unit" style={{width:'100%'}}/>
+              <input type="number" onChange={this.handlequantityfield} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="quantity" value={this.props.inventory.quantity}  name="quantity" style={{width:'100%'}}/>
             </Col>
             <Col md={2} style={{textAlign:'center'}}>
               <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].unit || ''}</p>
             </Col>
             <Col md={2} style={{textAlign:'center'}}>
-              <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].categoryName}</p>
+                
+              <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].category.categoryName}</p>
             </Col>
           </Row>
           <Row>
             <Col md={12}>
-              <RaisedButton label="+ADD" primary={true} fullWidth={true}/>
+              <RaisedButton label="+ADD" primary={true} fullWidth={true} onClick={this.addRows}/>
             </Col>
           </Row>
         </Grid>

@@ -5,10 +5,11 @@ import update from 'react-addons-update'
 const initialState = {
     openStockIn:false,
     openStockOut:false,
-    selectedSupplier: 0,
+    selectedSupplier: 1,
     selectedProduct: 0,
     price: 0,
-    quantity: 0
+    quantity: 0,
+    inventorydata:[]
 }
 
 export default function inventoryreducers(state=initialState,action={}) {
@@ -29,8 +30,7 @@ export default function inventoryreducers(state=initialState,action={}) {
 
         case types.ADD_MORE_ROWS_SUCCESS:
             return _.assign({},
-                state,
-                action.inventory
+                state,action.inventory
                 )
 
         case types.DELETE_ROWS_SUCCESS:
@@ -52,8 +52,15 @@ export default function inventoryreducers(state=initialState,action={}) {
                 state,
                 {
                     price: action.value
-                }
-            )
+                })
+
+        case types.ADD_ITEM_QUANTITY_FIELD_CHANGE:
+        return _.assign({},
+            state,
+            {
+                quantity: action.value
+            }
+        )
     
         default:
         return state
