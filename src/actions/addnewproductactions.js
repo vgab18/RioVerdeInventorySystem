@@ -152,7 +152,7 @@ export let saveNewProduct = () => {
 
 export let saveNewProductSuccess = () => {
   return{
-    type:types.ADD_NEWPRODUCT_SAVE_DATA
+    type:types.ADD_NEWPRODUCT_SAVE_DATA   
   }
 }
 

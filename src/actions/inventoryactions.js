@@ -4,6 +4,7 @@ import { routerActions } from 'react-router-redux'
 import * as supplieractions from './addnewsupplieractions';
 import * as productsActions from './addnewproductactions';
 import _ from 'lodash'
+import { EAFNOSUPPORT } from 'constants';
 
 export let openStockIn = () => {
     return (dispatcher,getState) => {
@@ -37,7 +38,7 @@ export let addRows = () => {
         totalAmount: inventory.price*inventory.quantity,
         supplierId: addsupplier.data[inventory.selectedSupplier-1].id,
         userId: auth.account.id,
-        type:"IN"
+        actionType:"IN"
       }
       inventory.inventorydata.push(data)
       dispatcher({
@@ -47,10 +48,37 @@ export let addRows = () => {
 }
 }
 
+export let saveAllRows = () => {
+  console.log("asdasd");
+    return(dispatcher,getState)=>{
+      let {inventory} = getState();
 
-export let deleteRows = () => {
+      let data = inventory.inventorydata
+
+      axios.post('/api/inventory',{
+        data
+      }).then((inventory)=>{
+        dispatcher(this.saveAllRowsSuccess())
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+}
+
+
+export let saveAllRowsSuccess = () => {
+      return{
+        type:types.SAVE_ALL_ROWS_DATA_SUCCESS
+      }
+}
+
+
+export let deleteRows = (i) => {
     return (dispatcher,getState) => {
       let {inventory} = getState();
+
+      inventory.inventorydata.splice(i,1);
+
       dispatcher({
         type:types.DELETE_ROWS_SUCCESS,
         inventory

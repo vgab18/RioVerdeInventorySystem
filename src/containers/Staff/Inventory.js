@@ -41,12 +41,16 @@ class Inventory extends Component {
    this.props.inventoryActions.closeStockIn();
  };
 
+ saveAllRows = () => {
+   this.props.inventoryActions.saveAllRows();
+ }
+
  addRows = () => {
    this.props.inventoryActions.addRows();
  }
 
- deleteRows =() => {
-   this.props.inventoryActions.deleteRows();
+ deleteRows =(i) => {
+   this.props.inventoryActions.deleteRows(i);
  }
 
  
@@ -98,7 +102,7 @@ class Inventory extends Component {
       maxWidth:'none'
     }
     const Actions = [
-      <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
+      <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}} onClick={this.saveAllRows}>Save</button>,
       <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
     ];
 
@@ -139,6 +143,22 @@ class Inventory extends Component {
             </tr>
           </thead>
           <tbody>
+          {
+            this.props.inventory.inventorydata.map ((inventory,i)=>{
+              return(
+            <tr>
+              <td>{inventory.id}</td>
+              <td>{inventory.stockname}</td>
+              <td>{inventory.category}</td>
+              <td>{inventory.price}</td>
+              <td>{inventory.quantity}</td>
+              <td>{inventory.unit}</td>
+              <td>{inventory.totalamount}</td>
+              <td>{inventory.actionType}</td>
+            </tr>
+              )
+              })
+          }
           </tbody>
         </table>
         </Paper>
@@ -243,7 +263,7 @@ class Inventory extends Component {
             </Col>
           </Row>
         </Grid>
-        <table class="table table-striped table-hover table-bordered responsive">
+          <table class="table table-striped table-hover table-bordered responsive">
         <thead class="thead-dark">
           <tr>
             <th>Items</th>
@@ -251,35 +271,33 @@ class Inventory extends Component {
             <th>Quantity</th>
             <th>Unit</th>
             <th>Category</th>
+            <th>Total Amount</th>
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
 
+        <tbody style={{textSize:'30px'}}>
+          {
+            this.props.inventory.inventorydata.map ((inventory,i)=>{
+          return (
             <tr>
+            <td>{inventory.stockName}</td>
+            <td>{inventory.price}</td>
+            <td>{inventory.quantity}</td>
+            <td>{inventory.unit}</td>
+            <td>{inventory.categoryname}</td>
+            <td>{inventory.totalAmount}</td>
             <td>
-              
-            </td>
-            <td>
-             
-            </td>
-            <td>
-              
-            </td>
-            <td>
-              
-            </td>
-            <td>
-              
-            </td>
-            <td>
-              <FloatingActionButton backgroundColor='#F44336' mini={true} onClick={this.deleteRows}>
+              <FloatingActionButton backgroundColor='#F44336' mini={true} onClick={()=>this.deleteRows(i)}>
                 <Clear />
               </FloatingActionButton>
             </td>
           </tr>
-         
+              )
+            })
+          }
         </tbody>
+          
       </table>
 
       <br />

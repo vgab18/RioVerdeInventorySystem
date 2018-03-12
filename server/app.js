@@ -129,6 +129,10 @@ app.use('/api/suppliers',requireAuthentication,suppliers);
 var users = require('./users')(db.User);
 app.use('/api/users',requireAuthentication,users);
 
+// inventory table config
+var inventory = require('./inventory')(db.Inventory);
+app.use('/api/inventory',requireAuthentication,inventory);
+
 
 
 var server = app.listen(8080, function () {

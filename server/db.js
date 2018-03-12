@@ -179,6 +179,12 @@ module.exports = function (sequelize) {
     },
     type: {
       type: Sequelize.STRING
+    },
+    actionType: {
+      type: Sequelize.STRING
+    },
+    createdAt: {
+      type: Sequelize.DATE
     }
 
   })

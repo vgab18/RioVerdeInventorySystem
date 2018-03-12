@@ -30,7 +30,7 @@ export default function inventoryreducers(state=initialState,action={}) {
 
         case types.ADD_MORE_ROWS_SUCCESS:
             return _.assign({},
-                state,action.inventory
+            state,action.inventory
                 )
 
         case types.DELETE_ROWS_SUCCESS:
@@ -61,6 +61,19 @@ export default function inventoryreducers(state=initialState,action={}) {
                 quantity: action.value
             }
         )
+
+        case types.SAVE_ALL_ROWS_DATA_SUCCESS:
+            return _.assign({},
+                state,
+                {
+                    openStockIn:false,
+                    selectedSupplier: 1,
+                    selectedProduct: 0,
+                    price: 0,
+                    quantity: 0,
+                    inventorydata:[]
+                }
+            )
     
         default:
         return state
