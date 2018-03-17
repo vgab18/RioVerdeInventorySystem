@@ -1,4 +1,4 @@
-import Producthistory from '../src/containers/Producthistory';
+
 
 var Sequelize = require('sequelize');
 
@@ -150,7 +150,7 @@ module.exports = function (sequelize) {
 
 
   //===================Product History==================\\
- 
+
   const ProductHistory = sequelize.define('ProductHistory',{
     id: {
       type: Sequelize.INTEGER,

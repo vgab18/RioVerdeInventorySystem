@@ -47,8 +47,8 @@ class Navlayout extends Component {
       case "Staff":
         return <StaffNav />
       case "kitchen":
-        return 
-    
+        return
+
       default:
         return null
     }

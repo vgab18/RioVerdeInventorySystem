@@ -47,7 +47,7 @@ export default function inventoryreducers(state=initialState,action={}) {
             return _.assign({},
                 state,
                 action.inventory)
-                
+
         case types.ADD_ITEM_PRICE_FIELD_CHANGE:
             return _.assign({},
                 state,
@@ -82,7 +82,7 @@ export default function inventoryreducers(state=initialState,action={}) {
                         inventory: action.data
                     }
                 )
-    
+
         default:
         return state
     }

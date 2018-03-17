@@ -12,7 +12,7 @@ import categoryreducers from './categoryreducers';
 import newproductreducers from './newproductreducers';
 import addsupplierreducers from './addsupplierreducers';
 import inventoryreducers from './inventoryreducers';
-
+import messagereducers from './messagereducers';
 
 
 const rootReducer = combineReducers({
@@ -28,7 +28,8 @@ const rootReducer = combineReducers({
     category:categoryreducers,
     newproduct:newproductreducers,
     addsupplier:addsupplierreducers,
-    inventory:inventoryreducers
+    inventory:inventoryreducers,
+    message:messagereducers
 });
 
 export default rootReducer;

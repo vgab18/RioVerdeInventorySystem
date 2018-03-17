@@ -16,6 +16,7 @@ import Inventory from '../containers/Staff/Inventory';
 import AccessDenied from '../components/AccessDenied';
 import  {requireAuthentication} from '../utils/AuthUtils';
 import Staffsupplierlist from '../containers/Staff/Staffsupplierlist';
+import Messagepage from '../containers/Messagepage';
 
 let route = (
     <Switch>
@@ -29,6 +30,7 @@ let route = (
         <Route exact path="/kitchenrequest" component={requireAuthentication("kitchen",Kitchen)}/>
         <Route exact path="/inventory" component={requireAuthentication("Staff",Inventory)}/>
         <Route exact path="/staffsupplierlist" component={requireAuthentication("Staff",Staffsupplierlist)}/>
+        <Route exact path="/message" component={requireAuthentication("admin",Messagepage)}/>
         <Route exact path="/accessdenied" component={AccessDenied}/>
         <Redirect to="/users" />
     </Switch>
