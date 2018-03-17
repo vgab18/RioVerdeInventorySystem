@@ -84,6 +84,7 @@ class Inventory extends Component {
   componentWillMount()
     {
       this.props.productaction.getProducts();
+      this.props.inventoryActions.getInventory();
     }
 
   render() {
@@ -144,15 +145,15 @@ class Inventory extends Component {
           </thead>
           <tbody>
           {
-            this.props.inventory.inventorydata.map ((inventory,i)=>{
+            this.props.inventory.inventory.map ((inventory,i)=>{
               return(
             <tr>
               <td>{inventory.id}</td>
-              <td>{inventory.stockname}</td>
-              <td>{inventory.category}</td>
+              <td>{inventory.product.stockName}</td>
+              <td>{inventory.category.categoryName}</td>
               <td>{inventory.price}</td>
               <td>{inventory.quantity}</td>
-              <td>{inventory.unit}</td>
+              <td>{inventory.product.unit}</td>
               <td>{inventory.totalamount}</td>
               <td>{inventory.actionType}</td>
             </tr>
@@ -285,8 +286,8 @@ class Inventory extends Component {
             <td>{inventory.price}</td>
             <td>{inventory.quantity}</td>
             <td>{inventory.unit}</td>
-            <td>{inventory.categoryname}</td>
-            <td>{inventory.totalAmount}</td>
+            <td>{inventory.categoryName}</td>
+            <td>{inventory.totalamount}</td>
             <td>
               <FloatingActionButton backgroundColor='#F44336' mini={true} onClick={()=>this.deleteRows(i)}>
                 <Clear />

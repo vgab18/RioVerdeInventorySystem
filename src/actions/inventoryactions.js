@@ -24,21 +24,22 @@ export let closeStockIn = () => {
   }
 }
 
-
-
 export let addRows = () => {
     return (dispatcher,getState) => {
       let {inventory, newproduct, addsupplier, auth} = getState();
       let data = {
-        stockName: newproduct.data[inventory.selectedProduct].stockName,
-        categoryname: newproduct.data[inventory.selectedProduct].category.categoryName,
-        price: inventory.price,
+        productId: newproduct.data[inventory.selectedProduct].id,
+        categoryId: newproduct.data[inventory.selectedProduct].categoryId,
+        createdAt: new Date(),
         quantity: inventory.quantity,
+        price: inventory.price,
         unit: newproduct.data[inventory.selectedProduct].unit,
-        totalAmount: inventory.price*inventory.quantity,
+        totalamount: inventory.price*inventory.quantity,
         supplierId: addsupplier.data[inventory.selectedSupplier-1].id,
         userId: auth.account.id,
-        actionType:"IN"
+        actionType:"IN",
+        stockName: newproduct.data[inventory.selectedProduct].stockName,
+        categoryName: newproduct.data[inventory.selectedProduct].category.categoryName
       }
       inventory.inventorydata.push(data)
       dispatcher({
@@ -49,7 +50,6 @@ export let addRows = () => {
 }
 
 export let saveAllRows = () => {
-  console.log("asdasd");
     return(dispatcher,getState)=>{
       let {inventory} = getState();
 
@@ -58,7 +58,7 @@ export let saveAllRows = () => {
       axios.post('/api/inventory',{
         data
       }).then((inventory)=>{
-        dispatcher(this.saveAllRowsSuccess())
+        dispatcher(saveAllRowsSuccess())
       }).catch((err)=>{
         console.log(err)
       })
@@ -67,11 +67,36 @@ export let saveAllRows = () => {
 
 
 export let saveAllRowsSuccess = () => {
-      return{
+    return (dispatcher,getState) => {
+
+      
+      dispatcher({
         type:types.SAVE_ALL_ROWS_DATA_SUCCESS
-      }
+      })
+      dispatcher(getInventory())
+    }
 }
 
+
+export let getInventory = () => {
+  return (dispatcher,getState) => {
+    axios.get('/api/inventory')
+    .then((inventory) => {
+
+      var data = inventory.data;
+      dispatcher(getAllInventorySuccess(data))
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+}
+
+export let getAllInventorySuccess = (data) => {
+  return{
+    type:types.GET_INVENTORY_DATA_SUCCESS,
+    data
+  }
+}
 
 export let deleteRows = (i) => {
     return (dispatcher,getState) => {

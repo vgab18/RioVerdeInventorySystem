@@ -9,7 +9,8 @@ const initialState = {
     selectedProduct: 0,
     price: 0,
     quantity: 0,
-    inventorydata:[]
+    inventorydata:[],
+    inventory:[]
 }
 
 export default function inventoryreducers(state=initialState,action={}) {
@@ -71,9 +72,16 @@ export default function inventoryreducers(state=initialState,action={}) {
                     selectedProduct: 0,
                     price: 0,
                     quantity: 0,
-                    inventorydata:[]
                 }
             )
+
+        case types.GET_INVENTORY_DATA_SUCCESS:
+        return _.assign({},
+                state,
+                    {
+                        inventory: action.data
+                    }
+                )
     
         default:
         return state

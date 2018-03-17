@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 
-module.exports = function (Inventory) {
+module.exports = function (Inventory,Category,Product,User) {
 
      //add inventory
   router.post('/',function (req,res,next) {
@@ -19,7 +19,11 @@ module.exports = function (Inventory) {
 
    //get all inventory
    router.get('/',function (req,res) {
-    Inventory.findAll()
+    Inventory.findAll({
+      include:[
+        Product,Category,User
+      ]
+    })
       .then(function (inventory) {
         res.json(inventory)
       }).catch(function (err) {
