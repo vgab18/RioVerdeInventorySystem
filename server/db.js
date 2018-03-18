@@ -1,3 +1,5 @@
+
+
 var Sequelize = require('sequelize');
 
 module.exports = function (sequelize) {
@@ -147,9 +149,9 @@ module.exports = function (sequelize) {
 
 
 
-  //===================Inventory==================\\
- 
-  const Inventory = sequelize.define('inventory',{
+  //===================Product History==================\\
+
+  const ProductHistory = sequelize.define('ProductHistory',{
     id: {
       type: Sequelize.INTEGER,
       field: 'id',
@@ -177,17 +179,98 @@ module.exports = function (sequelize) {
     userId: {
       type: Sequelize.INTEGER
     },
-    type: {
+    actionType: {
       type: Sequelize.STRING
+    },
+    createdAt: {
+      type: Sequelize.DATE
     }
 
   })
 
+  ProductHistory.sync({force: false})
+
+
+  ///====================Inventory===================\\\
+
+  const Inventory = sequelize.define('Inventory',{
+    id: {
+      type: Sequelize.INTEGER,
+      field: 'id',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    productId: {
+      type: Sequelize.STRING
+    },
+    categoryId: {
+      type: Sequelize.INTEGER
+    },
+    price: {
+      type: Sequelize.DOUBLE
+    },
+    quantity: {
+      type: Sequelize.INTEGER
+    },
+    totalamount: {
+      type: Sequelize.DOUBLE
+    },
+
+  })
+
+
+  ///====================Transaction History===================\\\
+
+  const TransacHistory = sequelize.define('TransacHistory',{
+    id: {
+      type: Sequelize.INTEGER,
+      field: 'id',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    productId: {
+      type: Sequelize.STRING
+    },
+    categoryId: {
+      type: Sequelize.INTEGER
+    },
+    price: {
+      type: Sequelize.DOUBLE
+    },
+    quantity: {
+      type: Sequelize.INTEGER
+    },
+    totalamount: {
+      type: Sequelize.DOUBLE
+    },
+    date: {
+      type: Sequelize.DATE
+    },
+    supplierId: {
+      type: Sequelize.INTEGER
+    },
+    userId: {
+      type: Sequelize.INTEGER
+    }
+
+  })
+  TransacHistory.sync({force: false})
+
   Inventory.sync({force: false})
+
   Inventory.belongsTo(User)
   Inventory.belongsTo(Product)
   Inventory.belongsTo(Supplier)
   Inventory.belongsTo(Category)
+
+  ProductHistory.belongsTo(Product)
+  ProductHistory.belongsTo(Category)
+
+  TransacHistory.belongsTo(Supplier)
+  TransacHistory.belongsTo(Product)
+  TransacHistory.belongsTo(Category)
+  TransacHistory.belongsTo(User)
+
 
 
   return {
@@ -195,7 +278,9 @@ module.exports = function (sequelize) {
     Product: Product,
     Category: Category,
     Supplier: Supplier,
-    Inventory: Inventory
+    Inventory: Inventory,
+    ProductHistory: ProductHistory,
+    TransacHistory: TransacHistory
 
   }
 

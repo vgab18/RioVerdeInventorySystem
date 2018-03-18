@@ -33,15 +33,14 @@ export let loginSuccess = (target) => {
         if (target) {
           dispatcher(routerActions.push(target))
         }else{
-            if(account.data.role === "admin")
-              return  dispatcher(routerActions.push("/users"))
+          if(account.data.role === "admin")
+                dispatcher(routerActions.push("/users"))
             else if(account.data.role === "Staff")
-              return  dispatcher(routerActions.push("/inventory"))
+                dispatcher(routerActions.push("/inventory"))
             else if(account.data.role === "kitchen")
-              return  dispatcher(routerActions.push("/kitchenrequest"))
+                dispatcher(routerActions.push("/kitchenrequest"))
             else
-              return dispatcher(routerActions.push("/users"))
-          
+               dispatcher(routerActions.push("/users"))
          
           // dispatcher(routerActions.push("/users"))
          

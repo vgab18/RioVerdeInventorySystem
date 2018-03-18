@@ -4,6 +4,7 @@ import { routerActions } from 'react-router-redux'
 import * as supplieractions from './addnewsupplieractions';
 import * as productsActions from './addnewproductactions';
 import _ from 'lodash'
+import { EAFNOSUPPORT } from 'constants';
 
 export let openStockIn = () => {
     return (dispatcher,getState) => {
@@ -23,21 +24,22 @@ export let closeStockIn = () => {
   }
 }
 
-
-
 export let addRows = () => {
     return (dispatcher,getState) => {
       let {inventory, newproduct, addsupplier, auth} = getState();
       let data = {
-        stockName: newproduct.data[inventory.selectedProduct].stockName,
-        categoryname: newproduct.data[inventory.selectedProduct].category.categoryName,
-        price: inventory.price,
+        productId: newproduct.data[inventory.selectedProduct].id,
+        categoryId: newproduct.data[inventory.selectedProduct].categoryId,
+        createdAt: new Date(),
         quantity: inventory.quantity,
+        price: inventory.price,
         unit: newproduct.data[inventory.selectedProduct].unit,
-        totalAmount: inventory.price*inventory.quantity,
+        totalamount: inventory.price*inventory.quantity,
         supplierId: addsupplier.data[inventory.selectedSupplier-1].id,
         userId: auth.account.id,
-        type:"IN"
+        actionType:"IN",
+        stockName: newproduct.data[inventory.selectedProduct].stockName,
+        categoryName: newproduct.data[inventory.selectedProduct].category.categoryName
       }
       inventory.inventorydata.push(data)
       dispatcher({
@@ -47,10 +49,61 @@ export let addRows = () => {
 }
 }
 
+export let saveAllRows = () => {
+    return(dispatcher,getState)=>{
+      let {inventory} = getState();
 
-export let deleteRows = () => {
+      let data = inventory.inventorydata
+
+      axios.post('/api/inventory',{
+        data
+      }).then((inventory)=>{
+        dispatcher(saveAllRowsSuccess())
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+}
+
+
+export let saveAllRowsSuccess = () => {
+    return (dispatcher,getState) => {
+
+      
+      dispatcher({
+        type:types.SAVE_ALL_ROWS_DATA_SUCCESS
+      })
+      dispatcher(getInventory())
+    }
+}
+
+
+export let getInventory = () => {
+  return (dispatcher,getState) => {
+    axios.get('/api/inventory')
+    .then((inventory) => {
+
+      var data = inventory.data;
+      dispatcher(getAllInventorySuccess(data))
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+}
+
+export let getAllInventorySuccess = (data) => {
+  return{
+    type:types.GET_INVENTORY_DATA_SUCCESS,
+    data
+  }
+}
+
+export let deleteRows = (i) => {
     return (dispatcher,getState) => {
       let {inventory} = getState();
+
+      inventory.inventorydata.splice(i,1);
+
       dispatcher({
         type:types.DELETE_ROWS_SUCCESS,
         inventory

@@ -9,7 +9,8 @@ const initialState = {
     selectedProduct: 0,
     price: 0,
     quantity: 0,
-    inventorydata:[]
+    inventorydata:[],
+    inventory:[]
 }
 
 export default function inventoryreducers(state=initialState,action={}) {
@@ -30,7 +31,7 @@ export default function inventoryreducers(state=initialState,action={}) {
 
         case types.ADD_MORE_ROWS_SUCCESS:
             return _.assign({},
-                state,action.inventory
+            state,action.inventory
                 )
 
         case types.DELETE_ROWS_SUCCESS:
@@ -46,7 +47,7 @@ export default function inventoryreducers(state=initialState,action={}) {
             return _.assign({},
                 state,
                 action.inventory)
-                
+
         case types.ADD_ITEM_PRICE_FIELD_CHANGE:
             return _.assign({},
                 state,
@@ -61,7 +62,27 @@ export default function inventoryreducers(state=initialState,action={}) {
                 quantity: action.value
             }
         )
-    
+
+        case types.SAVE_ALL_ROWS_DATA_SUCCESS:
+            return _.assign({},
+                state,
+                {
+                    openStockIn:false,
+                    selectedSupplier: 1,
+                    selectedProduct: 0,
+                    price: 0,
+                    quantity: 0,
+                }
+            )
+
+        case types.GET_INVENTORY_DATA_SUCCESS:
+        return _.assign({},
+                state,
+                    {
+                        inventory: action.data
+                    }
+                )
+
         default:
         return state
     }
