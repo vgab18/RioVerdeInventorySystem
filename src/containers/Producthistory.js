@@ -13,6 +13,7 @@ import Navlayout from './Navlayout';
 import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class Producthistory extends Component {
@@ -25,6 +26,9 @@ class Producthistory extends Component {
 
   handleChange = (event, index, value) => this.setState({value});
 
+  printproducthist = () => {
+   window.print();
+ }
 
   render() {
       const paperstyle=
@@ -35,6 +39,14 @@ class Producthistory extends Component {
         padding: 20,
         overflowX: 'auto'
       };
+      const style = {
+      margin: 12,
+      float: 'right',
+      textAlign:'center',
+      width:'150px'
+      };
+
+
     return (
       <div>
             <Navlayout/>
@@ -49,11 +61,12 @@ class Producthistory extends Component {
                 value={this.state.value}
                 menuItemStyle={{textAlign:'center'}}
                 onChange={this.handleChange}
-                style={{float:'right',textAlign:'center',width:'170px'}}>
+                style={{float:'right',textAlign:'center',width:'170px',margin:12}}>
                 <MenuItem value={1} primaryText="Daily" />
                 <MenuItem value={2} primaryText="Weekly" />
                 <MenuItem value={3} primaryText="Monthly" />
                 </SelectField>
+                  <RaisedButton className="d-print-none" label="Print" style={style} onClick={this.printproducthist}/>
               </Col>
             </Row>
               <table class="table table-striped table-hover table-bordered responsive">

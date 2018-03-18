@@ -50,7 +50,10 @@ class Login extends Component {
              <legend style={{marginTop:'10px'}}><img src={logo} width="250"/></legend>
              <legend style={{marginTop:'10px'}}>Inventory System</legend>
              {
-               this.props.auth.isWrongCredentials ? <h4><p style={{color:'grey'}}>Wrong Credentials</p> </h4> : ''
+               this.props.auth.isWrongCredentials ? <div class="alert alert-dismissible alert-danger">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>Oh snap!</strong> Wrong Credentials and try submitting again.
+                </div> :''
              }
 
               <LoginForm {...this.props} />
