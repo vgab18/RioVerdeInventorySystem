@@ -261,9 +261,7 @@ module.exports = function (sequelize) {
 
   Inventory.sync({force: false})
 
-  Inventory.belongsTo(User)
   Inventory.belongsTo(Product)
-  Inventory.belongsTo(Supplier)
   Inventory.belongsTo(Category)
 
   ProductHistory.belongsTo(Product)

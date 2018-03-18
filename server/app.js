@@ -114,7 +114,7 @@ var auth = require('./auth')(passport);
 app.use('/api',auth);
 
 // product table config
-var products = require('./products')(db.Product,db.Category,sequelize);
+var products = require('./products')(db.Product,db.Category,sequelize, db.Inventory);
 app.use('/api/products',requireAuthentication,products);
 
 // category table config
@@ -130,7 +130,7 @@ var users = require('./users')(db.User);
 app.use('/api/users',requireAuthentication,users);
 
 // inventory table config
-var inventory = require('./inventory')(db.Inventory,db.Category,db.Product,db.User);
+var inventory = require('./inventory')(db.Inventory,db.Category,db.Product,db.User,db.ProductHistory,db.TransacHistory);
 app.use('/api/inventory',inventory);
 
 

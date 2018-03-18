@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 
-module.exports = function (Product,Category,sequelize) {
+module.exports = function (Product,Category,sequelize,Inventory) {
 
   //get all products
   router.get('/',function (req,res) {
@@ -30,8 +30,13 @@ module.exports = function (Product,Category,sequelize) {
     console.log(req.body);
     Product.create(req.body.data)
       .then(function (products) {
-        console.log(products);
-        res.status(200).json(products)
+          Inventory.create({
+            productId: product.id,
+            categoryId: product.categoryId,
+            price: 0,
+            quantity: 0,
+            totalamount: 0,
+          })
       }).catch(function (err) {
         console.log(err);
         res.sendStatus(404);
