@@ -251,6 +251,9 @@ module.exports = function (sequelize) {
     },
     userId: {
       type: Sequelize.INTEGER
+    },
+    createdAt: {
+      type: Sequelize.DATE
     }
 
   })

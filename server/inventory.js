@@ -34,7 +34,7 @@ module.exports = function (Inventory,Category,Product,User) {
 
 
     })
-    
+
     return router
 
 

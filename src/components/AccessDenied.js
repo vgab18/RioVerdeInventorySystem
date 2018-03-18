@@ -8,7 +8,7 @@ import { routerActions } from 'react-router-redux'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as authActions  from '../actions/authactions';
- 
+import {Paper} from 'material-ui';
 
 
 class AccessDenied extends React.Component{
@@ -30,19 +30,33 @@ class AccessDenied extends React.Component{
               return  this.props.routerActions.push("/inventory")
             case "kitchen":
               return  this.props.routerActions.push("/kitchenrequest")
-          
+
           }
     }
 
 
     render(){
 
+      const paperstyle=
+      {
+        height: 'auto',
+        width: 'auto',
+        margin:50,
+        marginTop:200,
+        padding: 20,
+        overflowX: 'auto',
+        textAlign:'center'
+            };
+
         return (
             <Grid id="access-denied">
-                  <Well style={{backgroundColor:'#89c0c7'}}>
-                    <h1>Access Denied</h1>
+                  <Paper style={paperstyle}>
+                    <h1 style={{color:'red'}}>Access Denied</h1>
+                    <h5>TextMessag here or photos</h5>
+                    <h5>wala pay internet</h5>
+                    <p><h6>hahahahahahahaaaaahahahhahaahaaaaahahahahahahaaaaahahahhahahahahahahaaaaahahah</h6></p>
                     <button type="button" class="btn btn-primary" onClick={this.goBack}>Go Back</button>
-                </Well>
+                </Paper>
             </Grid>);
     }
 }

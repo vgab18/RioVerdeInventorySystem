@@ -69,7 +69,7 @@ export let saveAllRows = () => {
 export let saveAllRowsSuccess = () => {
     return (dispatcher,getState) => {
 
-      
+
       dispatcher({
         type:types.SAVE_ALL_ROWS_DATA_SUCCESS
       })
@@ -109,7 +109,7 @@ export let deleteRows = (i) => {
         inventory
       })
     }
-  
+
 }
 
 export let changeProduct = (value,name) => {
@@ -128,7 +128,7 @@ export let changeProduct = (value,name) => {
 
 export let changeSupplier = (value,name) => {
   return (dispatcher,getState) => {
-    var {inventory} = getState();  
+    var {inventory} = getState();
 
     inventory[name] = parseInt(value)
 
@@ -152,5 +152,3 @@ export let handlequantityfield = (value,name) => {
     value
   }
 }
-
-  
