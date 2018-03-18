@@ -22,9 +22,18 @@ class Login extends Component {
     super(props);
     this.state={
       username:'',
-      password:''
+      password:'',
+      show: true
     }
   }
+  handleDismiss() {
+   this.setState({ show: false });
+ }
+
+ handleShow() {
+   this.setState({ show: true });
+ }
+
 
 
   render() {
@@ -41,9 +50,9 @@ class Login extends Component {
              <legend style={{marginTop:'10px'}}><img src={logo} width="250"/></legend>
              <legend style={{marginTop:'10px'}}>Inventory System</legend>
              {
-               this.props.auth.isWrongCredentials ? <h4> Wrong Credentials </h4> : ''
+               this.props.auth.isWrongCredentials ? <h4><p style={{color:'grey'}}>Wrong Credentials</p> </h4> : ''
              }
-             
+
               <LoginForm {...this.props} />
              </Col>
              <Col md={4}/>

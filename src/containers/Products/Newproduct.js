@@ -19,6 +19,8 @@ import _ from 'lodash'
 import * as categoryActions from '../../actions/categoryactions';
 import * as addcategoryActions from '../../actions/addcategory';
 import AddnewcategoryForm from './AddnewcategoryForm';
+import TextField from 'material-ui/TextField';
+import icon from '../../Style/images/icon.png';
 
 class Manageproduct extends Component {
   constructor(props){
@@ -79,7 +81,7 @@ class Manageproduct extends Component {
     this.props.addcategoryActions.closeAddcategory()
 
   }
-  
+
 
 
 
@@ -98,7 +100,7 @@ class Manageproduct extends Component {
       padding: 20,
       overflowX: 'auto'
     };
-    
+
     return (
       <div>
       <Navlayout open={this.handleOpen}/>
@@ -107,7 +109,7 @@ class Manageproduct extends Component {
         />
         <AddnewcategoryForm
         {...this.props}
-        addCategory={this.addCategory} 
+        addCategory={this.addCategory}
         />
 
         {/* <AddnewcategoryForm
@@ -117,10 +119,17 @@ class Manageproduct extends Component {
         <Grid>
         <Paper style={paperstyle} zDepth={2} transitionEnabled={true}>
         <Row>
-        <Col md={6}>
+        <Col md={3}>
           <h1>Inventory</h1>
         </Col>
-        <Col md={6}>
+        <Col md={5}>
+            <TextField
+           hintText="Search"
+           fullWidth={true}
+         />
+
+        </Col>
+        <Col md={4}>
           <button type="button" class="btn btn-primary" style={{float:'right'}} onClick={this.openproductmodal}>+Add Product</button>
         </Col>
         </Row>

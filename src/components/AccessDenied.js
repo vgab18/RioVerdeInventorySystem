@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as authActions  from '../actions/authactions';
 import {Paper} from 'material-ui';
+import accessdenied from '../Style/images/forbidden.jpg';
+
 
 
 class AccessDenied extends React.Component{
@@ -42,7 +44,7 @@ class AccessDenied extends React.Component{
         height: 'auto',
         width: 'auto',
         margin:50,
-        marginTop:200,
+        marginTop:100,
         padding: 20,
         overflowX: 'auto',
         textAlign:'center'
@@ -52,9 +54,9 @@ class AccessDenied extends React.Component{
             <Grid id="access-denied">
                   <Paper style={paperstyle}>
                     <h1 style={{color:'red'}}>Access Denied</h1>
-                    <h5>TextMessag here or photos</h5>
-                    <h5>wala pay internet</h5>
-                    <p><h6>hahahahahahahaaaaahahahhahaahaaaaahahahahahahaaaaahahahhahahahahahahaaaaahahah</h6></p>
+                    <h5><img src={accessdenied}/></h5>
+                    <h5>THE ACCESS IS DENIED</h5>
+                    <p><h6 style={{color:'gray'}}>Please contact your system administreator for more information</h6></p>
                     <button type="button" class="btn btn-primary" onClick={this.goBack}>Go Back</button>
                 </Paper>
             </Grid>);

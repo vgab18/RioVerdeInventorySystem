@@ -12,6 +12,9 @@ class StaffNav extends Component {
               <li className="nav-item">
                 <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/inventory")}>Inventory</a>
               </li>
+              <li className="nav-item">
+                <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" onClick={()=>this.props.routerActions.push("/staffsupplierlist")}>Supplier List</a>
+              </li>
             </ul>
         )
     }

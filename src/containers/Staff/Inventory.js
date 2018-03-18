@@ -30,7 +30,7 @@ import Divider from 'material-ui/Divider';
 class Inventory extends Component {
   constructor(props){
     super(props);
-   
+
   }
   handleOpen = () => {
    this.props.inventoryActions.openStockIn();
@@ -53,7 +53,7 @@ class Inventory extends Component {
    this.props.inventoryActions.deleteRows(i);
  }
 
- 
+
  changeProduct = (e) => {
    var name = e.target.name
    var value = e.target.value
@@ -111,7 +111,7 @@ class Inventory extends Component {
       <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
       <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
     ];
-    
+
 
     return (
       <div>
@@ -211,7 +211,7 @@ class Inventory extends Component {
             <Col md={2} style={{textAlign:'center'}}>
               <h5>Category</h5>
             </Col>
-            
+
           </Row>
           <Row>
             <Col md={2}>
@@ -242,7 +242,7 @@ class Inventory extends Component {
               <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].unit || ''}</p>
             </Col>
             <Col md={2} style={{textAlign:'center'}}>
-                
+
               <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].category.categoryName}</p>
             </Col>
           </Row>
@@ -298,7 +298,7 @@ class Inventory extends Component {
             })
           }
         </tbody>
-          
+
       </table>
 
       <br />
