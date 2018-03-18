@@ -37,7 +37,7 @@ export let addRows = () => {
         totalamount: inventory.price*inventory.quantity,
         supplierId: addsupplier.data[inventory.selectedSupplier-1].id,
         userId: auth.account.id,
-        actionType:"IN",
+        actionType: inventory.actionType,
         stockName: newproduct.data[inventory.selectedProduct].stockName,
         categoryName: newproduct.data[inventory.selectedProduct].category.categoryName
       }
@@ -54,6 +54,7 @@ export let saveAllRows = () => {
       let {inventory} = getState();
 
       let data = inventory.inventorydata
+
 
       axios.post('/api/inventory',{
         data

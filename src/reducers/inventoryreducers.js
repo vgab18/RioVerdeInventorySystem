@@ -9,6 +9,7 @@ const initialState = {
     selectedProduct: 0,
     price: 0,
     quantity: 0,
+    actionType:'',
     inventorydata:[],
     inventory:[]
 }
@@ -18,14 +19,21 @@ export default function inventoryreducers(state=initialState,action={}) {
         case types.OPEN_STOCK_IN_MODAL_SUCCESS:
           return _.assign({},
             state,{
-            openStockIn:true
+            openStockIn:true,
+            actionType:'IN'
             }
         )
 
         case types.CLOSE_STOCK_IN_MODAL_SUCCESS:
           return _.assign({},
             state,{
-            openStockIn:false
+            openStockIn:false,
+            actionType:'',
+            selectedSupplier: 1,
+            selectedProduct: 0,
+            price: 0,
+            quantity: 0,
+            inventorydata:[]
             }
         )
 
@@ -72,6 +80,7 @@ export default function inventoryreducers(state=initialState,action={}) {
                     selectedProduct: 0,
                     price: 0,
                     quantity: 0,
+                    inventorydata:[]
                 }
             )
 

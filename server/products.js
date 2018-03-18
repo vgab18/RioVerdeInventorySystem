@@ -31,8 +31,8 @@ module.exports = function (Product,Category,sequelize,Inventory) {
     Product.create(req.body.data)
       .then(function (products) {
           Inventory.create({
-            productId: product.id,
-            categoryId: product.categoryId,
+            productId: products.id,
+            categoryId: products.categoryId,
             price: 0,
             quantity: 0,
             totalamount: 0,
