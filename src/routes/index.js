@@ -17,6 +17,8 @@ import AccessDenied from '../components/AccessDenied';
 import  {requireAuthentication} from '../utils/AuthUtils';
 import Staffsupplierlist from '../containers/Staff/Staffsupplierlist';
 import Messagepage from '../containers/Messagepage';
+import Error404 from '../components/404NotFound';
+
 
 let route = (
     <Switch>
@@ -32,6 +34,7 @@ let route = (
         <Route exact path="/staffsupplierlist" component={requireAuthentication("Staff",Staffsupplierlist)}/>
         <Route exact path="/message" component={requireAuthentication("admin",Messagepage)}/>
         <Route exact path="/accessdenied" component={AccessDenied}/>
+        <Route exact path="/error404" component={Error404}/>
         <Redirect to="/users" />
     </Switch>
 );
