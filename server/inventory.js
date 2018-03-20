@@ -5,10 +5,10 @@ var co = require('co')
 var _ = require('lodash')
 
 
-module.exports = function (Inventory,Category,Product,User,ProductHistory,TransHistory) {
+module.exports = function (Inventory,Category,Product,User,ProductHistory,TransHistory,Supplier) {
 
      //add inventory
-  router.post('/',function (req,res,next) {
+  router.post('/in',function (req,res,next) {
 
     co(function *() {
       var productHistory = yield ProductHistory.bulkCreate(req.body.data)
@@ -77,9 +77,44 @@ module.exports = function (Inventory,Category,Product,User,ProductHistory,TransH
         res.sendStatus(404);
       });
 
+    })
 
+    //get all producthistory
+   router.get('/producthistory',function (req,res) {
+    ProductHistory.findAll({
+      include:[
+        Product,Category,User
+      ]
+    })
+      .then(function (productHistory) {
+        res.json(productHistory)
+      }).catch(function (err) {
+        console.log(err)
+        res.sendStatus(404);
+      });
 
     })
+
+    //get all transactionhistory
+   router.get('/transactionhistory',function (req,res) {
+    TransHistory.findAll({
+      include:[
+        Product,Category,User,Supplier
+      ]
+    })
+      .then(function (productHistory) {
+        res.json(productHistory)
+      }).catch(function (err) {
+        console.log(err)
+        res.sendStatus(404);
+      });
+
+    })
+    
+    
+
+
+    
 
     return router
 

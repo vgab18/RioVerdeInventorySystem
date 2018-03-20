@@ -55,15 +55,26 @@ export let saveAllRows = () => {
 
       let data = inventory.inventorydata
 
-
-      axios.post('/api/inventory',{
+      axios.post('/api/inventory/in',{
         data
       }).then((inventory)=>{
         dispatcher(saveAllRowsSuccess())
       }).catch((err)=>{
         console.log(err)
       })
+
+
+
     }
+
+  //   axios.post('/api/inventory/in',{
+  //     data
+  //   }).then((inventory)=>{
+  //     dispatcher(saveAllRowsSuccess())
+  //   }).catch((err)=>{
+  //     console.log(err)
+  //   })
+  // }
 }
 
 
@@ -151,5 +162,43 @@ export let handlequantityfield = (value,name) => {
   return{
     type:types.ADD_ITEM_QUANTITY_FIELD_CHANGE,
     value
+  }
+}
+
+export let getProductHistory = () => {
+  return (dispatcher,getState) => {
+    axios.get('/api/inventory/producthistory')
+    .then((inventory) => {
+      var data = inventory.data;
+      dispatcher(getProductHistorySuccess(data))
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+}
+
+export let getProductHistorySuccess = (data) => {
+  return{
+    type:types.GET_PRODUCTHISTORY_DATA_SUCCESS,
+    data
+  }
+}
+
+export let getTransacHistory = () => {
+  return (dispatcher,getState) => {
+    axios.get('/api/inventory/transactionhistory')
+    .then((inventory) => {
+      var data = inventory.data
+      dispatcher(getTransacHistorySuccess(data))
+    }).catch((err) =>{
+      console.log(err)
+    })
+  }
+}
+
+export let getTransacHistorySuccess = (data) => {
+  return{
+    type:types.GET_TRANSACTIONHISTORY_DATA_SUCCESS,
+    data
   }
 }

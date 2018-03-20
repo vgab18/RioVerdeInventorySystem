@@ -10,6 +10,7 @@ import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Navlayout from './Navlayout';
+import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -65,11 +66,13 @@ class Supplierlist extends Component {
        this.props.addsupplierActions.saveSupplier();
        this.props.addsupplierActions.getSuppliers();
      }
-     else {
+     {
        this.props.addsupplierActions.addSupplier();
        this.props.addsupplierActions.getSuppliers();
      }
    }
+
+
 
 
   render() {
@@ -132,6 +135,7 @@ class Supplierlist extends Component {
           </tbody>
         </table>
         </Paper>
+        
         </Grid>
           <SupplierlistForm {...this.props}/>
         </div>

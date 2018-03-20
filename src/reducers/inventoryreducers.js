@@ -11,7 +11,9 @@ const initialState = {
     quantity: 0,
     actionType:'',
     inventorydata:[],
-    inventory:[]
+    inventory:[],
+    producthistory:[],
+    transactionhistory:[]
 }
 
 export default function inventoryreducers(state=initialState,action={}) {
@@ -33,7 +35,6 @@ export default function inventoryreducers(state=initialState,action={}) {
             selectedProduct: 0,
             price: 0,
             quantity: 0,
-            inventorydata:[]
             }
         )
 
@@ -80,7 +81,6 @@ export default function inventoryreducers(state=initialState,action={}) {
                     selectedProduct: 0,
                     price: 0,
                     quantity: 0,
-                    inventorydata:[]
                 }
             )
 
@@ -88,9 +88,21 @@ export default function inventoryreducers(state=initialState,action={}) {
         return _.assign({},
                 state,
                     {
-                        inventory: action.data
+                    inventory: action.data
                     }
                 )
+
+        case types.GET_PRODUCTHISTORY_DATA_SUCCESS:
+        return _.assign({},
+                state,{
+                    producthistory: action.data
+                })
+
+        case types.GET_TRANSACTIONHISTORY_DATA_SUCCESS:
+        return _.assign({},
+                state,{
+                    transactionhistory: action.data
+                })
 
         default:
         return state

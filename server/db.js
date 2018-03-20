@@ -265,6 +265,7 @@ module.exports = function (sequelize) {
 
   ProductHistory.belongsTo(Product)
   ProductHistory.belongsTo(Category)
+  ProductHistory.belongsTo(User)
 
   TransacHistory.belongsTo(Supplier)
   TransacHistory.belongsTo(Product)

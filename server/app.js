@@ -130,7 +130,7 @@ var users = require('./users')(db.User);
 app.use('/api/users',requireAuthentication,users);
 
 // inventory table config
-var inventory = require('./inventory')(db.Inventory,db.Category,db.Product,db.User,db.ProductHistory,db.TransacHistory);
+var inventory = require('./inventory')(db.Inventory,db.Category,db.Product,db.User,db.ProductHistory,db.TransacHistory,db.Supplier);
 app.use('/api/inventory',inventory);
 
 

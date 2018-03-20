@@ -14,6 +14,10 @@ import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import * as inventoryactions from '../actions/inventoryactions';  
+import moment from 'moment'
+import Print from 'material-ui/svg-icons/action/print';
+
 
 class Transactionhistory extends Component {
   constructor(props){
@@ -31,6 +35,11 @@ class Transactionhistory extends Component {
 
   handleChange = (event, index, value) => this.setState({value});
 
+  componentWillMount()
+    {
+      this.props.inventoryactions.getTransacHistory();
+    }
+
   render() {
     const paperstyle=
     {
@@ -44,7 +53,7 @@ class Transactionhistory extends Component {
     margin: 12,
     float: 'right',
     textAlign:'center',
-    width:'150px'
+    width:'100px',
     };
 
 
@@ -58,26 +67,28 @@ class Transactionhistory extends Component {
                   <h1>Transaction History</h1>
                 </Col>
                 <Col md={6} mdOffset={6}>
-                  <SelectField
+                  <RaisedButton className="d-print-none" style={style} onClick={this.print}><Print style={{color:'black'}}/></RaisedButton>
+                </Col>
+              </Row>
+              <Col md={12}>
+              <SelectField
                   value={this.state.value}
                   menuItemStyle={{textAlign:'center'}}
                   onChange={this.handleChange}
-                  style={{float:'right',textAlign:'center',width:'170px',margin:12}}>
+                  style={{textAlign:'center',width:'300px',margin:12}}>
                   <MenuItem value={1} primaryText="Daily" />
                   <MenuItem value={2} primaryText="Weekly" />
                   <MenuItem value={3} primaryText="Monthly" />
                   </SelectField>
-                  <RaisedButton className="d-print-none" label="Print" style={style} onClick={this.print}/>
-                </Col>
-              </Row>
+              </Col>
                 <table class="table table-striped table-hover table-bordered responsive">
                 <thead class="thead-dark">
                   <tr>
                     <th>#</th>
                     <th>Date</th>
                     <th>Supplier Name</th>
-                    <th>Stock Name</th>
                     <th>Company</th>
+                    <th>Stock Name</th>
                     <th>Category</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -87,58 +98,25 @@ class Transactionhistory extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>May 5, 2017</td>
-                    <td>Jerick Curiba</td>
-                    <td>Marcela Farms</td>
-                    <td>Chicken</td>
-                    <td>Meat</td>
-                    <td>150.00</td>
-                    <td>4</td>
-                    <td>Kg</td>
-                    <td>600.00</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>May 5, 2017</td>
-                    <td>Margie Macalinao</td>
-                    <td>N/A</td>
-                    <td>Chicken</td>
-                    <td>Meat</td>
-                    <td>150.00</td>
-                    <td>4</td>
-                    <td>Kg</td>
-                    <td>600.00</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>May 5, 2017</td>
-                    <td>Carlo Lapinig</td>
-                    <td>Alturas Mall</td>
-                    <td>Chicken</td>
-                    <td>Meat</td>
-                    <td>150.00</td>
-                    <td>4</td>
-                    <td>Kg</td>
-                    <td>600.00</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>May 5, 2017</td>
-                    <td>John Bill Suarez</td>
-                    <td>Suarez Minimart</td>
-                    <td>Chicken</td>
-                    <td>Meat</td>
-                    <td>150.00</td>
-                    <td>4</td>
-                    <td>Kg</td>
-                    <td>600.00</td>
-                    <td>2</td>
-                  </tr>
+{
+                  this.props.inventory.transactionhistory.map((transaction,i) => {
+                  return(
+                    <tr>
+                      <td>{transaction.id}</td>
+                      <td>{moment(transaction.createdAt).format('LLL')}</td>
+                      <td>{transaction.supplier.firstName+" "+transaction.supplier.lastName}</td>
+                      <td>{transaction.supplier.company}</td>
+                      <td>{transaction.product.stockName}</td>
+                      <td>{transaction.category.categoryName}</td>
+                      <td>{transaction.price}</td>
+                      <td>{transaction.quantity}</td>
+                      <td>{transaction.product.unit}</td>
+                      <td>{transaction.totalamount}</td>
+                      <td>{transaction.user.id}</td>
+                    </tr>
+                    )
+                  })
+}
                 </tbody>
               </table>
               </Paper>
@@ -152,12 +130,14 @@ function mapStateToProps(state) {
   return{
     router: state.router,
     auth: state.auth,
+    inventory: state.inventory
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return{
-    routerActions: bindActionCreators(routerActions,dispatch)
+    routerActions: bindActionCreators(routerActions,dispatch),
+    inventoryactions: bindActionCreators(inventoryactions,dispatch)
   }
 }
 

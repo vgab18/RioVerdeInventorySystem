@@ -14,6 +14,10 @@ import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import * as inventoryactions from '../actions/inventoryactions';
+import moment from 'moment';
+import Print from 'material-ui/svg-icons/action/print';
+
 
 
 class Producthistory extends Component {
@@ -30,6 +34,15 @@ class Producthistory extends Component {
    window.print();
  }
 
+ print = () => {
+  window.print();
+}
+
+ componentWillMount()
+    {
+      this.props.inventoryactions.getProductHistory();
+    }
+
   render() {
       const paperstyle=
       {
@@ -45,6 +58,7 @@ class Producthistory extends Component {
       textAlign:'center',
       width:'150px'
       };
+      
 
 
     return (
@@ -53,22 +67,24 @@ class Producthistory extends Component {
             <Grid>
             <Paper style={paperstyle} zDepth={2} transitionEnabled={true}>
             <Row>
-              <Col md={6}>
-                <h1>Product History</h1>
+                <Col md={6}>
+                  <h1>Product History</h1>
+                </Col>
+                <Col md={6} mdOffset={6}>
+                  <RaisedButton className="d-print-none" style={style} onClick={this.print}><Print style={{color:'black'}}/></RaisedButton>
+                </Col>
+              </Row>
+              <Col md={12}>
+              <SelectField
+                  value={this.state.value}
+                  menuItemStyle={{textAlign:'center'}}
+                  onChange={this.handleChange}
+                  style={{textAlign:'center',width:'300px',margin:12}}>
+                  <MenuItem value={1} primaryText="Daily" />
+                  <MenuItem value={2} primaryText="Weekly" />
+                  <MenuItem value={3} primaryText="Monthly" />
+                  </SelectField>
               </Col>
-              <Col md={6} mdOffset={6}>
-                <SelectField
-                value={this.state.value}
-                menuItemStyle={{textAlign:'center'}}
-                onChange={this.handleChange}
-                style={{float:'right',textAlign:'center',width:'170px',margin:12}}>
-                <MenuItem value={1} primaryText="Daily" />
-                <MenuItem value={2} primaryText="Weekly" />
-                <MenuItem value={3} primaryText="Monthly" />
-                </SelectField>
-                  <RaisedButton className="d-print-none" label="Print" style={style} onClick={this.printproducthist}/>
-              </Col>
-            </Row>
               <table class="table table-striped table-hover table-bordered responsive">
               <thead class="thead-dark">
                 <tr>
@@ -85,54 +101,24 @@ class Producthistory extends Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>May 5, 2017</td>
-                  <td>OUT</td>
-                  <td>Chicken</td>
-                  <td>Meat</td>
-                  <td>150.00</td>
-                  <td>4</td>
-                  <td>Kg</td>
-                  <td>600.00</td>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>May 5, 2017</td>
-                  <td>IN</td>
-                  <td>Chicken</td>
-                  <td>Meat</td>
-                  <td>150.00</td>
-                  <td>4</td>
-                  <td>Kg</td>
-                  <td>600.00</td>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>May 5, 2017</td>
-                  <td>OUT</td>
-                  <td>Chicken</td>
-                  <td>Meat</td>
-                  <td>150.00</td>
-                  <td>4</td>
-                  <td>Kg</td>
-                  <td>600.00</td>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>May 5, 2017</td>
-                  <td>IN</td>
-                  <td>Chicken</td>
-                  <td>Meat</td>
-                  <td>150.00</td>
-                  <td>4</td>
-                  <td>Kg</td>
-                  <td>600.00</td>
-                  <td>2</td>
-                </tr>
+              {
+       this.props.inventory.producthistory.map ((producthistory,i) =>{
+        return (
+            <tr>
+              <td>{producthistory.id}</td>
+              <td>{moment(producthistory.createdAt).format('LLL')}</td>
+              <td>{producthistory.actionType}</td>
+              <td>{producthistory.product.stockName}</td>
+              <td>{producthistory.category.categoryName}</td>
+              <td>{producthistory.price}</td>
+              <td>{producthistory.quantity}</td>
+              <td>{producthistory.product.unit}</td>
+              <td>{producthistory.totalamount}</td>
+              <td>{producthistory.user.id}</td>
+            </tr>
+          )
+        })
+  }
               </tbody>
             </table>
             </Paper>
@@ -146,12 +132,14 @@ function mapStateToProps(state) {
   return{
     router: state.router,
     auth: state.auth,
+    inventory:state.inventory,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return{
-    routerActions: bindActionCreators(routerActions,dispatch)
+    routerActions: bindActionCreators(routerActions,dispatch),
+    inventoryactions: bindActionCreators(inventoryactions,dispatch)
   }
 }
 

@@ -10,6 +10,7 @@ const initialState = {
   status:true,
   open:false,
   edit:false,
+  snackbar:false,
   data:[]
 
 }
@@ -29,7 +30,9 @@ switch (action.type) {
       address:'',
       contactNo:'',
       edit:false,
-      open:false})
+      open:false,
+      snackbar:true
+    })
 
   case types.ADD_NEW_SUPPLIER_SUCCESS:
   return{
