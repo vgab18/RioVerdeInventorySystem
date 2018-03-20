@@ -104,6 +104,18 @@ export default function inventoryreducers(state=initialState,action={}) {
                     transactionhistory: action.data
                 })
 
+        case types.OPEN_STOCK_OUT_MODAL_SUCCESS:
+        return _.assign({},
+                state,{
+                openStockOut:true,
+                actionType:'OUT'
+                })
+
+        case types.CLOSE_STOCK_OUT_MODAL_SUCCESS:
+        return _.assign({},
+                state,{
+                openStockOut:false,
+                })
         default:
         return state
     }

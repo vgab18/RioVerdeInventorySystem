@@ -16,10 +16,27 @@ export let openStockIn = () => {
     }
   }
 
+export let openStockOut = () => {
+  return (dispatcher,getState) => {
+    dispatcher( {
+      type: types.OPEN_STOCK_OUT_MODAL_SUCCESS,
+    });
+    dispatcher(productsActions.getProducts());
+  }
+}
+
 export let closeStockIn = () => {
   return (dispatcher,getState) => {
       dispatcher( {
         type: types.CLOSE_STOCK_IN_MODAL_SUCCESS,
+      });
+  }
+}
+
+export let closeStockOut = () => {
+  return (dispatcher,getState) => {
+      dispatcher( {
+        type: types.CLOSE_STOCK_OUT_MODAL_SUCCESS,
       });
   }
 }

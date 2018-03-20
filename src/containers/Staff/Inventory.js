@@ -34,12 +34,19 @@ class Inventory extends Component {
   }
   handleOpen = () => {
    this.props.inventoryActions.openStockIn();
-
  };
+
+ handleOpenOut = () => {
+   this.props.inventoryActions.openStockOut();
+ }
 
  handleClose = () => {
    this.props.inventoryActions.closeStockIn();
  };
+
+ handleCloseOut = () => {
+   this.props.inventoryActions.closeStockOut();
+ }
 
  saveAllRows = () => {
    this.props.inventoryActions.saveAllRows();
@@ -55,6 +62,7 @@ class Inventory extends Component {
 
 
  changeProduct = (e) => {
+  console.log(this.props.inventory.inventory[this.props.inventory.selectedProduct].price);
    var name = e.target.name
    var value = e.target.value
    this.props.inventoryActions.changeProduct(value,name)
@@ -107,7 +115,7 @@ class Inventory extends Component {
       <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
     ];
 
-    const SupplierActions = [
+    const actions = [
       <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
       <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
     ];
@@ -127,7 +135,7 @@ class Inventory extends Component {
           Stock In</button>
         </Col>
         <Col md={6} style={{paddingLeft:'3px'}}>
-          <button type="button" class="btn btn-outline-primary" style={{float:'left',width:'200px'}}>Stock Out ( - )</button>
+          <button type="button" class="btn btn-outline-primary" style={{float:'left',width:'200px'}} onClick={this.handleOpenOut}>Stock Out ( - )</button>
         </Col>
         </Row>
           <table class="table table-striped table-hover table-bordered responsive">
@@ -304,35 +312,44 @@ class Inventory extends Component {
       <br />
         </Dialog>
         <Dialog
-          title="+Add New Supplier"
-          actions={SupplierActions}
+          title="Stock Out"
+          actions={actions}
           modal={false}
-          open={this.props.addsupplier.open}
+          open={this.props.inventory.openStockOut}
+          onRequestClose={this.handleCloseOut}
+          bodyStyle={'auto'}
+          contentStyle={dialogstyle}
           autoScrollBodyContent={true}
-          onRequestClose={this.hanldeCloseSupplierModal}
         >
-        <Col sm={9}style={{marginLeft:'14%'}}>
-        <div class="form-group">
-        <label for="exampleInputEmail1">First Name</label>
-        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Last Name</label>
-        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Company</label>
-        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Address</label>
-        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        <div class="form-group">
-        <label for="exampleInputEmail1">Contact Number</label>
-        <input name="lastName" onChange="" value="" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-        </div>
-        </Col>
+        <br/>
+        <Grid>
+        <Row>
+            <Col md={2}>
+              <select value={this.props.inventory.selectedProduct} class="form-control" id="exampleSelect2" style={{width:'100%'}} name="selectedProduct" onChange={this.changeProduct}>
+                {
+                  this.props.newproduct.data.map((products,productIndex) => {
+                    return (
+                      <option value={productIndex}>{products.stockName}</option>
+                    )
+                  })
+                }
+              </select>
+            </Col>
+            <Col md={3}>
+            <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.inventory.inventory[this.props.inventory.selectedProduct].price}</p>
+            </Col>
+            <Col md={3}>
+              <input type="number" onChange={this.handlequantityfield} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="quantity" value={this.props.inventory.quantity}  name="quantity" style={{width:'100%'}}/>
+            </Col>
+            <Col md={2} style={{textAlign:'center'}}>
+              <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].unit || ''}</p>
+            </Col>
+            <Col md={2} style={{textAlign:'center'}}>
+
+              <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].category.categoryName}</p>
+            </Col>
+          </Row>
+        </Grid>
         </Dialog>
 
 
