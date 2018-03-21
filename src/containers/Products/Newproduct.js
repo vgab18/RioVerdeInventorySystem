@@ -119,20 +119,20 @@ class Manageproduct extends Component {
         <Grid>
         <Paper style={paperstyle} zDepth={2} transitionEnabled={true}>
         <Row>
-        <Col md={3}>
+        <Col md={6}>
           <h1>Inventory</h1>
         </Col>
-        <Col md={5}>
+          <Col md={6}>
+            <button type="button" class="btn btn-primary" style={{float:'right'}} onClick={this.openproductmodal}>+Add Product</button>
+          </Col>
+        </Row>
+        <Col md={6}>
             <TextField
            hintText="Search"
            fullWidth={true}
          />
-
         </Col>
-        <Col md={4}>
-          <button type="button" class="btn btn-primary" style={{float:'right'}} onClick={this.openproductmodal}>+Add Product</button>
-        </Col>
-        </Row>
+        <br />
           <table class="table table-striped table-hover table-bordered responsive">
           <thead class="thead-dark">
             <tr>

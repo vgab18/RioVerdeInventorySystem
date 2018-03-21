@@ -116,6 +116,17 @@ export default function inventoryreducers(state=initialState,action={}) {
                 state,{
                 openStockOut:false,
                 })
+
+        case types.SAVE_STOCK_OUT_SUCCESS:
+        return _.assign({},
+                state,{
+                    openStockOut:false,
+                    selectedSupplier: 1,
+                    selectedProduct: 0,
+                    price: 0,
+                    quantity: 0,
+                    actionType:''
+                })
         default:
         return state
     }

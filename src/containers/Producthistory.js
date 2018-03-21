@@ -5,7 +5,7 @@ import {Well,
         ControlLabel,
         HelpBlock,Grid,Col,
         Button,nav,Row,
-        ButtonGroup} from 'react-bootstrap';
+        ButtonGroup,Tooltip,OverlayTrigger} from 'react-bootstrap';
 import {routerActions} from 'react-router-redux';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -58,8 +58,6 @@ class Producthistory extends Component {
       textAlign:'center',
       width:'150px'
       };
-      
-
 
     return (
       <div>

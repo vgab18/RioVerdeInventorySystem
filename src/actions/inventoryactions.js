@@ -49,7 +49,7 @@ export let addRows = () => {
         categoryId: newproduct.data[inventory.selectedProduct].categoryId,
         createdAt: new Date(),
         quantity: inventory.quantity,
-        price: inventory.price,
+        price: parseInt(inventory.price),
         unit: newproduct.data[inventory.selectedProduct].unit,
         totalamount: inventory.price*inventory.quantity,
         supplierId: addsupplier.data[inventory.selectedSupplier-1].id,
@@ -79,21 +79,8 @@ export let saveAllRows = () => {
       }).catch((err)=>{
         console.log(err)
       })
-
-
-
     }
-
-  //   axios.post('/api/inventory/in',{
-  //     data
-  //   }).then((inventory)=>{
-  //     dispatcher(saveAllRowsSuccess())
-  //   }).catch((err)=>{
-  //     console.log(err)
-  //   })
-  // }
 }
-
 
 export let saveAllRowsSuccess = () => {
     return (dispatcher,getState) => {
@@ -104,6 +91,33 @@ export let saveAllRowsSuccess = () => {
       })
       dispatcher(getInventory())
     }
+}
+
+export let saveStockOut = () => {
+  return(dispatcher,getState)=>{
+    let {inventory} = getState();
+
+    let data = inventory.inventorydata
+
+    axios.put('/api/inventory/out',{
+      data
+    }).then((inventory)=>{
+      dispatcher(saveOutSuccess())
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+}
+
+export let saveOutSuccess = () => {
+  return (dispatcher,getState) => {
+
+
+    dispatcher({
+      type:types.SAVE_STOCK_OUT_SUCCESS
+    })
+    dispatcher(getInventory())
+  }
 }
 
 

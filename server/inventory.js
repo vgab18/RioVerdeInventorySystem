@@ -52,14 +52,49 @@ module.exports = function (Inventory,Category,Product,User,ProductHistory,TransH
         console.log(err);
         res.sendStatus(500)
     })
+  })
 
-    // Inventory.bulkCreate(req.body.data)
-    //   .then(function (inventory) {
-    //     res.status(200).json(inventory)
-    //   }).catch(function (err) {
-    //     console.log(err);
-    //     res.sendStatus(404);
-    //   });
+
+  //add inventory out
+  router.put('/out',function (req,res,next) {
+    co(function *() {
+      var productHistory = yield ProductHistory.bulkCreate(req.body.data)
+
+      var transHistory = yield TransHistory.bulkCreate(req.body.data)
+
+      var inventoryData = _.map(req.body.data,function (element) {
+        return{
+          productId: element.productId,
+          categoryId: element.categoryId,
+          price: element.price,
+          quantity: element.quantity,
+          totalamount: element.totalamount,
+        }
+      })
+      
+      // var inventory = yield Inventory.bulkCreate(inventoryData)
+
+      for (let i = 0; i < inventoryData.length; i++) {
+        const data = inventory[i];
+        Inventory.findOne({
+          where: {
+            productId: data.productId
+          }
+        }).then(function (inventory) {
+          inventory.update({
+            quantity: inventory.quantity - parseInt(data.quantity),
+          })
+        })
+      }
+
+      return [productHistory,transHistory,inventoryData]
+
+    }).then(function (data) {
+        res.sendStatus(200)
+    }).catch(function (err) {
+        console.log(err);
+        res.sendStatus(500)
+    })
   })
 
 
@@ -78,6 +113,7 @@ module.exports = function (Inventory,Category,Product,User,ProductHistory,TransH
       });
 
     })
+
 
     //get all producthistory
    router.get('/producthistory',function (req,res) {
@@ -111,8 +147,6 @@ module.exports = function (Inventory,Category,Product,User,ProductHistory,TransH
 
     })
     
-    
-
 
     
 

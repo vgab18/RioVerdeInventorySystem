@@ -52,6 +52,10 @@ class Inventory extends Component {
    this.props.inventoryActions.saveAllRows();
  }
 
+ saveStockOut = () => {
+   this.props.inventoryActions.saveStockOut();
+ }
+
  addRows = () => {
    this.props.inventoryActions.addRows();
  }
@@ -62,7 +66,6 @@ class Inventory extends Component {
 
 
  changeProduct = (e) => {
-  console.log(this.props.inventory.inventory[this.props.inventory.selectedProduct].price);
    var name = e.target.name
    var value = e.target.value
    this.props.inventoryActions.changeProduct(value,name)
@@ -116,8 +119,8 @@ class Inventory extends Component {
     ];
 
     const actions = [
-      <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}}>Save</button>,
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleClose} style={{marginRight:10}}>Close</button>,
+      <button type="button" class="btn btn-info" style={{marginRight:10,width:'150px'}} onClick={this.saveStockOut}>Save</button>,
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleCloseOut} style={{marginRight:10}}>Close</button>,
     ];
 
 
@@ -148,7 +151,6 @@ class Inventory extends Component {
               <th>Quantity</th>
               <th>Unit</th>
               <th>Total Amount</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -163,7 +165,6 @@ class Inventory extends Component {
               <td>{inventory.quantity}</td>
               <td>{inventory.product.unit}</td>
               <td>{inventory.totalamount}</td>
-              <td>{inventory.actionType}</td>
             </tr>
               )
               })
@@ -324,7 +325,7 @@ class Inventory extends Component {
         <br/>
         <Grid>
         <Row>
-            <Col md={2}>
+            <Col md={3}>
               <select value={this.props.inventory.selectedProduct} class="form-control" id="exampleSelect2" style={{width:'100%'}} name="selectedProduct" onChange={this.changeProduct}>
                 {
                   this.props.newproduct.data.map((products,productIndex) => {
@@ -335,18 +336,18 @@ class Inventory extends Component {
                 }
               </select>
             </Col>
-            <Col md={3}>
-            <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.inventory.inventory[this.props.inventory.selectedProduct].price}</p>
+            <Col md={2}>
+            <p style={{textStyle:'bold',fontSize:'25px'}}>₱  {this.props.inventory.inventory.length === 0 ? '' : this.props.inventory.inventory[this.props.inventory.selectedProduct].price}</p>
             </Col>
             <Col md={3}>
               <input type="number" onChange={this.handlequantityfield} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="quantity" value={this.props.inventory.quantity}  name="quantity" style={{width:'100%'}}/>
             </Col>
             <Col md={2} style={{textAlign:'center'}}>
-              <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].unit || ''}</p>
+              <p style={{textStyle:'bold',fontSize:'25px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].unit || ''}</p>
             </Col>
             <Col md={2} style={{textAlign:'center'}}>
 
-              <p style={{textStyle:'bold',fontSize:'20px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].category.categoryName}</p>
+              <p style={{textStyle:'bold',fontSize:'25px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].category.categoryName}</p>
             </Col>
           </Row>
         </Grid>
