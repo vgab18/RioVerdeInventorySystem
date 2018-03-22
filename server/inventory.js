@@ -58,36 +58,27 @@ module.exports = function (Inventory,Category,Product,User,ProductHistory,TransH
   //add inventory out
   router.put('/out',function (req,res,next) {
     co(function *() {
-      var productHistory = yield ProductHistory.bulkCreate(req.body.data)
-
-      var transHistory = yield TransHistory.bulkCreate(req.body.data)
-
-      var inventoryData = _.map(req.body.data,function (element) {
-        return{
-          productId: element.productId,
-          categoryId: element.categoryId,
-          price: element.price,
-          quantity: element.quantity,
-          totalamount: element.totalamount,
-        }
-      })
-      
-      // var inventory = yield Inventory.bulkCreate(inventoryData)
-
-      for (let i = 0; i < inventoryData.length; i++) {
-        const data = inventory[i];
+      var productHistory = yield ProductHistory.create(req.body.data)
+      let data = {
+          productId: req.body.data.productId,
+          categoryId: req.body.data.categoryId,
+          price: req.body.data.price,
+          quantity: req.body.data.quantity,
+          totalamount: req.body.data.totalamount,
+      }
+      console.log(data);
         Inventory.findOne({
           where: {
             productId: data.productId
           }
         }).then(function (inventory) {
+          console.log(inventory);
           inventory.update({
             quantity: inventory.quantity - parseInt(data.quantity),
           })
         })
-      }
 
-      return [productHistory,transHistory,inventoryData]
+      return [productHistory]
 
     }).then(function (data) {
         res.sendStatus(200)
@@ -111,7 +102,6 @@ module.exports = function (Inventory,Category,Product,User,ProductHistory,TransH
         console.log(err)
         res.sendStatus(404);
       });
-
     })
 
 

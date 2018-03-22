@@ -13,7 +13,7 @@ const initialState = {
     inventorydata:[],
     inventory:[],
     producthistory:[],
-    transactionhistory:[]
+    transactionhistory:[],
 }
 
 export default function inventoryreducers(state=initialState,action={}) {

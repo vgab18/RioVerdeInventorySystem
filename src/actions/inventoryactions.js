@@ -6,6 +6,7 @@ import * as productsActions from './addnewproductactions';
 import _ from 'lodash'
 import { EAFNOSUPPORT } from 'constants';
 
+
 export let openStockIn = () => {
     return (dispatcher,getState) => {
       dispatcher( {
@@ -95,9 +96,21 @@ export let saveAllRowsSuccess = () => {
 
 export let saveStockOut = () => {
   return(dispatcher,getState)=>{
-    let {inventory} = getState();
+    let {inventory, newproduct, addsupplier, auth} = getState();
 
-    let data = inventory.inventorydata
+    let data = {
+      productId: newproduct.data[inventory.selectedProduct].id,
+      categoryId: newproduct.data[inventory.selectedProduct].categoryId,
+      createdAt: new Date(),
+      quantity: inventory.quantity,
+      price: parseInt(inventory.price),
+      unit: newproduct.data[inventory.selectedProduct].unit,
+      totalamount: inventory.price*inventory.quantity,
+      userId: auth.account.id,
+      actionType: inventory.actionType,
+      stockName: newproduct.data[inventory.selectedProduct].stockName,
+      categoryName: newproduct.data[inventory.selectedProduct].category.categoryName
+    }
 
     axios.put('/api/inventory/out',{
       data
@@ -231,5 +244,33 @@ export let getTransacHistorySuccess = (data) => {
   return{
     type:types.GET_TRANSACTIONHISTORY_DATA_SUCCESS,
     data
+  }
+}
+
+export let saveKitchenOut = () => {
+  return(dispatcher,getState)=>{
+    let {inventory, newproduct, addsupplier, auth} = getState();
+
+    let data = {
+      productId: newproduct.data[inventory.selectedProduct].id,
+      categoryId: newproduct.data[inventory.selectedProduct].categoryId,
+      createdAt: new Date(),
+      quantity: inventory.quantity,
+      price: parseInt(inventory.price),
+      unit: newproduct.data[inventory.selectedProduct].unit,
+      totalamount: inventory.price*inventory.quantity,
+      userId: auth.account.id,
+      actionType: "OUT",
+      stockName: newproduct.data[inventory.selectedProduct].stockName,
+      categoryName: newproduct.data[inventory.selectedProduct].category.categoryName
+    }
+
+    axios.put('/api/inventory/out',{
+      data
+    }).then((inventory)=>{
+      dispatcher(saveOutSuccess())
+    }).catch((err)=>{
+      console.log(err)
+    })
   }
 }

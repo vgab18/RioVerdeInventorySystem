@@ -172,9 +172,6 @@ module.exports = function (sequelize) {
     totalamount: {
       type: Sequelize.DOUBLE
     },
-    supplierId: {
-      type: Sequelize.INTEGER
-    },
     userId: {
       type: Sequelize.INTEGER
     },
