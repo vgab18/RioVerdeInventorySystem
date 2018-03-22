@@ -1,5 +1,7 @@
 import * as types from '../constants/NewProductActionTypes';
 import axios from 'axios';
+import { EAFNOSUPPORT } from 'constants';
+import _ from "lodash";
 
 export let getProducts = () => {
   return (dispatcher,getState) => {
@@ -22,3 +24,47 @@ export let getnewProductssSuccess = (data) => {
     data
   }
 }
+
+export let handleSearch = (value,name) => {
+  return(dispatcher,getState) =>{
+    var {newproduct} = getState();
+
+    let source = newproduct.data
+
+    let filteredSearch = _.map(source,(value) => {
+      if(value.stockName.includes(value)){
+        return value
+      }
+    })
+
+    filteredSearch = _.without(filteredSearch, undefined)
+
+    if(filteredSearch.length !==0){
+      dispatcher(searchProductFound(filteredSearch))
+    }
+  }
+  }
+
+  export let handleSearchChange = (value,name) => {
+    return (dispatcher,getState) => {
+      var {newproduct} = getState();
+
+      newproduct[name] = value;
+
+      dispatcher({
+        type:types.SEARCH_PRODUCT_FIELD_CHANGE,
+        newproduct
+      })
+    }
+  }
+
+
+export let searchProductFound = (filteredSearch) => {
+  return{
+    type:types.SEARCH_PRODUCT_FOUND,
+      filteredSearch
+  }
+  
+}
+
+  

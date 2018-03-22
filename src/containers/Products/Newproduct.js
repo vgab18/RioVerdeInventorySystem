@@ -12,7 +12,7 @@ import {bindActionCreators} from 'redux';
 import Navlayout from '../Navlayout';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
-import * as products from '../../actions/newproductactions';
+import * as productActions from '../../actions/newproductactions';
 import Addnewproduct from './Addnewproduct';
 import * as addproductActions from '../../actions/addnewproductactions'
 import _ from 'lodash'
@@ -21,6 +21,7 @@ import * as addcategoryActions from '../../actions/addcategory';
 import AddnewcategoryForm from './AddnewcategoryForm';
 import TextField from 'material-ui/TextField';
 import icon from '../../Style/images/icon.png';
+import { EAFNOSUPPORT } from 'constants';
 
 class Manageproduct extends Component {
   constructor(props){
@@ -82,6 +83,13 @@ class Manageproduct extends Component {
 
   }
 
+  handleChangeSearch = (e) => {
+    var value = e.target.value
+    var name = e.target.name
+    this.props.productActions.handleSearch(value)
+    this.props.productActions.handleSearchChange(value,name)
+  }
+
 
 
 
@@ -130,6 +138,10 @@ class Manageproduct extends Component {
             <TextField
            hintText="Search"
            fullWidth={true}
+           onChange={this.handleChangeSearch}
+           type="text"
+           value={this.props.newproduct.searchProduct}
+           name="searchProduct"
          />
         </Col>
         <br />
@@ -184,7 +196,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return{
     routerActions: bindActionCreators(routerActions,dispatch),
-    productActions: bindActionCreators(products,dispatch),
+    productActions: bindActionCreators(productActions,dispatch),
     addproductActions: bindActionCreators(addproductActions,dispatch),
     categoryActions: bindActionCreators(categoryActions,dispatch),
     addcategoryActions: bindActionCreators(addcategoryActions,dispatch),

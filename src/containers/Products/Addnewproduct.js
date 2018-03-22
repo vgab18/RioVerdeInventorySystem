@@ -249,7 +249,7 @@ onValidate = (error) => {
         <div class="form-group">
         <label for="exampleInputEmail1">Unit</label>
           <select multiple="" class="form-control" value={this.props.addproduct.unit} onChange={this.handleChange()} id="exampleSelect2" style={{width:'50%'}} onChange={this.handleChangeUnitField} name="unit">
-            <option value="Kg">Kg</option>
+            <option value="Kg"  >Kg</option>
             <option value="Litre">Litre</option>
           </select>
         </div>
