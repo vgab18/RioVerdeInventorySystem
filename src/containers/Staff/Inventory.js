@@ -24,13 +24,17 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
-
+import FlatButton from 'material-ui/FlatButton';
 
 
 
 class Inventory extends Component {
   constructor(props){
     super(props);
+    this.state={
+      openError:false,
+      openInvalid:false
+    }
 
   }
   handleOpen = () => {
@@ -53,9 +57,34 @@ class Inventory extends Component {
    this.props.inventoryActions.saveAllRows();
  }
 
- saveStockOut = () => {
-   this.props.inventoryActions.saveStockOut();
+ handleCloseError = () => {
+   this.setState({
+     openError:false
+   })
  }
+
+ handleCloseInvalid = () => {
+  this.setState({
+    openInvalid:false
+  })
+}
+
+ saveStockOut = () => {
+   if(this.props.inventory.quantity>this.props.inventory.inventory[this.props.inventory.selectedProduct].quantity){
+     this.setState({
+       openError:true
+     })
+   }
+   else if(this.props.inventory.quantity === 0 || this.props.inventory.quantity === ''){
+   this.setState({
+     openInvalid:true
+   })
+  }
+   else{
+   this.props.inventoryActions.saveStockOut();
+   }
+
+  }
 
  addRows = () => {
    this.props.inventoryActions.addRows();
@@ -131,6 +160,24 @@ class Inventory extends Component {
       <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleCloseOut} style={{marginRight:10}}>Close</button>,
     ];
 
+    const errorActions = [
+      <FlatButton
+        label="Ok"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.handleCloseError}
+      />,
+    ];
+
+    const actionsInvalid = [
+      <FlatButton
+        label="Ok"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.handleCloseInvalid}
+      />,
+    ];
+
 
     return (
       <div>
@@ -176,7 +223,7 @@ class Inventory extends Component {
           {
             this.props.inventory.filterinventory.map ((inventory,i)=>{
               return(
-            <tr className={inventory.quantity<=5 ? "table-danger" : ''}>
+            <tr className={inventory.quantity<10 ? "table-danger" : ''}>
               <td>{inventory.id}</td>
               <td>{inventory.product.stockName}</td>
               <td>{inventory.category.categoryName}</td>
@@ -376,7 +423,28 @@ class Inventory extends Component {
           </Row>
         </Grid>
         </Dialog>
-
+        <Dialog
+          title="Insufficient balance"
+          titleStyle={{color:'white'}}
+          actions={errorActions}
+          modal={false}
+          open={this.state.openError}
+          onRequestClose={this.handleCloseError}
+          titleStyle={{backgroundColor:'#EF5350'}}
+        >
+        <br />
+          Value must not be more than the current quantity
+        </Dialog>
+        <Dialog
+          title="Action Failed."
+          actions={actionsInvalid}
+          modal={false}
+          open={this.state.openInvalid}
+          onRequestClose={this.handleCloseInvalid}
+        >
+        <br />
+          The input value must be more than zero(0) to be saved.
+        </Dialog>
 
       </div>
       );
