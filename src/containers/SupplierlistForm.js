@@ -236,6 +236,10 @@ render(){
         </div>
         <div class={"form-group has-"+ this.getClasses("container",'contactNo')}>
             <label for="exampleInputEmail1">Contact Number</label>
+            <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">+639</span>
+            </div>
             <input
                 name="contactNo"
                 onChange={this.handleChange()}
@@ -249,11 +253,11 @@ render(){
                     })
                     this.props.validate('contactNo');
                 }}/>
+            </div>
         </div>
         <div class={this.getClasses("input",'contactNo') + "-feedback"} style={this.state.contactNo ? {display: "block"} : {display: "none"}}>
             {this.getErrorField('contactNo')}
         </div>
-
         </Col>
         </Dialog>            
 

@@ -86,7 +86,6 @@ class Manageproduct extends Component {
   handleChangeSearch = (e) => {
     var value = e.target.value
     var name = e.target.name
-    this.props.productActions.handleSearch(value)
     this.props.productActions.handleSearchChange(value,name)
   }
 
@@ -128,7 +127,7 @@ class Manageproduct extends Component {
         <Paper style={paperstyle} zDepth={2} transitionEnabled={true}>
         <Row>
         <Col md={6}>
-          <h1>Inventory</h1>
+          <h1>Products</h1>
         </Col>
           <Col md={6}>
             <button type="button" class="btn btn-primary" style={{float:'right'}} onClick={this.openproductmodal}>+Add Product</button>
@@ -136,7 +135,7 @@ class Manageproduct extends Component {
         </Row>
         <Col md={6}>
             <TextField
-           hintText="Search"
+           hintText="Search stock"
            fullWidth={true}
            onChange={this.handleChangeSearch}
            type="text"
@@ -159,14 +158,14 @@ class Manageproduct extends Component {
           <tbody>
 
   {
-      this.props.newproduct.data.map ((product,i) =>{
+      this.props.newproduct.productdata.map ((product,i) =>{
         return (
             <tr>
               <td>{product.id}</td>
               <td>{product.stockName}</td>
               <td>{product.category.categoryName}</td>
               <td>{product.unit}</td>
-              <td>{product.status ? 'active' : 'inactive'}</td>
+              <td>{product.status ? 'Active' : 'Inactive'}</td>
               <td><button type="button" class="btn btn-warning" onClick={()=>this.openmodal(product.id)}>Edit</button></td>
             </tr>
           )

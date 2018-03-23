@@ -25,25 +25,6 @@ export let getnewProductssSuccess = (data) => {
   }
 }
 
-export let handleSearch = (value,name) => {
-  return(dispatcher,getState) =>{
-    var {newproduct} = getState();
-
-    let source = newproduct.data
-
-    let filteredSearch = _.map(source,(value) => {
-      if(value.stockName.includes(value)){
-        return value
-      }
-    })
-
-    filteredSearch = _.without(filteredSearch, undefined)
-
-    if(filteredSearch.length !==0){
-      dispatcher(searchProductFound(filteredSearch))
-    }
-  }
-  }
 
   export let handleSearchChange = (value,name) => {
     return (dispatcher,getState) => {
@@ -51,20 +32,21 @@ export let handleSearch = (value,name) => {
 
       newproduct[name] = value;
 
+      let source = newproduct.data
+
+      let filteredSearch = _.map(source,(element) => {
+        if(element.stockName.toUpperCase().includes(value.toUpperCase())){
+          return element
+        }
+      })
+
+    filteredSearch = _.without(filteredSearch, undefined)
+
+    newproduct.productdata= filteredSearch
+
       dispatcher({
         type:types.SEARCH_PRODUCT_FIELD_CHANGE,
         newproduct
       })
     }
   }
-
-
-export let searchProductFound = (filteredSearch) => {
-  return{
-    type:types.SEARCH_PRODUCT_FOUND,
-      filteredSearch
-  }
-  
-}
-
-  

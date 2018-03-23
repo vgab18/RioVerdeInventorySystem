@@ -83,7 +83,6 @@ class Users extends Component {
       <th>Gender</th>
       <th>Role</th>
       <th>UserName</th>
-      <th>Password</th>
       <th>Status</th>
       <th>Action</th>
     </tr>
@@ -101,7 +100,6 @@ class Users extends Component {
       <td>{profile.gender}</td>
       <td>{profile.role}</td>
       <td>{profile.userName}</td>
-      <td>{profile.password}</td>
       <td>{profile.status ? 'Active': 'Inactive' }</td>
       <td><button type="button" class="btn btn-warning" onClick={()=>this.openmodal(profile.id)}>Edit</button></td>
       </tr>

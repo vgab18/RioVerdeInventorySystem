@@ -81,10 +81,10 @@ class Transactionhistory extends Component {
                   <MenuItem value={3} primaryText="Monthly" />
                   </SelectField>
               </Col>
+              <div style={{overflowY:'auto',height:'fixed'}}>
                 <table class="table table-striped table-hover table-bordered responsive">
                 <thead class="thead-dark">
                   <tr>
-                    <th>#</th>
                     <th>Date</th>
                     <th>Supplier Name</th>
                     <th>Company</th>
@@ -100,18 +100,17 @@ class Transactionhistory extends Component {
                 <tbody>
 {
                   this.props.inventory.transactionhistory.map((transaction,i) => {
-                  return(
+                    return(
                     <tr>
-                      <td>{transaction.id}</td>
                       <td>{moment(transaction.createdAt).format('LLL')}</td>
                       <td>{transaction.supplier.firstName+" "+transaction.supplier.lastName}</td>
                       <td>{transaction.supplier.company}</td>
                       <td>{transaction.product.stockName}</td>
                       <td>{transaction.category.categoryName}</td>
-                      <td>{transaction.price}</td>
+                      <td>₱ {transaction.price}</td>
                       <td>{transaction.quantity}</td>
                       <td>{transaction.product.unit}</td>
-                      <td>{transaction.totalamount}</td>
+                      <td>₱ {transaction.totalamount}</td>
                       <td>{transaction.user.id}</td>
                     </tr>
                     )
@@ -119,6 +118,7 @@ class Transactionhistory extends Component {
 }
                 </tbody>
               </table>
+              </div>
               </Paper>
               </Grid>
       </div>

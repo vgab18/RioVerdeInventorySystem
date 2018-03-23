@@ -11,7 +11,9 @@ const initialState ={
 export default function newproductreducers(state=initialState,action={}) {
   switch (action.type) {
     case types.GET_PRODUCTS_DATA_SUCCESS:
-      return _.assign({},state,{data:action.data})
+      return _.assign({},state,{
+          data:action.data,
+          productdata:action.data})
 
     case types.SEARCH_PRODUCT_FOUND:
       return _.assign({},

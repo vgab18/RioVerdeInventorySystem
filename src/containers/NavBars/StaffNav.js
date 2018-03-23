@@ -2,9 +2,31 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
-
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import Public from 'material-ui/svg-icons/social/public';
+import IconButton from 'material-ui/IconButton';
 
 class StaffNav extends Component {
+    constructor(props){
+    super(props)
+        this.state = {
+            openMenu:true
+        }
+    }
+    
+    handleOpenMenu = () => {
+        this.setState({
+          openMenu: true,
+        });
+      }
+
+      handleOnRequestChange = (value) => {
+        this.setState({
+          openMenu: value,
+        });
+      }
+
 
     render(){
         return(

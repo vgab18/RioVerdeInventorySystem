@@ -16,6 +16,7 @@ import * as categoryActions from '../../actions/addcategory';
 import * as productActions from '../../actions/newproductactions';
 import * as addproductActions from '../../actions/addnewproductactions'
 import Snackbar from 'material-ui/Snackbar';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 
@@ -75,8 +76,15 @@ render(){
         <Navlayout />
         <Grid>
         <Paper style={paperstyle} zDepth={2} transitionEnabled={true}>
-          <h1>Request Stock</h1>
+          <h1>Kitchen Out</h1>
           <Grid>
+          <Row>
+          <Col md={3}/>
+          <Col md={2}/>
+          <Col md={3}><p>(Current quantity: {this.props.inventory.inventory.length === 0 ? '' : this.props.inventory.inventory[this.props.inventory.selectedProduct].quantity})</p></Col>
+          <Col md={2}/>
+          <Col md={2}/>
+        </Row>
         <Row>
             <Col md={3}>
               <select value={this.props.inventory.selectedProduct} class="form-control" id="exampleSelect2" style={{width:'100%'}} name="selectedProduct" onChange={this.changeProduct}>
@@ -105,9 +113,7 @@ render(){
           </Row>
         </Grid>          
           <Col md={12} style={{padding:'2px'}}>
-          <center>
-            <button type="button" class="btn btn-info" style={{width:'250px'}} onClick={this.saveStockOut}>Request</button>
-          </center>
+            <RaisedButton primary={true} label="Save" fullWidth={true} onClick={this.saveStockOut} />
           </Col>
           <Snackbar
           open={this.state.open}

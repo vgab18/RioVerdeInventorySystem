@@ -137,7 +137,7 @@ module.exports = function (sequelize) {
       type: Sequelize.STRING
     },
     contactNo: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     status: {
       type: Sequelize.BOOLEAN

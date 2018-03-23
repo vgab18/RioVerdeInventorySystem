@@ -134,7 +134,7 @@ export let saveNewProduct = () => {
       stockName:addproduct.stockName,
       categoryName:addproduct.categoryName,
       quantity:0,
-      unit:'',
+      unit:addproduct.unit,
       timeFrame:new Date(),
       totalAmount:0,
       status:true,

@@ -72,7 +72,6 @@ class Manageproduct extends Component {
 
 onFormSubmit = (event) => {
   event.preventDefault();
-
     this.props.validate(this.onValidate);
 };
 

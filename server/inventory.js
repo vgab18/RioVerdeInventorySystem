@@ -118,8 +118,11 @@ module.exports = function (Inventory,Category,Product,User,ProductHistory,TransH
         console.log(err)
         res.sendStatus(404);
       });
-
     })
+
+  //  router.get('/producthistory',function (req,res){
+  //   sequelize.query("SELECT createdAt FROM producthistory WHERE createdAt")
+  //  })
 
     //get all transactionhistory
    router.get('/transactionhistory',function (req,res) {

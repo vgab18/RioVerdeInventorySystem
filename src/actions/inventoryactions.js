@@ -274,3 +274,29 @@ export let saveKitchenOut = () => {
     })
   }
 }
+
+
+export let handleSearchChange = (value,name) => {
+  return (dispatcher,getState) => {
+    var {inventory} = getState();
+
+    inventory[name] = value;
+
+    let source = inventory.inventory
+
+    let filteredSearch = _.map(source,(element) => {
+      if(element.product.stockName.toUpperCase().includes(value.toUpperCase())){
+        return element
+      }
+    })
+
+  filteredSearch = _.without(filteredSearch, undefined)
+
+  inventory.filterinventory= filteredSearch
+
+    dispatcher({
+      type:types.SEARCH_INVENTORY_FIELD_CHANGE,
+      inventory
+    })
+  }
+}

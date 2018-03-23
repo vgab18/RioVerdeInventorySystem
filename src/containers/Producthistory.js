@@ -108,10 +108,10 @@ class Producthistory extends Component {
               <td>{producthistory.actionType}</td>
               <td>{producthistory.product.stockName}</td>
               <td>{producthistory.category.categoryName}</td>
-              <td>{producthistory.price}</td>
+              <td>₱ {producthistory.price}</td>
               <td>{producthistory.quantity}</td>
               <td>{producthistory.product.unit}</td>
-              <td>{producthistory.totalamount}</td>
+              <td>₱ {producthistory.totalamount}</td>
               <td>{producthistory.user.id}</td>
             </tr>
           )

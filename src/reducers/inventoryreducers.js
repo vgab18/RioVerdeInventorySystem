@@ -14,6 +14,8 @@ const initialState = {
     inventory:[],
     producthistory:[],
     transactionhistory:[],
+    filterinventory:[],
+    searchInventory:''
 }
 
 export default function inventoryreducers(state=initialState,action={}) {
@@ -35,6 +37,7 @@ export default function inventoryreducers(state=initialState,action={}) {
             selectedProduct: 0,
             price: 0,
             quantity: 0,
+            inventorydata:[]
             }
         )
 
@@ -81,6 +84,7 @@ export default function inventoryreducers(state=initialState,action={}) {
                     selectedProduct: 0,
                     price: 0,
                     quantity: 0,
+                    inventorydata:[]
                 }
             )
 
@@ -88,7 +92,8 @@ export default function inventoryreducers(state=initialState,action={}) {
         return _.assign({},
                 state,
                     {
-                    inventory: action.data
+                    inventory: action.data,
+                    filterinventory: action.data
                     }
                 )
 
@@ -115,6 +120,7 @@ export default function inventoryreducers(state=initialState,action={}) {
         return _.assign({},
                 state,{
                 openStockOut:false,
+                quantity:''
                 })
 
         case types.SAVE_STOCK_OUT_SUCCESS:
@@ -127,6 +133,11 @@ export default function inventoryreducers(state=initialState,action={}) {
                     quantity: 0,
                     actionType:''
                 })
+
+        case types.SEARCH_INVENTORY_FIELD_CHANGE:
+        return _.assign({},
+                state,action.inventory)
+
         default:
         return state
     }

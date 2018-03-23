@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { routerActions } from 'react-router-redux';
+import List from 'material-ui/svg-icons/action/list';
 
 class AdminNav extends Component {
 

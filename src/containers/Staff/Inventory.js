@@ -23,6 +23,7 @@ import { EAFNOSUPPORT } from 'constants';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
+import TextField from 'material-ui/TextField';
 
 
 
@@ -89,6 +90,12 @@ class Inventory extends Component {
    this.props.inventoryActions.handlequantityfield(value,name)
  }
 
+ handleChangeSearch = (e) => {
+  var value = e.target.value
+  var name = e.target.name
+  this.props.inventoryActions.handleSearchChange(value,name)
+}
+
 
 
 
@@ -96,6 +103,7 @@ class Inventory extends Component {
     {
       this.props.productaction.getProducts();
       this.props.inventoryActions.getInventory();
+      console.log(this.props.inventory.inventory.quantity);
     }
 
   render() {
@@ -141,6 +149,17 @@ class Inventory extends Component {
           <button type="button" class="btn btn-outline-primary" style={{float:'left',width:'200px'}} onClick={this.handleOpenOut}>Stock Out ( - )</button>
         </Col>
         </Row>
+        <Col md={6}>
+            <TextField
+           hintText="Search stock"
+           fullWidth={true}
+           onChange={this.handleChangeSearch}
+           type="text"
+           value={this.props.inventory.searchInventory}
+           name="searchInventory"
+         />
+        </Col>
+         <br />
           <table class="table table-striped table-hover table-bordered responsive">
           <thead class="thead-dark">
             <tr>
@@ -155,16 +174,16 @@ class Inventory extends Component {
           </thead>
           <tbody>
           {
-            this.props.inventory.inventory.map ((inventory,i)=>{
+            this.props.inventory.filterinventory.map ((inventory,i)=>{
               return(
-            <tr>
+            <tr className={inventory.quantity<=5 ? "table-danger" : ''}>
               <td>{inventory.id}</td>
               <td>{inventory.product.stockName}</td>
               <td>{inventory.category.categoryName}</td>
-              <td>{inventory.price}</td>
+              <td>₱ {inventory.price}</td>
               <td>{inventory.quantity}</td>
               <td>{inventory.product.unit}</td>
-              <td>{inventory.totalamount}</td>
+              <td>₱ {inventory.price*inventory.quantity}</td>
             </tr>
               )
               })
@@ -325,6 +344,11 @@ class Inventory extends Component {
         <br/>
         <Grid>
         <Row>
+          <Col md={3}/>
+          <Col md={2}/>
+          <Col md={7}><p>(Current quantity: {this.props.inventory.inventory.length === 0 ? '' : this.props.inventory.inventory[this.props.inventory.selectedProduct].quantity})</p></Col>
+        </Row>
+        <Row>
             <Col md={3}>
               <select value={this.props.inventory.selectedProduct} class="form-control" id="exampleSelect2" style={{width:'100%'}} name="selectedProduct" onChange={this.changeProduct}>
                 {
@@ -347,7 +371,7 @@ class Inventory extends Component {
             </Col>
             <Col md={2} style={{textAlign:'center'}}>
 
-              <p style={{textStyle:'bold',fontSize:'px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].category.categoryName}</p>
+              <p style={{textStyle:'bold',fontSize:'25px'}}>{this.props.newproduct.data.length  === 0 ? '' : this.props.newproduct.data[this.props.inventory.selectedProduct].category.categoryName}</p>
             </Col>
           </Row>
         </Grid>
