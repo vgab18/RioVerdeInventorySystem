@@ -424,7 +424,7 @@ class Inventory extends Component {
         </Grid>
         </Dialog>
         <Dialog
-          title="Insufficient balance"
+          title="Insufficient quantity"
           titleStyle={{color:'white'}}
           actions={errorActions}
           modal={false}

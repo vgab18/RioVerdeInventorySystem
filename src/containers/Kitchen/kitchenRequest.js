@@ -17,14 +17,17 @@ import * as productActions from '../../actions/newproductactions';
 import * as addproductActions from '../../actions/addnewproductactions'
 import Snackbar from 'material-ui/Snackbar';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog'
 
 
 class kitchenRequest extends Component {
   constructor(props){
     super(props);
     this.state={
-      open:false
+      open:false,
+      openError:false,
+      openInvalid:false
     }
   }
 
@@ -35,10 +38,22 @@ class kitchenRequest extends Component {
   }
 
   saveStockOut = () => {
+    if(this.props.inventory.quantity>this.props.inventory.inventory[this.props.inventory.selectedProduct].quantity){
+      this.setState({
+        openError:true
+      })
+    }
+    else if(this.props.inventory.quantity === 0 || this.props.inventory.quantity === ''){
+    this.setState({
+      openInvalid:true
+    })
+   }
+    else{
     this.props.inventoryActions.saveKitchenOut();
     this.setState({
       open:true
     })
+    }
   }
 
   handlequantityfield = (e) => {
@@ -60,6 +75,18 @@ handleRequestClose = () => {
   });
 };
 
+handleCloseError = () => {
+  this.setState({
+    openError:false
+  })
+}
+
+handleCloseInvalid = () => {
+ this.setState({
+   openInvalid:false
+ })
+}
+
 render(){
 
   const paperstyle=
@@ -70,6 +97,24 @@ render(){
     padding: 20,
     overflowX: 'auto'
   };
+
+  const errorActions = [
+    <FlatButton
+      label="Ok"
+      primary={true}
+      keyboardFocused={true}
+      onClick={this.handleCloseError}
+    />,
+  ];
+
+  const actionsInvalid = [
+    <FlatButton
+      label="Ok"
+      primary={true}
+      keyboardFocused={true}
+      onClick={this.handleCloseInvalid}
+    />,
+  ];
 
   return(
       <div>
@@ -123,6 +168,29 @@ render(){
         />
         </Paper>
         </Grid>
+
+        <Dialog
+          title="Insufficient quantity"
+          titleStyle={{color:'white'}}
+          actions={errorActions}
+          modal={false}
+          open={this.state.openError}
+          onRequestClose={this.handleCloseError}
+          titleStyle={{backgroundColor:'#EF5350'}}
+        >
+        <br />
+          Value must not be more than the current quantity
+        </Dialog>
+        <Dialog
+          title="Action Failed."
+          actions={actionsInvalid}
+          modal={false}
+          open={this.state.openInvalid}
+          onRequestClose={this.handleCloseInvalid}
+        >
+        <br />
+          The input value must be more than zero(0) to be saved.
+        </Dialog>
       </div>
   );
 }
